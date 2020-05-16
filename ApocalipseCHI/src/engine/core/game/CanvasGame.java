@@ -25,6 +25,7 @@ public class CanvasGame extends MyCanvas {
 	public void render(Graphics2D dbg) {
 		// TODO Auto-generated method stub
 		game.render(dbg);
+	 
 		
 	}
 

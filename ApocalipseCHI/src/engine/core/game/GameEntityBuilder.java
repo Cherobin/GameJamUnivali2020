@@ -5,8 +5,10 @@
  * 
  */
 package engine.core.game;
+ 
 
-import engine.entities.GameObject;
+import engine.base.entities.GameObject;
+import engine.entities.Player;
 import engine.ia.states.GameState;
 import engine.map.EntityBuilder;
 import engine.utils.Vector2D;
@@ -28,9 +30,9 @@ public class GameEntityBuilder implements EntityBuilder {
 			//go = e;
 			break;
 		case "Player":
-			position = new Vector2D((float) o.getX(), (float) o.getY());
-			//TODO criar Player
-			//go = e;
+			position = new Vector2D((float) o.getX(), (float) o.getY()); 
+			Player p = new Player(o.getName(), position, (int) o.getWidth(), (int) o.getHeight(), 0.0f, map);
+			go = p; 
 			break;
 		}
 		return go;

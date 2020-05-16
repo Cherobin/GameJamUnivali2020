@@ -1,4 +1,4 @@
-package engine.entities;
+package engine.base.entities;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

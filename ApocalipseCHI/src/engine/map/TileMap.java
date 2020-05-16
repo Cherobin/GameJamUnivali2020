@@ -3,9 +3,9 @@ package engine.map;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 
-import engine.entities.Component;
-import engine.entities.GameEntity;
-import engine.entities.GameObject;
+import engine.base.entities.Component;
+import engine.base.entities.GameEntity;
+import engine.base.entities.GameObject;
 import tiled.core.Map;
 import tiled.core.MapLayer;
 import tiled.core.ObjectGroup;

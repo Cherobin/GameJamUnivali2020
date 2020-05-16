@@ -40,10 +40,6 @@ public static MyCanvas telaAtiva = null;
 
 public static Random rnd = new Random();
 
-
-
-
-
 public GamePanel()
 {
 	instance = this;

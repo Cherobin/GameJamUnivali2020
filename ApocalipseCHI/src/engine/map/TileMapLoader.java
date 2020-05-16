@@ -1,6 +1,6 @@
 package engine.map;
  
-import engine.entities.GameObject;
+import engine.base.entities.GameObject;
 import engine.ia.states.GameState;
 import tiled.core.Map;
 import tiled.core.MapLayer;
@@ -51,9 +51,8 @@ public class TileMapLoader {
 			if (go != null) {
 				gs.getEntities().put(go.getName(), go);
 			} else {
-		 
+				System.out.println("buildEntities error");
 			}
- 
 		});
 	}
 }

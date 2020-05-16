@@ -7,14 +7,12 @@ package engine.ia.states;
 import java.awt.Graphics2D;
 import java.util.Map;
 
-import engine.core.game.GameStateManager;
+import engine.base.entities.GameObject;
 
  
 public interface GameState extends State {
  
 	public String getName();
- 
-	public void setStateManager(GameStateManager gsm);
  
 	public void initialize(); 
  
@@ -22,6 +20,6 @@ public interface GameState extends State {
 	
 	public void render(Graphics2D dbg);
  
-	public Map<String, engine.entities.GameObject> getEntities();
+	public Map<String, GameObject> getEntities();
 
 }

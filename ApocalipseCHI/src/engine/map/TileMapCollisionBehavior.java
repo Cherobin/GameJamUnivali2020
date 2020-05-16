@@ -1,9 +1,9 @@
 package engine.map;
 
-import engine.entities.AbstractComponent;
-import engine.entities.Component;
-import engine.entities.GameEntity;
-import engine.entities.GameObject;
+import engine.base.entities.AbstractComponent;
+import engine.base.entities.Component;
+import engine.base.entities.GameEntity;
+import engine.base.entities.GameObject;
 import engine.utils.Direction;
 import tiled.core.Map;
 import tiled.core.MapLayer;
