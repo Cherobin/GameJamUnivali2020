@@ -10,7 +10,7 @@ import java.util.Map;
 import engine.base.entities.GameObject;
 
  
-public interface GameState extends State {
+public interface GameState {
  
 	public String getName();
  

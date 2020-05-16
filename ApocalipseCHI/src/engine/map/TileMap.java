@@ -30,7 +30,7 @@ public class TileMap extends GameEntity implements GameObject {
 	}
 
 	@Override
-	public void update(float dt) {
+	public void update(float diffTime) {
 
 	}
 

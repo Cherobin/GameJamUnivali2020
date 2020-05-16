@@ -1,4 +1,4 @@
-package engine.map;
+package engine.map.behavior;
 
 import engine.base.entities.AbstractComponent;
 import engine.base.entities.Component;
@@ -21,11 +21,12 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 	public TileMapCollisionBehavior(Map map, int layerIndex) {
 		this.layerIndex = layerIndex;
 		this.map = map;
+		initialize(null);
 	}
 
 	@Override
 	public void initialize(GameObject e) {
-		layerIndex = findLayerOnName("foreground");
+		layerIndex = findLayerOnName("foreground"); // << collision layer
 		tl = (TileLayer) map.getLayer(layerIndex);
 	}
 
@@ -46,6 +47,7 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 
 		if (e != null) {
 			GameEntity ge = (GameEntity) e; 
+			//System.out.println(	ge.toString()); 
 			if (map != null) {
 				// read sensors
 				Tile tileUL = tl.getTileAt((int) ((ge.position.x + ge.offset.x) / map.getTileWidth()),
@@ -58,21 +60,22 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 						(int) ((ge.position.y + ge.offset.y) / map.getTileHeight()) + 2);
 
 				// detect if blocking on vertical direction
-				if (tileUL != null && tileUR != null && Math.signum(ge.speed.y) < 0) {
+				if (tileUL != null && tileUR != null ) {
 					ge.speed.y = 0.0f; 
+					ge.direction = Direction.STOP;
 				}
-				if (tileBL != null && tileBR != null && Math.signum(ge.speed.y) > 0) {
+				if (tileBL != null && tileBR != null  ) {
 					ge.speed.y = 0.0f; 
 					ge.direction = Direction.STOP;
 				}
 
 				// detect if blocking on horizontal direction
-				if ((tileUL != null && tileBL != null && Math.signum(ge.speed.y) < 0)) {
+				if (tileUL != null && tileBL != null) {
 					ge.speed.x = 0.0f;
 					ge.accel.x = 0.0f;
 					ge.direction = Direction.STOP;
 				}
-				if (tileUR != null && tileBR != null && Math.signum(ge.speed.y) > 0) {
+				if (tileUR != null && tileBR != null) {
 					ge.speed.x = 0.0f;
 					ge.accel.x = 0.0f;
 					ge.direction = Direction.STOP;

@@ -21,65 +21,62 @@ import engine.map.TileMap;
 import engine.map.TileMapLoader;
 import tiled.core.Map;
 
- 
 public class GameTesteState implements GameState {
 
 	private GameEntityBuilder seb;
-	private TileMapLoader tml; 
-	
+	private TileMapLoader tml;
+
 	private TileMap tileMap = null;
 	private Player player = null;
-	 
-	 
-		public java.util.Map<String, GameObject> renderingStack = new ConcurrentHashMap<>();
-		public List<GameObject> sortedEntities = new ArrayList<>();
-	
+
+	public java.util.Map<String, GameObject> renderingStack = new ConcurrentHashMap<>();
+	public List<GameObject> sortedEntities = new ArrayList<>();
+
 	public GameTesteState() {
-		initialize(); 
+		initialize();
 	}
-  
+
 	@Override
 	public void initialize() {
-		tileMap = new TileMap("tilemap"); 
+		tileMap = new TileMap("tilemap");
 		seb = new GameEntityBuilder();
 		tml = new TileMapLoader(seb);
 		Map map = null;
 		map = tml.load(this, "res/maps/level-1-1.tmx");
+
 		// Attache target to enemy for EnemyBehavior component's sensors
 		player = (Player) renderingStack.get("player");
-		
-		/*for (GameObject go : renderingStack.values()) {
-			if (go instanceof Enemy) {
-				Enemy e = (Enemy) go;
-				e.setTarget(player, 0.3f, 64, 256);
-			}
-		}*/
-	 
-		if (map != null) {
-			tileMap.setMap(map);
-			tileMap.initialize();
-			
-			for (GameObject entity : renderingStack.values()) {
-				entity.initialize();
-			}
-			
-		}
-		
+
 	
+		tileMap.setMap(map);
+		tileMap.initialize();
+
+		for (GameObject entity : renderingStack.values()) {
+			entity.initialize();
+		}
+
+		addEntity(player);
+		/*
+		 * for (GameObject go : renderingStack.values()) { if (go instanceof Enemy) {
+		 * Enemy e = (Enemy) go; e.setTarget(player, 0.3f, 64, 256); } }
+		 * addEntity(e)
+		 */
+
+		
 	}
 
-
 	@Override
-	public String getName() { 
+	public String getName() {
 		return this.getName();
 	}
 
 	@Override
-	public void update(float diffTime) {   
-		
-		if(tileMap!=null)
+	public void update(float diffTime) {
+
+		//update map
+		if (tileMap != null)
 			tileMap.update(diffTime);
-		
+
 		// update entities.
 		for (GameObject entity : sortedEntities) {
 			entity.update(diffTime);
@@ -88,14 +85,16 @@ public class GameTesteState implements GameState {
 					c.update(entity, diffTime);
 				}
 			}
-		} 
+		}
 	}
 
 	@Override
-	public void render(Graphics2D dbg) {   
-		if(tileMap!=null)
-			tileMap.render(dbg);
+	public void render(Graphics2D dbg) {
 		
+		//draw map
+		if (tileMap != null)
+			tileMap.render(dbg);
+
 		// draw entities.
 		for (GameObject entity : sortedEntities) {
 			if (entity.getComponents() != null && entity.getComponents().size() > 0) {
@@ -105,19 +104,19 @@ public class GameTesteState implements GameState {
 			}
 			entity.render(dbg);
 		}
-		
-	} 
-	
+ 
+	}
+
 	public List<GameObject> getSortedEntities() {
 		return sortedEntities;
 	}
- 
+
 	public void setSortedEntities(List<GameObject> sortedEntities) {
 		this.sortedEntities = sortedEntities;
 	}
-	
+
 	private void sortEntities() {
-		
+
 		Collection<GameObject> ents = renderingStack.values();
 		sortedEntities.clear();
 		sortedEntities.addAll(ents);
@@ -130,7 +129,7 @@ public class GameTesteState implements GameState {
 			}
 		});
 	}
-	
+
 	public void addEntity(GameObject entity) {
 		renderingStack.put(entity.getName(), entity);
 		sortEntities();
@@ -142,7 +141,7 @@ public class GameTesteState implements GameState {
 		}
 		sortEntities();
 	}
-	
+
 	private void drawSystemData(Graphics2D g) {
 		Runtime runtime = Runtime.getRuntime();
 
@@ -161,8 +160,8 @@ public class GameTesteState implements GameState {
 	}
 
 	@Override
-	public java.util.Map<String, GameObject> getEntities() { 
+	public java.util.Map<String, GameObject> getEntities() {
 		return renderingStack;
 	}
- 
+
 }

@@ -51,7 +51,7 @@ public class TileMapLoader {
 			if (go != null) {
 				gs.getEntities().put(go.getName(), go);
 			} else {
-				System.out.println("buildEntities error");
+				System.out.println("buildEntities error ->"+o.getName());
 			}
 		});
 	}

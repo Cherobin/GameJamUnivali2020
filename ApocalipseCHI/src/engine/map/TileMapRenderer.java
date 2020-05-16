@@ -29,8 +29,6 @@ public class TileMapRenderer implements MapRenderer {
 		g.translate(bounds.x * tileWidth, bounds.y * tileHeight);
 		clip.translate(-bounds.x * tileWidth, -bounds.y * tileHeight);
 
-		
-
 		g.translate(-bounds.x * tileWidth, -bounds.y * tileHeight);
 
 	}
@@ -40,7 +38,6 @@ public class TileMapRenderer implements MapRenderer {
 		return new Dimension(map.getWidth() * map.getTileWidth(), map.getHeight() * map.getTileHeight());
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public void paintTileLayer(Graphics2D g, TileLayer layer) {
 		final Rectangle clip = g.getClipBounds();
