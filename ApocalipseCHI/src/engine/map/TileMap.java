@@ -36,6 +36,7 @@ public class TileMap extends GameEntity implements GameObject {
 
 	@Override
 	public void render(Graphics2D g2d) {
+		
 		for (MapLayer layer : map.getLayers()) {
 			if (layer instanceof TileLayer) {
 				renderer.paintTileLayer(g2d, (TileLayer) layer);
@@ -57,12 +58,6 @@ public class TileMap extends GameEntity implements GameObject {
 	}
 
 	@Override
-	public void initialize() {
-		renderer = new OrthogonalRenderer(map);
-		components = new HashMap<>();
-	}
-
-	@Override
 	public java.util.Map<String, Component> getComponents() {
 		return components;
 	}
@@ -78,6 +73,8 @@ public class TileMap extends GameEntity implements GameObject {
 	
 	public void setMap(Map map) {
 		this.map = map;
+		components = new HashMap<>();
+		renderer = new OrthogonalRenderer(map);
 	}
 
 }

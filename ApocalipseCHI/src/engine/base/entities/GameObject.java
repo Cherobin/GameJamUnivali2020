@@ -7,9 +7,7 @@ import engine.utils.BoundingBox;
  
  
 public interface GameObject extends Comparable<GameObject> {
- 
-	void initialize(); 
-	
+  
 	String getName();
  
 	void update(float diffTime);

@@ -1,9 +1,3 @@
-/**
- * SnapGames
- * 
- * @year 2016
- * 
- */
 package engine.core.game;
  
 

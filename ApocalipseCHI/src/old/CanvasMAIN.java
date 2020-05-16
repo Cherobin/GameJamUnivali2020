@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 
 import engine.core.GamePanel;
 import engine.core.MyCanvas;
-import engine.core.game.GameTesteState;
 
 
 public class CanvasMAIN extends MyCanvas{
@@ -37,8 +36,7 @@ int mouseX,mouseY;
 
 //NossaImagem minhaImage1;
 
-Sprite Personagem;
-public static GameTesteState TESTEMAPA;
+Sprite Personagem; 
 public static ArrayList<Sprite> ListaObjetos; 
 public static ArrayList<Fireball> FireballList;
 public static ArrayList<Particula> ListaParticulas;
@@ -72,8 +70,7 @@ public CanvasMAIN()
 	 //   Monsters = LoadImage("Monstros.png");
 	
 	//    Hero = LoadImage("Chara1O.png");
- 
-	    TESTEMAPA = new GameTesteState(); 
+  
 	    
 		/*
 
@@ -221,8 +218,7 @@ int firetimer = 100;
 	
 	dbg.setColor(Color.white);
 	dbg.fillRect(0, 0, Constantes.telaW, Constantes.telaH);
-	
-	TESTEMAPA.render(dbg);
+	 
 			// draw game elements
 	dbg.setColor(Color.white);
 	dbg.fillRect(0, 0, 140, 15);

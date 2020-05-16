@@ -14,8 +14,6 @@ public interface GameState {
  
 	public String getName();
  
-	public void initialize(); 
- 
 	public void update(float diffTime); 
 	
 	public void render(Graphics2D dbg);

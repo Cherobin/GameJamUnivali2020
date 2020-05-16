@@ -87,14 +87,14 @@ public class GameEntity implements GameObject {
 	} 
 	
 	@Override
-	public void render(Graphics2D g) {
-		g.setColor(color);
+	public void render(Graphics2D dbg) {
+		dbg.setColor(color);
 		int xx = (int) (position.x + offset.x);
 		int yy = (int) (position.y + offset.y);
-		g.fillRect(xx, yy, this.width, this.height);
+		dbg.fillRect(xx, yy, this.width, this.height);
 
 		if (debug && this.showData) {
-			showMetaData(g, xx, yy);
+			showMetaData(dbg, xx, yy);
 		}
 	}
  
@@ -139,11 +139,6 @@ public class GameEntity implements GameObject {
 		for (Component c : cmps) {
 			components.put(c.getName(), c);
 		}
-	}
- 
-	@Override
-	public void initialize() {
-
 	}
  
 	@Override
