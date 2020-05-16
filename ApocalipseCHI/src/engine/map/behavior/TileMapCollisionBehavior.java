@@ -47,6 +47,7 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 
 		if (e != null) {
 			GameEntity ge = (GameEntity) e; 
+			ge.oldPosition = ge.position;
 			//System.out.println(	ge.toString()); 
 			if (map != null) {
 				// read sensors
@@ -59,27 +60,11 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 				Tile tileBR = tl.getTileAt((int) ((ge.position.x + ge.offset.x + ge.width) / map.getTileWidth() + 1),
 						(int) ((ge.position.y + ge.offset.y) / map.getTileHeight()) + 2);
 
-				// detect if blocking on vertical direction
-				if (tileUL != null && tileUR != null ) {
-					ge.speed.y = 0.0f; 
-					ge.direction = Direction.STOP;
+				//TODO tratar colisão
+				if (tileUL != null || tileUR != null || tileBL != null || tileBR != null ) {
+					 ge.position = ge.oldPosition; 
 				}
-				if (tileBL != null && tileBR != null  ) {
-					ge.speed.y = 0.0f; 
-					ge.direction = Direction.STOP;
-				}
-
-				// detect if blocking on horizontal direction
-				if (tileUL != null && tileBL != null) {
-					ge.speed.x = 0.0f;
-					ge.accel.x = 0.0f;
-					ge.direction = Direction.STOP;
-				}
-				if (tileUR != null && tileBR != null) {
-					ge.speed.x = 0.0f;
-					ge.accel.x = 0.0f;
-					ge.direction = Direction.STOP;
-				}
+				 
 			}
 
 		}

@@ -3,6 +3,8 @@ package engine.entities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import com.sun.javafx.geom.Vec2d;
+
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.map.behavior.TileMapCollisionBehavior;
@@ -14,6 +16,7 @@ public class Player extends GameEntity implements GameObject {
 
 	private int maxVel;
 	 
+	private Vector2D oldPosition;
 
 	public Player(String name) {
 		super(name);
@@ -23,10 +26,11 @@ public class Player extends GameEntity implements GameObject {
 		super(name, position, width, height, rotation);
 
 		maxVel = 100;
-		direction = Direction.DOWN;
+		direction = Direction.STOP;
 		color = Color.GREEN;
 		offset.x = -width / 2;
 		offset.y = -height;
+		oldPosition = new Vector2D();
 		initializeComponents(map);
 	}
 
@@ -46,22 +50,23 @@ public class Player extends GameEntity implements GameObject {
 	public void update(float diffTime) {
 		super.update(diffTime);
  
-		setDirection();
+		 
 		
-		position.add(new Vector2D(speed.x * diffTime / 1000f, speed.y * diffTime / 1000f)) ;
+		position.x += speed.x * diffTime / 1000f;
+		position.y += speed.y * diffTime / 1000f; 
 	}
 	
-	public void setDirection() {
+	/*public void setDirection() {
 		switch (direction) {
 		case DOWN:
 			speed.x = 0;
 			speed.y = maxVel;
 		case UP:
 			speed.x = 0;
-			speed.y = -maxVel;
+			speed.y = maxVel * -1;
 			break;
 		case LEFT:
-			speed.x = -maxVel;
+			speed.x = maxVel * -1;
 			speed.y = 0;
 			break;
 		case RIGHT:
@@ -69,7 +74,7 @@ public class Player extends GameEntity implements GameObject {
 			speed.y = 0;
 			break;
 		case DOWN_LEFT:
-			speed.x = -maxVel;
+			speed.x = maxVel * -1;
 			speed.y = maxVel;
 			break;
 		case DOWN_RIGHT:
@@ -81,14 +86,15 @@ public class Player extends GameEntity implements GameObject {
 			break;
 		case UP_RIGHT:
 			speed.x = maxVel;
-			speed.y = -maxVel;
+			speed.y = maxVel * -1;
 			break;
 		case UP_LEFT:
-			speed.x = -maxVel;
-			speed.y = -maxVel;
+			speed.x = maxVel * -1;
+			speed.y = maxVel * -1;
 			break;
 		default:
 			break;
 		}
 	}
+	*/
 }

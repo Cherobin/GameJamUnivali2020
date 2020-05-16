@@ -28,6 +28,8 @@ public class GameEntity implements GameObject {
 	public Vector2D offset = new Vector2D(0, 0); 
 	public Vector2D speed = new Vector2D(0, 0); 
 	public Vector2D accel = new Vector2D(0, 0); 
+	public Vector2D oldPosition = new Vector2D(0, 0); 
+	
 	public int width = 0, height = 0; 
 	public float rotation; 
 	public float maxSpeed = 2.3f;
