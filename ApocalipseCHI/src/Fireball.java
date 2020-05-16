@@ -36,10 +36,10 @@ public class Fireball extends Objeto{
 	}
 
 	@Override
-	public void SimulaSe(long diftime) {
+	public void SimulaSe(float diftime) {
 		// TODO Auto-generated method stub
         Tempo += diftime;
-        
+     /*   
         float oldx = X;
         float oldy = Y;
         
@@ -50,7 +50,7 @@ public class Fireball extends Objeto{
         
         double angbase = Math.atan2(VelY, VelX);
         
-    	if(((int)((Y)/16))>=CanvasMAIN.MAPA.Altura||((int)((X)/16))>=CanvasMAIN.MAPA.Largura||X<0||Y<0){
+    	if(((int)((Y)/16))>=1024||((int)((X)/16))>=1024||X<0||Y<0){
     		X = oldx;
     		Y = oldy;
     		
@@ -176,6 +176,8 @@ public class Fireball extends Objeto{
 			 
 			 CanvasMAIN.ListaParticulas.add(fum);
         }
+        
+        */
 	}
 
 public void explode(){

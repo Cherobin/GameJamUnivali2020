@@ -5,7 +5,7 @@ import java.awt.event.MouseWheelEvent;
 
 
 public abstract class MyCanvas {
-	public abstract void SimulaSe(int diftime);
+	public abstract void SimulaSe(float diftime);
 	public abstract void DesenhaSe(Graphics2D dbg);
 	
 	public abstract void keyPressed(KeyEvent e);

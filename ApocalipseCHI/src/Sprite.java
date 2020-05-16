@@ -55,7 +55,7 @@ public class Sprite extends Objeto{
         
     }   
     
-    public void SimulaSe(long diftime) {
+    public void SimulaSe(float diftime) {
         Tempo += diftime;
         
         float oldx = X;
@@ -64,9 +64,10 @@ public class Sprite extends Objeto{
         X += (diftime*VelX)/1000.0f;
         Y += (diftime*VelY)/1000.0f;
         
-        boolean invert = false;
         
-    	if(((int)((Y+24)/16))>=CanvasMAIN.MAPA.Altura||((int)((X+12)/16))>=CanvasMAIN.MAPA.Largura||X<0||Y<0){
+        boolean invert = false;
+        /*
+    	if(((int)((Y+24)/16))>=1024||((int)((X+12)/16))>=800||X<0||Y<0){
     		X = oldx;
     		Y = oldy;
     		
@@ -78,7 +79,7 @@ public class Sprite extends Objeto{
     		
     		invert = true;
     	}     
-    	
+    	*/
     	for(int i = 0; i < CanvasMAIN.ListaObjetos.size(); i ++){
     		Sprite enemy = CanvasMAIN.ListaObjetos.get(i); 
     		if(enemy!=this){

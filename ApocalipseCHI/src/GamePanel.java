@@ -147,8 +147,8 @@ public GamePanel()
 		}
 	});
 	
-	//telaAtiva = new CanvasMain();
-	telaAtiva = new CanvasSplash();
+	telaAtiva = new CanvasMAIN();
+	//telaAtiva = new CanvasSplash();
 	
   
 } // end of GamePanel()

@@ -10,7 +10,7 @@ public class CanvasSplash extends MyCanvas{
 
 	int timer = 0;
 	@Override
-	public void SimulaSe(int diftime) {
+	public void SimulaSe(float diftime) {
 		// TODO Auto-generated method stub
 		timer+=diftime;
 		

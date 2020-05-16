@@ -9,7 +9,7 @@ public class InimigoR extends Sprite{
 	}
 	
 	@Override
-	public void SimulaSe(long diftime) {
+	public void SimulaSe(float diftime) {
         Tempo += diftime;
         
         float oldx = X;
@@ -20,7 +20,7 @@ public class InimigoR extends Sprite{
         
         boolean invert = false;
         
-    	if(((int)((Y+24)/16))>=CanvasMAIN.MAPA.Altura||((int)((X+12)/16))>=CanvasMAIN.MAPA.Largura||X<0||Y<0){
+    	if(((int)((Y+24)/16))>=1024||((int)((X+12)/16))>=800||X<0||Y<0){
     		X = oldx;
     		Y = oldy;
     		

@@ -3,6 +3,9 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
+
+import engine.teste.SampleState;
+
 import java.io.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
@@ -33,7 +36,7 @@ int mouseX,mouseY;
 //NossaImagem minhaImage1;
 
 Sprite Personagem;
-public static TileMap MAPA;
+public static SampleState TESTEMAPA;
 public static ArrayList<Sprite> ListaObjetos; 
 public static ArrayList<Fireball> FireballList;
 public static ArrayList<Particula> ListaParticulas;
@@ -67,10 +70,10 @@ public CanvasMAIN()
 	    Monsters = LoadImage("Monstros.png");
 	
 	    Hero = LoadImage("Chara1O.png");
-
-	    Image tileset = LoadImage("Bridge.png");
-	    MAPA = new TileMap(tileset,40,40); 
-	    MAPA.AbreMapa("Mapa01.map");
+ 
+	    TESTEMAPA = new SampleState(); 
+	    
+	 
 
 	    fumaca = LoadImage("fumaca.png");
 	    
@@ -126,12 +129,15 @@ public CanvasMAIN()
 
 int firetimer = 100;
 @Override
-	public void SimulaSe(int diftime) {
+	public void SimulaSe(float diffTime) {
 		// TODO Auto-generated method stub
 	float oldx = x;
 	float oldy = y;
 	
-	firetimer+=diftime;
+	
+	firetimer+=diffTime;
+	
+	TESTEMAPA.update(diffTime);
 	
 	if(ALEFT){
 		//x += -((vel*DiffTime)/1000.0f);
@@ -156,7 +162,7 @@ int firetimer = 100;
 	}else{
 		Personagem.VelY = 0;
 	}
-    
+    /*
 	if(FIRE==true){
 		if(firetimer>150){
 			Fireball fireball = new Fireball(Personagem);
@@ -181,30 +187,30 @@ int firetimer = 100;
 				firetimer = 0;
 			}
 		
-	}
+	}*/
 
 	
 	for(int i  = 0; i < ListaObjetos.size();i++){
-	    ((Objeto)ListaObjetos.get(i)).SimulaSe(diftime);
+	    ((Objeto)ListaObjetos.get(i)).SimulaSe(diffTime);
 	    if(ListaObjetos.get(i).life<=0){
 	    	ListaObjetos.remove(i);
 	    }
 	}
 	
 	for(int i  = 0; i < FireballList.size();i++){
-	    ((Objeto)FireballList.get(i)).SimulaSe(diftime);
+	    ((Objeto)FireballList.get(i)).SimulaSe(diffTime);
 	    if(FireballList.get(i).vivo==false){
 	    	FireballList.remove(i);
 	    }
 	}	
 	
 	for(int i  = 0; i < ListaParticulas.size();i++){
-	    ((Objeto)ListaParticulas.get(i)).SimulaSe(diftime);
+	    ((Objeto)ListaParticulas.get(i)).SimulaSe(diffTime);
 	    if(ListaParticulas.get(i).vivo==false){
 	    	ListaParticulas.remove(i);
 	    }
 	}	
-	MAPA.Posiciona(((int)Personagem.X-320),((int)Personagem.Y-240));
+	//MAPA.Posiciona(((int)Personagem.X-320),((int)Personagem.Y-240));
 }
 
 @Override
@@ -213,7 +219,7 @@ int firetimer = 100;
 	dbg.setColor(Color.white);
 	dbg.fillRect(0, 0, Constantes.telaW, Constantes.telaH);
 	
-	MAPA.DesenhaSe(dbg);
+	TESTEMAPA.render(dbg);
 			// draw game elements
 	dbg.setColor(Color.white);
 	dbg.fillRect(0, 0, 140, 15);
@@ -226,7 +232,7 @@ int firetimer = 100;
 	/*Personagem.DesenhaSe(dbg);
 	for(int i  = 0; i < ListaObjetos.size();i++){
 	    ((Objeto)ListaObjetos.elementAt(i)).DesenhaSe(dbg);
-	}*/	
+	}
 	//Personagem.DesenhaSeCorrigido(dbg,MAPA.MapX, MAPA.MapY);
 	for(int i  = 0; i < ListaObjetos.size();i++){
 	    ((Sprite)ListaObjetos.get(i)).DesenhaSe(dbg,MAPA.MapX, MAPA.MapY);
@@ -239,7 +245,7 @@ int firetimer = 100;
 	for(int i  = 0; i < ListaParticulas.size();i++){
 		ListaParticulas.get(i).DesenhaSe(dbg,MAPA.MapX, MAPA.MapY);
 	}	
-	
+	*/	
 	if (gameOver)
 		dbg.drawString("Fim", 0, 0);
 } // end of gameRender()

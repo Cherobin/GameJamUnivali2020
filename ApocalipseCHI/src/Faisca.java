@@ -41,7 +41,7 @@ public class Faisca extends Particula
 	}
 
 	@Override
-	public void SimulaSe(long diftime) {
+	public void SimulaSe(float diftime) {
 		// TODO Auto-generated method stub
 		timer+=diftime;
 		if(timer>tVida){

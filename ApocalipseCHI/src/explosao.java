@@ -92,7 +92,7 @@ public class explosao extends Particula
 	}
 
 	@Override
-	public void SimulaSe(long diftime) {
+	public void SimulaSe(float diftime) {
 		// TODO Auto-generated method stub
 		
 		double doubledif = diftime/1000.0f;
