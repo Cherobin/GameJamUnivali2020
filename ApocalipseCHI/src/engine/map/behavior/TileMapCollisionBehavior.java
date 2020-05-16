@@ -46,8 +46,7 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 	public void update(GameObject e, float diffTime) {
 
 		if (e != null) {
-			GameEntity ge = (GameEntity) e; 
-			ge.oldPosition = ge.position;
+			GameEntity ge = (GameEntity) e;  
 			//System.out.println(	ge.toString()); 
 			if (map != null) {
 				// read sensors
@@ -62,7 +61,9 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 
 				//TODO tratar colisão
 				if (tileUL != null || tileUR != null || tileBL != null || tileBR != null ) {
+					System.out.println("colide");
 					 ge.position = ge.oldPosition; 
+					 ge.speed.x =  ge.speed.y = 0;
 				}
 				 
 			}

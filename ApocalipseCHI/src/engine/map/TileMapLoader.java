@@ -1,5 +1,7 @@
 package engine.map;
  
+import java.net.URL;
+
 import engine.base.entities.GameObject;
 import engine.ia.states.GameState;
 import tiled.core.Map;
@@ -17,9 +19,13 @@ public class TileMapLoader {
 	public TileMapLoader(EntityBuilder builder) {
 		this.builder = builder;
 	}
+	
  
 	public Map load(GameState gs, String path) {
 		TMXMapReader tmr = new TMXMapReader();
+		
+		
+		
 		try {
 			map = tmr.readMap(path);
 			for (MapLayer ml : map.getLayers()) {
@@ -39,8 +45,8 @@ public class TileMapLoader {
 				}
 			}
 
-		} catch (Exception e) {
- 
+		} catch (Exception e) { 
+					System.out.println(e.getLocalizedMessage());
 		}
 		return map;
 	}

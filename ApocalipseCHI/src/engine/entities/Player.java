@@ -15,8 +15,6 @@ import tiled.core.Map;
 public class Player extends GameEntity implements GameObject {
 
 	private int maxVel;
-	 
-	private Vector2D oldPosition;
 
 	public Player(String name) {
 		super(name);
@@ -49,18 +47,22 @@ public class Player extends GameEntity implements GameObject {
 	@Override
 	public void update(float diffTime) {
 		super.update(diffTime);
- 
 		 
+		oldPosition = position; 
+		 
+		setDirection();
 		
 		position.x += speed.x * diffTime / 1000f;
 		position.y += speed.y * diffTime / 1000f; 
+		
 	}
 	
-	/*public void setDirection() {
+ public void setDirection() {
 		switch (direction) {
 		case DOWN:
 			speed.x = 0;
 			speed.y = maxVel;
+			break;
 		case UP:
 			speed.x = 0;
 			speed.y = maxVel * -1;
@@ -96,5 +98,5 @@ public class Player extends GameEntity implements GameObject {
 			break;
 		}
 	}
-	*/
+ 
 }
