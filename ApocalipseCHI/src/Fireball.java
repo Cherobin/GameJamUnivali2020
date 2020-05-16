@@ -50,7 +50,7 @@ public class Fireball extends Objeto{
         
         double angbase = Math.atan2(VelY, VelX);
         
-    	if(((int)((Y)/16))>=GamePanel.MAPA.Altura||((int)((X)/16))>=GamePanel.MAPA.Largura||X<0||Y<0){
+    	if(((int)((Y)/16))>=CanvasMAIN.MAPA.Altura||((int)((X)/16))>=CanvasMAIN.MAPA.Largura||X<0||Y<0){
     		X = oldx;
     		Y = oldy;
     		
@@ -72,14 +72,14 @@ public class Fireball extends Objeto{
         	for(int i = 0; i < stps;i++){
         		stepx += (timestep*VelX)/1000.0f;
         		stepy += (timestep*VelY)/1000.0f;
-    	    	if(GamePanel.MAPA.mapa[1][(int)((stepy)/16)][(int)((stepx)/16)]>0){
+    	    	if(CanvasMAIN.MAPA.mapa[1][(int)((stepy)/16)][(int)((stepx)/16)]>0){
     	    		
     	    		for(int j = 0; j < 4; j ++){
     	    			double ang = angbase;
     	    			ang+=Math.PI;
     	    			ang+=0.6f-(1.2f*Math.random());
     	    			Faisca fai = new Faisca(Color.WHITE, stepx, stepy,(float) ang,(int)( 100+(100*Math.random())), 400);
-    	    			GamePanel.ListaParticulas.add(fai);
+    	    			CanvasMAIN.ListaParticulas.add(fai);
     	    		}
     	    		
     	    		X = stepx;
@@ -95,14 +95,14 @@ public class Fireball extends Objeto{
         	
         }
         
-    	if(GamePanel.MAPA.mapa[1][(int)((Y)/16)][(int)((X)/16)]>0){
+    	if(CanvasMAIN.MAPA.mapa[1][(int)((Y)/16)][(int)((X)/16)]>0){
     		
     		for(int i = 0; i < 4; i ++){
     			double ang = angbase;
     			ang+=Math.PI;
     			ang+=0.6f-(1.2f*Math.random());
     			Faisca fai = new Faisca(Color.WHITE, X, Y,(float) ang,(int)( 100+(100*Math.random())), 400);
-    			GamePanel.ListaParticulas.add(fai);
+    			CanvasMAIN.ListaParticulas.add(fai);
     		}
     		
     		X = oldx;
@@ -116,8 +116,8 @@ public class Fireball extends Objeto{
     	
     	
     	float minfist = (12+1)*(12+1);
-    	for(int i = 0; i < GamePanel.ListaObjetos.size(); i ++){
-    		Sprite enemy = GamePanel.ListaObjetos.get(i); 
+    	for(int i = 0; i < CanvasMAIN.ListaObjetos.size(); i ++){
+    		Sprite enemy = CanvasMAIN.ListaObjetos.get(i); 
     			if(enemy==father){
     				continue;
     			}
@@ -135,7 +135,7 @@ public class Fireball extends Objeto{
     	    			ang+=Math.PI;
     	    			ang+=0.6f-(1.2f*Math.random());
     	    			Faisca fai = new Faisca(Color.RED, X, Y,(float) ang,(int)( 50+(100*Math.random())), 600);
-    	    			GamePanel.ListaParticulas.add(fai);
+    	    			CanvasMAIN.ListaParticulas.add(fai);
     	    		}    				
     				
     	    		X = oldx;
@@ -174,7 +174,7 @@ public class Fireball extends Objeto{
 			 fum.VelX = vx;
 			 fum.VelY = vy;
 			 
-			 GamePanel.ListaParticulas.add(fum);
+			 CanvasMAIN.ListaParticulas.add(fum);
         }
 	}
 
@@ -200,7 +200,7 @@ public void explode(){
 		 
 		 fum.tipo = (int)(2*Math.random());
 		 
-		 GamePanel.ListaParticulas.add(fum);
+		 CanvasMAIN.ListaParticulas.add(fum);
    }	
 }
 

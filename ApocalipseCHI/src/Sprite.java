@@ -66,21 +66,21 @@ public class Sprite extends Objeto{
         
         boolean invert = false;
         
-    	if(((int)((Y+24)/16))>=GamePanel.MAPA.Altura||((int)((X+12)/16))>=GamePanel.MAPA.Largura||X<0||Y<0){
+    	if(((int)((Y+24)/16))>=CanvasMAIN.MAPA.Altura||((int)((X+12)/16))>=CanvasMAIN.MAPA.Largura||X<0||Y<0){
     		X = oldx;
     		Y = oldy;
     		
     		invert = true;
     	}
-    	if(GamePanel.MAPA.mapa[1][(int)((Y+24)/16)][(int)((X+12)/16)]>0){
+    	if(CanvasMAIN.MAPA.mapa[1][(int)((Y+24)/16)][(int)((X+12)/16)]>0){
     		X = oldx;
     		Y = oldy;
     		
     		invert = true;
     	}     
     	
-    	for(int i = 0; i < GamePanel.ListaObjetos.size(); i ++){
-    		Sprite enemy = GamePanel.ListaObjetos.get(i); 
+    	for(int i = 0; i < CanvasMAIN.ListaObjetos.size(); i ++){
+    		Sprite enemy = CanvasMAIN.ListaObjetos.get(i); 
     		if(enemy!=this){
     			//System.out.println("entro i "+i);
     			float x1 = enemy.X;

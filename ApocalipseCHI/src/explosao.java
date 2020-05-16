@@ -54,7 +54,7 @@ public class explosao extends Particula
         if(tipo==0){
 	        if(scale<0.3){
 	        	dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-	        	dbg.drawImage(GamePanel.ExplosaoFT3, null, -32, -32);
+	        	dbg.drawImage(CanvasMAIN.ExplosaoFT3, null, -32, -32);
 	
 	        }else{
 	
@@ -62,15 +62,15 @@ public class explosao extends Particula
 	        	float alphafactorinv = 1.0f-alphafactor;
 	            
 	            	dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha*alphafactor));
-	            	dbg.drawImage(GamePanel.ExplosaoFT3, null, -32, -32);
+	            	dbg.drawImage(CanvasMAIN.ExplosaoFT3, null, -32, -32);
 	           	 	dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha*alphafactorinv));
-	    	      	dbg.drawImage(GamePanel.ExplosaoFT3, null, -32, -32);
+	    	      	dbg.drawImage(CanvasMAIN.ExplosaoFT3, null, -32, -32);
 	
 			}
         }else{
 	        if(scale<0.3){
 	        	dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
-	        	dbg.drawImage(GamePanel.ExplosaoFT3, null, -32, -32);
+	        	dbg.drawImage(CanvasMAIN.ExplosaoFT3, null, -32, -32);
 	
 	        }else{
 	
@@ -78,9 +78,9 @@ public class explosao extends Particula
 	        	float alphafactorinv = 1.0f-alphafactor;
 	            
 	            	dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha*alphafactor));
-	            	dbg.drawImage(GamePanel.ExplosaoFT3, null, -32, -32);
+	            	dbg.drawImage(CanvasMAIN.ExplosaoFT3, null, -32, -32);
 	           	 	dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha*alphafactorinv));
-	    	      	dbg.drawImage(GamePanel.ExplosaoFT3, null, -32, -32);
+	    	      	dbg.drawImage(CanvasMAIN.ExplosaoFT3, null, -32, -32);
 	
 			}
         }

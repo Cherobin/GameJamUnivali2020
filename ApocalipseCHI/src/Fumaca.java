@@ -60,16 +60,16 @@ public class Fumaca extends Particula
         	float alphafactorinv = 1.0f-alphafactor;
         	
         	dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha*alphafactor));
-        	dbg.drawImage(GamePanel.ExplosaoFT3, null, -32, -32);
+        	dbg.drawImage(CanvasMAIN.ExplosaoFT3, null, -32, -32);
        	 dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha*alphafactorinv));
-        	dbg.drawImage(GamePanel.ExplosaoT3, null, -32, -32);
+        	dbg.drawImage(CanvasMAIN.ExplosaoT3, null, -32, -32);
         }else{
         	//float alphafactor = 1.0f-scale;
         	//float alphafactorinv = 1.0f-alphafactor;
        	    //dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha*alphafactorinv));
 	      	//dbg.drawImage(GamePanel.ExplosaoT2, null, 0, 0);
 	       	dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));	      	
-        	dbg.drawImage(GamePanel.ExplosaoT3, null, -32, -32);
+        	dbg.drawImage(CanvasMAIN.ExplosaoT3, null, -32, -32);
 		}
         
         dbg.setComposite(comp);
