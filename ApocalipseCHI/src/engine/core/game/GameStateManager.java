@@ -1,9 +1,11 @@
-package engine.ia.states;
+package engine.core.game;
  
 
 import java.awt.Graphics2D;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import engine.ia.states.GameState;
  
  
 public class GameStateManager {

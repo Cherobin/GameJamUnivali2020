@@ -7,6 +7,8 @@ package engine.ia.states;
 import java.awt.Graphics2D;
 import java.util.Map;
 
+import engine.core.game.GameStateManager;
+
  
 public interface GameState extends State {
  

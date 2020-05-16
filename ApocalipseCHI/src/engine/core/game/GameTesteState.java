@@ -6,12 +6,9 @@ package engine.core.game;
 
 import java.awt.Graphics2D;
 
-import com.sun.org.apache.bcel.internal.generic.FMUL;
-
 import engine.entities.GameObject;
 import engine.ia.states.FSM;
 import engine.ia.states.GameState;
-import engine.ia.states.GameStateManager;
 import engine.map.TileMap;
 import engine.map.TileMapLoader;
 import tiled.core.Map;

@@ -10,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import engine.core.game.GameStateManager;
 import engine.entities.Component;
 import engine.entities.GameEntity;
 import engine.entities.GameObject;
 import engine.ia.states.FSM;
 import engine.ia.states.GameState;
-import engine.ia.states.GameStateManager;
 
  
 public abstract class AbstractGameState implements GameState {
@@ -23,13 +23,7 @@ public abstract class AbstractGameState implements GameState {
  
 	private static GameStateManager sm;
 
-
 	public String name = "default";
- 
-
-	 //TODO: 
-	//public static GameStateManager sm;
-
  
 	public Map<String, GameObject> renderingStack = new ConcurrentHashMap<>();
 	public List<GameObject> sortedEntities = new ArrayList<>();
