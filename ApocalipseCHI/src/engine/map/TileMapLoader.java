@@ -24,8 +24,6 @@ public class TileMapLoader {
 	public Map load(GameState gs, String path) {
 		TMXMapReader tmr = new TMXMapReader();
 		
-		
-		
 		try {
 			map = tmr.readMap(path);
 			for (MapLayer ml : map.getLayers()) {
