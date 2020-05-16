@@ -21,5 +21,6 @@ public interface GameObject extends Comparable<GameObject> {
 	BoundingBox getBoundingBox();
  
 	Map<String, Object> getProperties();
+	
 
 }

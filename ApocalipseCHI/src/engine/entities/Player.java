@@ -13,7 +13,7 @@ import tiled.core.Map;
 public class Player extends GameEntity implements GameObject {
 
 	private int maxVel;
-	
+	 
 
 	public Player(String name) {
 		super(name);

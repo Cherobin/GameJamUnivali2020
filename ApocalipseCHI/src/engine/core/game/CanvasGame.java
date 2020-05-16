@@ -20,6 +20,7 @@ import engine.entities.Player;
 import engine.ia.states.GameState;
 import engine.map.TileMap;
 import engine.map.TileMapLoader;
+import engine.utils.Direction;
 
 public class CanvasGame extends MyCanvas implements GameState {
 
@@ -52,10 +53,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 
 		addEntity(player);
 	 
-		 
-
-	 
-
+		  
 		// Attache target to enemy for EnemyBehavior component's sensors
 
 		/*
@@ -100,6 +98,8 @@ public class CanvasGame extends MyCanvas implements GameState {
 			entity.render(dbg);
 		}
 
+		//systemdata
+		drawSystemData(dbg);
 	}
 
 	public List<GameObject> getSortedEntities() {
@@ -140,13 +140,31 @@ public class CanvasGame extends MyCanvas implements GameState {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		int keyCode = e.getKeyCode();
 
+		if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
+			player.direction = Direction.LEFT;
+		}
+
+		if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
+			player.direction = Direction.RIGHT;
+		}
+
+		if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
+			player.direction = Direction.UP;
+		}
+
+		if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
+			player.direction = Direction.DOWN;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		
+		player.direction = Direction.STOP;
+	 
 	}
 
 	@Override
@@ -222,6 +240,6 @@ public class CanvasGame extends MyCanvas implements GameState {
 		String systemData = sb.toString();
 
 		String objects = String.format("nb-GE:%d", sortedEntities.size());
-
+		g.drawString(systemData, 10, 30);
 	}
 }
