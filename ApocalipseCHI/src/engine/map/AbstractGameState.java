@@ -1,9 +1,7 @@
  
 package engine.map;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -50,11 +48,6 @@ public abstract class AbstractGameState implements GameState {
  
 	@Override
 	public void initialize() {
-
-	}
-
-	@Override
-	public void postConstruct() {
 		for (GameObject entity : renderingStack.values()) {
 			entity.initialize();
 		}
@@ -79,6 +72,7 @@ public abstract class AbstractGameState implements GameState {
 	}
  
 	private void sortEntities() {
+		
 		Collection<GameObject> ents = renderingStack.values();
 		sortedEntities.clear();
 		sortedEntities.addAll(ents);
@@ -151,14 +145,6 @@ public abstract class AbstractGameState implements GameState {
 
 	public static void setSm(GameStateManager sm) {
 		AbstractGameState.sm = sm;
-	}
- 
-	public Map<String, GameObject> getRenderingStack() {
-		return renderingStack;
-	}
- 
-	public void setRenderingStack(Map<String, GameObject> renderingStack) {
-		this.renderingStack = renderingStack;
 	}
  
 	public List<GameObject> getSortedEntities() {

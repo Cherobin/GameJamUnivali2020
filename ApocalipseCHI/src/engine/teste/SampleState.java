@@ -62,12 +62,6 @@ public class SampleState implements GameState {
 	}
 
 	@Override
-	public void postConstruct() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void update(float diffTime) {
 		// TODO Auto-generated method stub'
 		if(tileMap!=null)

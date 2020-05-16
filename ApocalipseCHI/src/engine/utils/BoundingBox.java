@@ -1,4 +1,4 @@
-package engine.entities;
+package engine.utils;
 
 public class BoundingBox {
 

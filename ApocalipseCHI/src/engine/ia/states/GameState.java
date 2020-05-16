@@ -14,9 +14,7 @@ public interface GameState extends State {
  
 	public void setStateManager(GameStateManager gsm);
  
-	public void initialize();
-
-	public void postConstruct();
+	public void initialize(); 
  
 	public void update(float diffTime); 
 	

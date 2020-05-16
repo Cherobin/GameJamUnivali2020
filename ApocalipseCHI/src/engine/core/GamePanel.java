@@ -1,3 +1,4 @@
+package engine.core;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.ImageGraphicAttribute;
@@ -5,6 +6,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 
 import javax.swing.*;
+
+import old.Constantes;
 
 import java.io.*;
 import java.util.ArrayList;

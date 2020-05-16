@@ -1,6 +1,8 @@
+package old;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Image;
+
+import engine.core.CanvasMAIN;
 
 
 public class Fireball extends Objeto{

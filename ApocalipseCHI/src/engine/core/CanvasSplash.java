@@ -1,3 +1,4 @@
+package engine.core;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -5,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
+
+import old.Constantes;
 
 public class CanvasSplash extends MyCanvas{
 

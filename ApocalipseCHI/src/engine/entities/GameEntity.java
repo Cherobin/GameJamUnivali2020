@@ -6,7 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap; 
+import java.util.concurrent.ConcurrentHashMap;
+
+import engine.utils.BoundingBox;
+import engine.utils.CollisionType;
+import engine.utils.Direction;
+import engine.utils.Vector2D; 
 
 public class GameEntity implements GameObject {
  
@@ -138,9 +143,7 @@ public class GameEntity implements GameObject {
  
 	@Override
 	public void initialize() {
- 
-	
-		
+
 	}
  
 	@Override

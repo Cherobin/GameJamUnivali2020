@@ -7,9 +7,9 @@
 package engine.teste;
 
 import engine.entities.GameObject;
-import engine.entities.Vector2D;
 import engine.ia.states.GameState;
 import engine.map.EntityBuilder;
+import engine.utils.Vector2D;
 import tiled.core.Map;
 import tiled.core.MapObject;
 

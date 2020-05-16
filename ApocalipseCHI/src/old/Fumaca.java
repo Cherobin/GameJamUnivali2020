@@ -1,9 +1,10 @@
+package old;
 import java.awt.AlphaComposite;
-import java.awt.Color;
 import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.image.RescaleOp;
+
+import engine.core.CanvasMAIN;
 
 
 

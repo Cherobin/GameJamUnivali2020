@@ -1,18 +1,23 @@
-import java.awt.*;
-import java.awt.event.*;
+package engine.core;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
-
-import javax.swing.*;
-
-import engine.teste.SampleState;
-
-import java.io.*;
-import java.awt.image.*;
-import javax.imageio.ImageIO;
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Vector;
+
+import javax.imageio.ImageIO;
+
+import engine.teste.SampleState;
+import old.Constantes;
+import old.Fireball;
+import old.Objeto;
+import old.Particula;
+import old.Sprite;
 
 
 public class CanvasMAIN extends MyCanvas{
@@ -67,13 +72,13 @@ public CanvasMAIN()
 	mouseX = 0;
 	mouseY = 0;
 
-	    Monsters = LoadImage("Monstros.png");
+	 //   Monsters = LoadImage("Monstros.png");
 	
-	    Hero = LoadImage("Chara1O.png");
+	//    Hero = LoadImage("Chara1O.png");
  
 	    TESTEMAPA = new SampleState(); 
 	    
-	 
+		/*
 
 	    fumaca = LoadImage("fumaca.png");
 	    
@@ -113,7 +118,7 @@ public CanvasMAIN()
 	    
 	}
 	
-	/*for(int i = 0; i < 10;i++){
+for(int i = 0; i < 10;i++){
 	    UmMonstro = new InimigoR(Monsters,rnd.nextInt(500),rnd.nextInt(400),rnd.nextInt(8));
 	    UmMonstro.FrameTime = 100 + rnd.nextInt(400);
 	    UmMonstro.VelX = -100 + rnd.nextInt(200);
@@ -123,7 +128,7 @@ public CanvasMAIN()
 	    ListaObjetos.add(UmMonstro);
 	    
 	}*/	
-	ListaObjetos.add(Personagem);
+	//ListaObjetos.add(Personagem);
 	
 } // end of GamePanel()
 
@@ -133,7 +138,7 @@ int firetimer = 100;
 		// TODO Auto-generated method stub
 	float oldx = x;
 	float oldy = y;
-	
+	/*
 	
 	firetimer+=diffTime;
 	
@@ -187,7 +192,7 @@ int firetimer = 100;
 				firetimer = 0;
 			}
 		
-	}*/
+	}
 
 	
 	for(int i  = 0; i < ListaObjetos.size();i++){
@@ -210,6 +215,7 @@ int firetimer = 100;
 	    	ListaParticulas.remove(i);
 	    }
 	}	
+	*/
 	//MAPA.Posiciona(((int)Personagem.X-320),((int)Personagem.Y-240));
 }
 
@@ -224,7 +230,7 @@ int firetimer = 100;
 	dbg.setColor(Color.white);
 	dbg.fillRect(0, 0, 140, 15);
 	dbg.setColor(Color.BLACK);	
-	dbg.drawString("FPS: "+GamePanel.FPS+"  "+ListaParticulas.size(), 10, 10);	
+	dbg.drawString("FPS: "+GamePanel.FPS, 10, 10);	
 
 		
 	dbg.setColor(Color.BLUE);	

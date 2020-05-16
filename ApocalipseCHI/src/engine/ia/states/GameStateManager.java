@@ -48,7 +48,7 @@ public class GameStateManager {
 	}
 
 	 
-	private void updateState(float delta) {
+	private void updateState(float diffTime) {
 	 
 	}
  

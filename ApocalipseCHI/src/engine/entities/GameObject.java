@@ -2,6 +2,8 @@ package engine.entities;
 
 import java.awt.Graphics2D;
 import java.util.Map;
+
+import engine.utils.BoundingBox;
  
  
 public interface GameObject extends Comparable<GameObject> {
