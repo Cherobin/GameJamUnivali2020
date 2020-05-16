@@ -1,8 +1,6 @@
 package old;
 import java.awt.Image;
 
-import engine.core.CanvasMAIN;
-
 
 public class InimigoR extends Sprite{
 

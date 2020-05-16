@@ -2,9 +2,11 @@
  * SnapGames
  * @year 2016
  */
-package engine.teste;
+package engine.core.game;
 
 import java.awt.Graphics2D;
+
+import com.sun.org.apache.bcel.internal.generic.FMUL;
 
 import engine.entities.GameObject;
 import engine.ia.states.FSM;
@@ -15,25 +17,22 @@ import engine.map.TileMapLoader;
 import tiled.core.Map;
 
  
-public class SampleState implements GameState {
+public class GameTesteState implements GameState {
 
-	private SampleEntityBuilder seb;
+	private GameEntityBuilder seb;
 	private TileMapLoader tml;
-
+	private GameStateManager gsm;
 	private TileMap tileMap = null;
 	
-	public SampleState() {
+	public GameTesteState() {
 		initialize(); 
 	}
   
 	@Override
 	public void initialize() {
-		
-		//TODO Inicializar o som
-		 
 		tileMap = new TileMap("tilemap");
-
-		seb = new SampleEntityBuilder();
+		gsm = new GameStateManager();
+		seb = new GameEntityBuilder();
 		tml = new TileMapLoader(seb);
 		Map map = null;
 		map = tml.load(this, "res/maps/level-1-1.tmx");
@@ -50,35 +49,30 @@ public class SampleState implements GameState {
 	}
 
 	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() { 
+		return this.getName();
 	}
 
 	@Override
-	public void setStateManager(GameStateManager gsm) {
-		// TODO Auto-generated method stub
-		
+	public void setStateManager(GameStateManager gsm) { 
+		this.gsm = gsm;
 	}
 
 	@Override
-	public void update(float diffTime) {
-		// TODO Auto-generated method stub'
+	public void update(float diffTime) { 
 		if(tileMap!=null)
 			tileMap.update(diffTime);
 	}
 
 	@Override
-	public void render(Graphics2D dbg) {
-		// TODO Auto-generated method stub
+	public void render(Graphics2D dbg) { 
 		if(tileMap!=null)
 			tileMap.render(dbg);
 		
 	}
 
 	@Override
-	public java.util.Map<String, GameObject> getEntities() {
-		// TODO Auto-generated method stub
-		return null;
+	public java.util.Map<String, GameObject> getEntities() {  
+		return getEntities();
 	}
 }

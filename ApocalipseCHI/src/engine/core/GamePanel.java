@@ -7,6 +7,8 @@ import java.awt.geom.Ellipse2D;
 
 import javax.swing.*;
 
+import engine.core.game.CanvasGame;
+import old.CanvasMAIN;
 import old.Constantes;
 
 import java.io.*;
@@ -150,7 +152,7 @@ public GamePanel()
 		}
 	});
 	
-	telaAtiva = new CanvasMAIN();
+	telaAtiva = new CanvasGame();
 	//telaAtiva = new CanvasSplash();
 	
   
@@ -225,7 +227,7 @@ System.exit(0); // so enclosing JFrame/JApplet exits
 private void gameUpdate(long diftime)
 { 
 	if(telaAtiva!=null){
-		telaAtiva.SimulaSe((int)diftime);
+		telaAtiva.update((int)diftime);
 	}
 }
 
@@ -233,7 +235,7 @@ private void gameRender()
 // draw the current frame to an image buffer
 {
 	if(telaAtiva!=null){
-		telaAtiva.DesenhaSe(dbg);
+		telaAtiva.render(dbg);
 	}
 }
 

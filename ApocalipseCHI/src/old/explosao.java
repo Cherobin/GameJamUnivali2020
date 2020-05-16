@@ -4,8 +4,6 @@ import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
-import engine.core.CanvasMAIN;
-
 
 public class explosao extends Particula
 {

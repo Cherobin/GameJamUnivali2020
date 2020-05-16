@@ -7,13 +7,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.geom.AffineTransform;
 
+import old.CanvasMAIN;
 import old.Constantes;
 
 public class CanvasSplash extends MyCanvas{
 
 	int timer = 0;
 	@Override
-	public void SimulaSe(float diftime) {
+	public void update(float diftime) {
 		// TODO Auto-generated method stub
 		timer+=diftime;
 		
@@ -23,7 +24,7 @@ public class CanvasSplash extends MyCanvas{
 	}
 
 	@Override
-	public void DesenhaSe(Graphics2D dbg) {
+	public void render(Graphics2D dbg) {
 		// TODO Auto-generated method stub
 		if(timer < 1000) {
 			dbg.setColor(Color.WHITE);

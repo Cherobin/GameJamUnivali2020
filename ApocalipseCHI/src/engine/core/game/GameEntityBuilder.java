@@ -4,7 +4,7 @@
  * @year 2016
  * 
  */
-package engine.teste;
+package engine.core.game;
 
 import engine.entities.GameObject;
 import engine.ia.states.GameState;
@@ -14,7 +14,7 @@ import tiled.core.Map;
 import tiled.core.MapObject;
 
  
-public class SampleEntityBuilder implements EntityBuilder {
+public class GameEntityBuilder implements EntityBuilder {
 
  
 	@Override

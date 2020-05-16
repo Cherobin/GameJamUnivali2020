@@ -1,4 +1,4 @@
-package engine.core;
+package old;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -12,12 +12,9 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import engine.teste.SampleState;
-import old.Constantes;
-import old.Fireball;
-import old.Objeto;
-import old.Particula;
-import old.Sprite;
+import engine.core.GamePanel;
+import engine.core.MyCanvas;
+import engine.core.game.GameTesteState;
 
 
 public class CanvasMAIN extends MyCanvas{
@@ -41,7 +38,7 @@ int mouseX,mouseY;
 //NossaImagem minhaImage1;
 
 Sprite Personagem;
-public static SampleState TESTEMAPA;
+public static GameTesteState TESTEMAPA;
 public static ArrayList<Sprite> ListaObjetos; 
 public static ArrayList<Fireball> FireballList;
 public static ArrayList<Particula> ListaParticulas;
@@ -76,7 +73,7 @@ public CanvasMAIN()
 	
 	//    Hero = LoadImage("Chara1O.png");
  
-	    TESTEMAPA = new SampleState(); 
+	    TESTEMAPA = new GameTesteState(); 
 	    
 		/*
 
@@ -134,7 +131,7 @@ for(int i = 0; i < 10;i++){
 
 int firetimer = 100;
 @Override
-	public void SimulaSe(float diffTime) {
+	public void update(float diffTime) {
 		// TODO Auto-generated method stub
 	float oldx = x;
 	float oldy = y;
@@ -220,7 +217,7 @@ int firetimer = 100;
 }
 
 @Override
-	public void DesenhaSe(Graphics2D dbg) {
+	public void render(Graphics2D dbg) {
 	
 	dbg.setColor(Color.white);
 	dbg.fillRect(0, 0, Constantes.telaW, Constantes.telaH);

@@ -3,8 +3,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import engine.core.CanvasMAIN;
-
 /*
  * Created on 24/08/2005
  *

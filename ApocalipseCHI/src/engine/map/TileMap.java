@@ -64,7 +64,7 @@ public class TileMap extends GameEntity implements GameObject {
 
 	@Override
 	public java.util.Map<String, Component> getComponents() {
-		return null;
+		return components;
 	}
 
 	@Override

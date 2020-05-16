@@ -8,14 +8,14 @@ import engine.utils.BoundingBox;
  
 public interface GameObject extends Comparable<GameObject> {
  
+	void initialize(); 
+	
 	String getName();
  
-	void update(float dt);
+	void update(float diffTime);
  
 	void render(Graphics2D dbg);
  
-	void initialize(); 
-	
 	Map<String, Component> getComponents();
 
 	int compareTo(GameObject o); 
