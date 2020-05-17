@@ -2,6 +2,8 @@ package engine.entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 import org.mapeditor.core.Map;
 
@@ -12,10 +14,14 @@ import engine.base.entities.GameObject;
 import engine.map.behavior.TileMapCollisionBehavior;
 import engine.utils.Direction;
 import engine.utils.Vector2D;
+import old.Constantes;
 
 public class Player extends GameEntity implements GameObject {
 
 	private int maxVel;
+	
+	BufferedImage myimage;
+	public Vector2D mousePosition;
 
 	public Player(String name) {
 		super(name);
@@ -25,12 +31,14 @@ public class Player extends GameEntity implements GameObject {
 		super(name, position, width, height, rotation);
 
 		maxVel = 100;
-		direction = Direction.STOP;
+		//direction = Direction.STOP;
 		color = Color.GREEN;
-		offset.x = -width / 2;
-		offset.y = -height;
+		offset.x = 0;
+		offset.y = 0;
 		oldPosition = new Vector2D();
 		initializeComponents(map);
+		myimage = Constantes.personagem1;
+		mousePosition = new Vector2D();
 	}
 
 	private void initializeComponents(Map map) {
@@ -40,26 +48,54 @@ public class Player extends GameEntity implements GameObject {
 	@Override
 	public void render(Graphics2D dbg) {
 		// TODO Auto-generated method stub
-		super.render(dbg);
-	 
+		//super.render(dbg);
 		
+		AffineTransform t = dbg.getTransform();
+		
+		dbg.translate(position.x, position.y);
+		dbg.rotate(rotation);
+		dbg.drawImage(myimage,-myimage.getWidth()/2, -myimage.getHeight()/2, null);
+		
+		dbg.setTransform(t);
 	}
 
 	@Override
 	public void update(float diffTime) {
 		super.update(diffTime);
-		 
-		oldPosition = position; 
+		
+		//TODO CEROBIN AMADOR
+		//oldPosition = position; 
+		
+		oldPosition.set(position);
 		 
 		setDirection();
 		
 		position.x += speed.x * diffTime / 1000f;
 		position.y += speed.y * diffTime / 1000f; 
 		
+		rotation = (float)Math.atan2(mousePosition.y-position.y, mousePosition.x-position.x);
+		
+		//System.out.println(""+position.x+" "+position.y+" "+direction+" "+speed.x+" "+speed.y+" "+maxVel);
+		
 	}
 	
  public void setDirection() {
-		switch (direction) {
+	 if(RIGHT) {
+		 speed.x = maxVel;
+	 }else if(LEFT) {
+		 speed.x = -maxVel;
+	 }else {
+		 speed.x = 0;
+	 }
+	 
+	 if(DOWN) {
+		 speed.y = maxVel;
+	 }else if(UP) {
+		 speed.y = -maxVel;
+	 }else {
+		 speed.y = 0;
+	 }
+		/*switch (direction) {
 		case DOWN:
 			speed.x = 0;
 			speed.y = maxVel;
@@ -97,7 +133,7 @@ public class Player extends GameEntity implements GameObject {
 			break;
 		default:
 			break;
-		}
+		}*/
 	}
  
 }

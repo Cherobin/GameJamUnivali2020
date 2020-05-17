@@ -34,6 +34,15 @@ public class Vector2D {
 		}
 	}
 
+	public void set(float x, float y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void set(Vector2D v) {
+		this.x = v.x;
+		this.y = v.y;
+	}
  
 	public Vector2D add(Vector2D v) {
 		return new Vector2D(x + v.x, y + v.y);

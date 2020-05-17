@@ -1,6 +1,9 @@
 package old;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+
+import engine.core.GamePanel;
 
 public class Constantes {
 	public static int telaW = 1024;
@@ -10,8 +13,14 @@ public class Constantes {
 	
 	public static Font font;
 	
+	public static BufferedImage personagem1;
+	
 	static {
-		font = new Font(null,Font.PLAIN,14); 
+		font = new Font(null,Font.PLAIN,14);
+	}
+	
+	public static void carrega_Imagens() {
+		personagem1 = GamePanel.instance.carregaImagem("char01.png");
 	}
 	
 	/*

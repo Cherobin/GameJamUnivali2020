@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mapeditor.core.Map;
 import org.mapeditor.core.MapLayer;
 import org.mapeditor.core.ObjectGroup;
+import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.view.OrthogonalRenderer;
 
@@ -40,7 +41,33 @@ public class TileMap extends GameEntity implements GameObject {
 		
 		for (MapLayer layer : map.getLayers()) {
 			if (layer instanceof TileLayer) {
-				renderer.paintTileLayer(g2d, (TileLayer) layer);
+				if(!layer.getName().equals("roof")) {
+					renderer.paintTileLayer(g2d, (TileLayer) layer);
+				}
+			}
+			if(layer instanceof ObjectGroup){
+				switch(layer.getName()){
+				case "collision":
+					// TODO
+					break;
+				case "objects":
+					// TODO
+					break;
+				case "fx":
+					// TODO
+					break;
+				}
+			}
+		}
+	}
+	
+	public void renderRoof(Graphics2D g2d) {
+		
+		for (MapLayer layer : map.getLayers()) {
+			if (layer instanceof TileLayer) {
+				if(layer.getName().equals("roof")) {
+					renderer.paintTileLayer(g2d, (TileLayer) layer);
+				}
 			}
 			if(layer instanceof ObjectGroup){
 				switch(layer.getName()){
@@ -76,6 +103,18 @@ public class TileMap extends GameEntity implements GameObject {
 		this.map = map;
 		components = new HashMap<>();
 		renderer = new OrthogonalRenderer(map);
+	}
+	
+	public boolean isUnderRoof(int x,int y) {
+		TileLayer tl = (TileLayer)map.getLayer(2); // RoofLayer
+		
+		Tile tile = tl.getTileAt((int) (x/ map.getTileWidth()),(int) (y / map.getTileHeight()));
+		
+		if(tile!=null) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

@@ -83,8 +83,7 @@ public class CanvasSplash extends MyCanvas{
 			 dbg.drawString("A GAME BY: ", Constantes.telaW/2 - 321, Constantes.telaH/2);
 			 dbg.drawString("  DENNIS KERR COELHO ", Constantes.telaW/2 - 321, Constantes.telaH/2+50);
 			 dbg.drawString("  RICARDO CHEROBIN ", Constantes.telaW/2 - 321, Constantes.telaH/2+100);
-			 dbg.drawString("  LIVIA  ", Constantes.telaW/2 - 321, Constantes.telaH/2+150);
-			 dbg.drawString("  DONDON  ", Constantes.telaW/2 - 321, Constantes.telaH/2+200);
+			 dbg.drawString("  DONDON  ", Constantes.telaW/2 - 321, Constantes.telaH/2+150);
 			
 		}
 	}

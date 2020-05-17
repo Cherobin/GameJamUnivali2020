@@ -23,6 +23,7 @@ import engine.ia.states.GameState;
 import engine.map.TileMap;
 import engine.map.TileMapLoader;
 import engine.utils.Direction;
+import engine.utils.Vector2D;
 
 public class CanvasGame extends MyCanvas implements GameState {
 
@@ -44,21 +45,22 @@ public class CanvasGame extends MyCanvas implements GameState {
 		seb = new GameEntityBuilder();
 		tml = new TileMapLoader(seb);
 	  
-		map = tml.load(this, "res//maps//level-2-1.tmx"); 
+		map = tml.load(this, "res//maps//exemplo.tmx"); 
  
 		// Attache target to enemy for EnemyBehavior component's sensors
-		player = (Player) renderingStack.get("player");
-
+		player = new Player("Dennis", new Vector2D(100, 200),32,32,0,map);//(Player) renderingStack.get("player");
+		//player.position.x = 100;
+		//player.position.y = 200;
 	
 		tileMap.setMap(map); 
 
-		//addEntity(player);
+		addEntity(player);
 		
 		//TESTE INICIAL DE PLAY OGG
-		OGG_Player player = new OGG_Player();
-		File ogg = new File("exemplo.ogg");
-		player.ExamplePlayer(ogg);
-		player.start();
+		OGG_Player musicplayer = new OGG_Player();
+		File ogg = new File("musica2_low.ogg");
+		musicplayer.ExamplePlayer(ogg);
+		musicplayer.start();
 	 
 		  
 		// Attache target to enemy for EnemyBehavior component's sensors
@@ -103,6 +105,12 @@ public class CanvasGame extends MyCanvas implements GameState {
 				}
 			}
 			entity.render(dbg);
+		}
+		
+		// draw map
+		//System.out.println("underroof "+tileMap.isUnderRoof((int)player.position.x,(int)player.position.y));
+		if (tileMap != null && !tileMap.isUnderRoof((int)player.position.x,(int)player.position.y)) {
+			tileMap.renderRoof(dbg);
 		}
 
 		//systemdata
@@ -150,19 +158,19 @@ public class CanvasGame extends MyCanvas implements GameState {
 		int keyCode = e.getKeyCode();
 
 		if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
-			player.direction = Direction.LEFT;
+			player.LEFT = true;
 		}
 
 		if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
-			player.direction = Direction.RIGHT;
+			player.RIGHT = true;
 		}
 
 		if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
-			player.direction = Direction.UP;
+			player.UP = true;
 		}
 
 		if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
-			player.direction = Direction.DOWN;
+			player.DOWN = true;
 		}
 	}
 
@@ -170,20 +178,35 @@ public class CanvasGame extends MyCanvas implements GameState {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-		player.direction = Direction.STOP;
-	 
+		int keyCode = e.getKeyCode();
+		//player.direction = Direction.STOP;
+		if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_A) {
+			player.LEFT = false;
+		}
+
+		if (keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_D) {
+			player.RIGHT = false;
+		}
+
+		if (keyCode == KeyEvent.VK_UP || keyCode == KeyEvent.VK_W) {
+			player.UP = false;
+		}
+
+		if (keyCode == KeyEvent.VK_DOWN || keyCode == KeyEvent.VK_S) {
+			player.DOWN = false;
+		}
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		player.mousePosition.set(e.getX(),e.getY());
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		player.mousePosition.set(e.getX(),e.getY());
 	}
 
 	@Override

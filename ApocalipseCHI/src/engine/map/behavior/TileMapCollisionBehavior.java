@@ -27,7 +27,7 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 
 	@Override
 	public void initialize(GameObject e) {
-		layerIndex = findLayerOnName("foreground"); // << collision layer
+		layerIndex = findLayerOnName("wall"); // << collision layer
 		tl = (TileLayer) map.getLayer(layerIndex);
 	}
 
@@ -50,20 +50,30 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 			GameEntity ge = (GameEntity) e;  
 			//System.out.println(	ge.toString()); 
 			if (map != null) {
+				
+				Tile tileCenter = tl.getTileAt((int) ((ge.position.x + ge.offset.x) / map.getTileWidth()),
+						(int) ((ge.position.y + ge.offset.y) / map.getTileHeight()));
+				
 				// read sensors
-				Tile tileUL = tl.getTileAt((int) ((ge.position.x + ge.offset.x) / map.getTileWidth()),
-						(int) ((ge.position.y + ge.offset.y + ge.height) / map.getTileHeight()));
-				Tile tileUR = tl.getTileAt((int) ((ge.position.x + ge.offset.x + ge.width) / map.getTileWidth()),
-						(int) ((ge.position.y + ge.offset.y + ge.height) / map.getTileHeight()) + 1);
-				Tile tileBL = tl.getTileAt((int) ((ge.position.x + ge.offset.x) / map.getTileWidth() + 1),
-						(int) ((ge.position.y + ge.offset.y) / map.getTileHeight()) + 2);
-				Tile tileBR = tl.getTileAt((int) ((ge.position.x + ge.offset.x + ge.width) / map.getTileWidth() + 1),
-						(int) ((ge.position.y + ge.offset.y) / map.getTileHeight()) + 2);
+				//Tile tileUL = tl.getTileAt((int) ((ge.position.x + ge.offset.x) / map.getTileWidth()),
+				//		(int) ((ge.position.y + ge.offset.y + ge.height) / map.getTileHeight()));
+				
+				//Tile tileUR = tl.getTileAt((int) ((ge.position.x + ge.offset.x + ge.width) / map.getTileWidth()),
+				//		(int) ((ge.position.y + ge.offset.y + ge.height) / map.getTileHeight()) + 1);
+				//Tile tileBL = tl.getTileAt((int) ((ge.position.x + ge.offset.x) / map.getTileWidth() + 1),
+				//		(int) ((ge.position.y + ge.offset.y) / map.getTileHeight()) + 2);
+				//Tile tileBR = tl.getTileAt((int) ((ge.position.x + ge.offset.x + ge.width) / map.getTileWidth() + 1),
+				//		(int) ((ge.position.y + ge.offset.y) / map.getTileHeight()) + 2);
 
 				//TODO tratar colisão
-				if (tileUL != null || tileUR != null || tileBL != null || tileBR != null ) {
-					System.out.println("colide");
-					 ge.position = ge.oldPosition; 
+				///if (tileUL != null || tileUR != null || tileBL != null || tileBR != null ) {
+				if(tileCenter!=null) {
+					System.out.println("colide "+tileCenter);
+					//TODO CEROBIN AMADOR
+					// ge.position = ge.oldPosition; 
+					
+					ge.position.set(ge.oldPosition);
+					
 					 ge.speed.x =  ge.speed.y = 0;
 				}
 				 

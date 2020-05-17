@@ -148,6 +148,8 @@ public GamePanel()
 		}
 	});
 	
+	Constantes.carrega_Imagens();
+	
 	telaAtiva = new CanvasGame();
 	//telaAtiva = new CanvasSplash();
 	
@@ -254,6 +256,7 @@ public static void main(String args[])
 
 public BufferedImage carregaImagem(String path){
 	try {
+		System.out.println(""+this.getClass().getResourceAsStream(path));
 		BufferedImage imgtmp = ImageIO.read(this.getClass().getResourceAsStream(path));
 		BufferedImage imagereturn = new BufferedImage(imgtmp.getWidth(),imgtmp.getHeight(),BufferedImage.TYPE_INT_ARGB);
 		imagereturn.getGraphics().drawImage(imgtmp, 0, 0, null);

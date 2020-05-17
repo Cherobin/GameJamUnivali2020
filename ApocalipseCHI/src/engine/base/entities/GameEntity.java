@@ -36,7 +36,12 @@ public class GameEntity implements GameObject {
 
 	public Vector2D collisionBox = new Vector2D(width, height);
 	public CollisionType collitionType = CollisionType.BoundingBox;
-	public Direction direction = null;
+	//public Direction direction = null;
+	
+	public boolean RIGHT; 
+	public boolean LEFT;
+	public boolean UP;
+	public boolean DOWN;
 
 	public BoundingBox boundingBox = new BoundingBox(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -67,7 +72,11 @@ public class GameEntity implements GameObject {
 	public GameEntity(String name) {
 		super();
 		this.name = name; 
-		this.direction = Direction.STOP;
+		//this.direction = Direction.STOP;
+		RIGHT = false;
+		LEFT = false;
+		UP = false;
+		DOWN = false;
 	}
 
 	public GameEntity( String name, Component... components) {
@@ -123,7 +132,13 @@ public class GameEntity implements GameObject {
 		g.setStroke(strk);
 		g.setColor(Color.YELLOW);
 		g.drawString(String.format("entity(%s)", name), position.x + 20, position.y - (4 * fh));
-		g.drawString(String.format("D(%s)", this.direction), position.x + 20, position.y - (3 * fh));
+		
+		//RIGHT = false;
+		//LEFT = false;
+		//UP = false;
+		//DOWN = false;
+		g.drawString(String.format("D(%s)", RIGHT+" "+LEFT+" "+UP+" "+DOWN), position.x + 20, position.y - (3 * fh));
+		
 		g.drawString(String.format("P(%.01f,%.01f) x1", position.x, position.y), position.x + 20,
 				position.y - (2 * fh));
 		g.drawString(String.format("S(%.01f,%.01f) x1000", speed.x * 1000, speed.y * 1000), position.x + 20,
@@ -183,7 +198,7 @@ public class GameEntity implements GameObject {
 				.append(offset).append(", speed=").append(speed).append(", maxSpeed=").append(maxSpeed)
 				.append(", accel=").append(accel).append(", boundingBox=").append(boundingBox).append(", collisionBox=")
 				.append(collisionBox).append(", collitionType=").append(collitionType).append(", direction=")
-				.append(direction).append("]");
+				.append(RIGHT).append("]"); // TODO DEPOIS TEM QUE ACERTAR
 		return builder.toString();
 	}
 }
