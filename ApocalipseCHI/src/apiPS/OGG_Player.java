@@ -15,7 +15,9 @@ import java.net.URLConnection;
 import java.net.UnknownServiceException;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Control;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 
@@ -493,6 +495,17 @@ public class OGG_Player extends Thread {
 
 		// Start it.
 		outputLine.start();
+		
+		Control list[] = outputLine.getControls();
+		for(int i = 0; i < list.length;i++) {
+			System.out.println("controls "+list[i]);
+		}
+		
+        // Adjust the volume on the output line.
+        if (outputLine.isControlSupported(FloatControl.Type.MASTER_GAIN)) {
+            FloatControl volume = (FloatControl) outputLine.getControl(FloatControl.Type.MASTER_GAIN);
+           volume.setValue(-20.0F);
+        }
 
 		/*
 		 * We create the PCM variables. The index is an array with the same length as
