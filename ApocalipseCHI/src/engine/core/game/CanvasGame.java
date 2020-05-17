@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import apiPS.OGG_Player;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
@@ -51,6 +53,12 @@ public class CanvasGame extends MyCanvas implements GameState {
 		tileMap.setMap(map); 
 
 		//addEntity(player);
+		
+		//TESTE INICIAL DE PLAY OGG
+		OGG_Player player = new OGG_Player();
+		File ogg = new File("exemplo.ogg");
+		player.ExamplePlayer(ogg);
+		player.start();
 	 
 		  
 		// Attache target to enemy for EnemyBehavior component's sensors

@@ -797,9 +797,10 @@ public class TMXMapReader {
      * @throws java.lang.Exception if any.
      */
     public Map readMap(String filename) throws Exception {
+    	//replacePathSeparator(filename);
         File file = new File(filename);
         String path = file.getAbsolutePath();
-        filename = path;//replacePathSeparator(filename);
+        filename = path;
         
         xmlPath = filename.substring(0,
                 filename.lastIndexOf(File.separatorChar) + 1);
