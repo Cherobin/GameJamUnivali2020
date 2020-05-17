@@ -1,14 +1,15 @@
 package engine.map.behavior;
 
+import org.mapeditor.core.Map;
+import org.mapeditor.core.MapLayer;
+import org.mapeditor.core.Tile;
+import org.mapeditor.core.TileLayer;
+
 import engine.base.entities.AbstractComponent;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.utils.Direction;
-import tiled.core.Map;
-import tiled.core.MapLayer;
-import tiled.core.Tile;
-import tiled.core.TileLayer;
  
 public class TileMapCollisionBehavior extends AbstractComponent implements Component {
  

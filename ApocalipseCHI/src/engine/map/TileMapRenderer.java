@@ -5,11 +5,11 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 
-import tiled.core.Map;
-import tiled.core.ObjectGroup;
-import tiled.core.Tile;
-import tiled.core.TileLayer;
-import tiled.view.MapRenderer;
+import org.mapeditor.core.Map;
+import org.mapeditor.core.ObjectGroup;
+import org.mapeditor.core.Tile;
+import org.mapeditor.core.TileLayer;
+import org.mapeditor.view.MapRenderer;
 
 public class TileMapRenderer implements MapRenderer {
 
@@ -71,6 +71,13 @@ public class TileMapRenderer implements MapRenderer {
 		}
 
 		g.translate(-bounds.x * tileWidth, -bounds.y * tileHeight);
+	}
+
+
+	@Override
+	public void paintObjectGroup(Graphics2D g, ObjectGroup group) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

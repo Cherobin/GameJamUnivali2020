@@ -1,9 +1,10 @@
 package engine.map;
 
+import org.mapeditor.core.Map;
+import org.mapeditor.core.MapObject;
+
 import engine.base.entities.GameObject;
 import engine.ia.states.GameState;
-import tiled.core.Map;
-import tiled.core.MapObject;
 
 public interface EntityBuilder {
 

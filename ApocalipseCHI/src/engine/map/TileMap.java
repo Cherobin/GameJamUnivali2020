@@ -3,14 +3,15 @@ package engine.map;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 
+import org.mapeditor.core.Map;
+import org.mapeditor.core.MapLayer;
+import org.mapeditor.core.ObjectGroup;
+import org.mapeditor.core.TileLayer;
+import org.mapeditor.view.OrthogonalRenderer;
+
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
-import tiled.core.Map;
-import tiled.core.MapLayer;
-import tiled.core.ObjectGroup;
-import tiled.core.TileLayer;
-import tiled.view.OrthogonalRenderer;
 
 
 public class TileMap extends GameEntity implements GameObject {

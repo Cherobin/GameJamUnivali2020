@@ -29,7 +29,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 
 	private TileMap tileMap = null;
 	private Player player = null;
-	private tiled.core.Map map = null;
+	private org.mapeditor.core.Map map = null;
 
 	public java.util.Map<String, GameObject> renderingStack;
 	public List<GameObject> sortedEntities;
@@ -42,7 +42,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		seb = new GameEntityBuilder();
 		tml = new TileMapLoader(seb);
 	  
-		map = tml.load(this, "res/maps/level-1-1.tmx"); 
+		map = tml.load(this, "res//maps//level-2-1.tmx"); 
  
 		// Attache target to enemy for EnemyBehavior component's sensors
 		player = (Player) renderingStack.get("player");
@@ -50,7 +50,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 	
 		tileMap.setMap(map); 
 
-		addEntity(player);
+		//addEntity(player);
 	 
 		  
 		// Attache target to enemy for EnemyBehavior component's sensors

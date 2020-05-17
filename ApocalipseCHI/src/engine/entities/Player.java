@@ -3,6 +3,8 @@ package engine.entities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import org.mapeditor.core.Map;
+
 import com.sun.javafx.geom.Vec2d;
 
 import engine.base.entities.GameEntity;
@@ -10,7 +12,6 @@ import engine.base.entities.GameObject;
 import engine.map.behavior.TileMapCollisionBehavior;
 import engine.utils.Direction;
 import engine.utils.Vector2D;
-import tiled.core.Map;
 
 public class Player extends GameEntity implements GameObject {
 
