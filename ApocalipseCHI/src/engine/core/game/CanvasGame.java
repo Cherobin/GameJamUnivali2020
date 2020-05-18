@@ -1,5 +1,6 @@
 package engine.core.game;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -24,6 +25,7 @@ import engine.map.TileMap;
 import engine.map.TileMapLoader;
 import engine.utils.Direction;
 import engine.utils.Vector2D;
+import old.Constantes;
 
 public class CanvasGame extends MyCanvas implements GameState {
 
@@ -47,12 +49,12 @@ public class CanvasGame extends MyCanvas implements GameState {
 	  
 		map = tml.load(this, "res//maps//exemplo.tmx"); 
  
-		// Attache target to enemy for EnemyBehavior component's sensors
-		player = new Player("Dennis", new Vector2D(100, 200),32,32,0,map);//(Player) renderingStack.get("player");
-		//player.position.x = 100;
-		//player.position.y = 200;
-	
 		tileMap.setMap(map); 
+		// Attache target to enemy for EnemyBehavior component's sensors
+		player = new Player("Dennis", new Vector2D(100, 200),32,32,0,tileMap);//(Player) renderingStack.get("player");
+		//player = new Player("Dennis", new Vector2D(0,0),32,32,0,tileMap);
+	
+		
 
 		addEntity(player);
 		
@@ -92,7 +94,10 @@ public class CanvasGame extends MyCanvas implements GameState {
 
 	@Override
 	public void render(Graphics2D dbg) {
-
+		//TODO Retirar depois
+		dbg.setColor(Color.white);
+		dbg.fillRect(0, 0, Constantes.telaW, Constantes.telaH);
+		
 		// draw map
 		if (tileMap != null)
 			tileMap.render(dbg);

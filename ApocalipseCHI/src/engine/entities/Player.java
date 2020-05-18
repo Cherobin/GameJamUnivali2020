@@ -11,6 +11,7 @@ import com.sun.javafx.geom.Vec2d;
 
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.map.TileMap;
 import engine.map.behavior.TileMapCollisionBehavior;
 import engine.utils.Direction;
 import engine.utils.Vector2D;
@@ -22,12 +23,14 @@ public class Player extends GameEntity implements GameObject {
 	
 	BufferedImage myimage;
 	public Vector2D mousePosition;
+	
+	TileMap tilemap;
 
 	public Player(String name) {
 		super(name);
 	}
 
-	public Player(String name, Vector2D position, int width, int height, float rotation, Map map) {
+	public Player(String name, Vector2D position, int width, int height, float rotation, TileMap tilemap) {
 		super(name, position, width, height, rotation);
 
 		maxVel = 100;
@@ -36,13 +39,15 @@ public class Player extends GameEntity implements GameObject {
 		offset.x = 0;
 		offset.y = 0;
 		oldPosition = new Vector2D();
-		initializeComponents(map);
+		initializeComponents(tilemap);
+		this.tilemap = tilemap;
 		myimage = Constantes.personagem1;
 		mousePosition = new Vector2D();
 	}
 
-	private void initializeComponents(Map map) {
-		addComponent(new TileMapCollisionBehavior(map, 1));
+	private void initializeComponents(TileMap tilemap) {
+		this.tilemap = tilemap;
+		addComponent(new TileMapCollisionBehavior(tilemap, 1));
 	}
 	
 	@Override
@@ -52,7 +57,7 @@ public class Player extends GameEntity implements GameObject {
 		
 		AffineTransform t = dbg.getTransform();
 		
-		dbg.translate(position.x, position.y);
+		dbg.translate(position.x-tilemap.getTelaX(), position.y-tilemap.getTelaY());
 		dbg.rotate(rotation);
 		dbg.drawImage(myimage,-myimage.getWidth()/2, -myimage.getHeight()/2, null);
 		
@@ -73,9 +78,11 @@ public class Player extends GameEntity implements GameObject {
 		position.x += speed.x * diffTime / 1000f;
 		position.y += speed.y * diffTime / 1000f; 
 		
-		rotation = (float)Math.atan2(mousePosition.y-position.y, mousePosition.x-position.x);
+		rotation = (float)Math.atan2((mousePosition.y+tilemap.getTelaY())-position.y, (mousePosition.x+tilemap.getTelaX())-position.x);
 		
 		//System.out.println(""+position.x+" "+position.y+" "+direction+" "+speed.x+" "+speed.y+" "+maxVel);
+		
+		tilemap.posicionaTela((int)(position.x-Constantes.telaW/2),(int)(position.y-Constantes.telaH/2));
 		
 	}
 	
