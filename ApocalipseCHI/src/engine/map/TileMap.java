@@ -18,20 +18,25 @@ import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import javafx.scene.transform.Affine;
+import old.Constantes;
 
 
 public class TileMap extends GameEntity implements GameObject {
 
-	private OrthogonalRenderer renderer;
 	public Map map;
 	
 	private int telaX = 0;
 	private int telaY = 0;
+	private int blockX = 0;
+	private int blockY = 0;
+	
+	public Map blocks[][];
 
 	public TileMap(String name) {
 		super(name);
 		layer = -1;
 		priority = 0;
+		
 	}
 
 	@Override
@@ -47,6 +52,8 @@ public class TileMap extends GameEntity implements GameObject {
 	public void posicionaTela(int x,int y) {
 		telaX = x;
 		telaY = y;
+		blockX = x/1600;
+		blockY = y/1600;
 	}
 	
 	public int getTelaX() {
@@ -59,60 +66,78 @@ public class TileMap extends GameEntity implements GameObject {
 
 	@Override
 	public void render(Graphics2D g2d) {
-		for (MapLayer layer : map.getLayers()) {
-			if (layer instanceof TileLayer) {
-				if(!layer.getName().equals("roof")) {
-					//layer.setOffset(-blocX, -blocY);
-					paintTileLayer(g2d, (TileLayer) layer);
-				}
-			}
-			if(layer instanceof ObjectGroup){
-				switch(layer.getName()){
-				case "collision":
-					// TODO
-					break;
-				case "objects":
-					// TODO
-					break;
-				case "fx":
-					// TODO
-					break;
+		int blockXend = (telaX+Constantes.telaW)/1600;
+		int blockYend = (telaY+Constantes.telaH)/1600;
+		//Map mapselected = blocks[blockX][blockY];
+		
+		for(int i = blockX; i <= blockXend;i++ ) {
+			for(int j = blockY; j <= blockYend;j++ ) {
+				if(i>=0&&j>=0) {
+					Map mapselected = blocks[i][j];
+					for (MapLayer layer : mapselected.getLayers()) {
+						if (layer instanceof TileLayer) {
+							if(!layer.getName().equals("roof")) {
+								paintTileLayer(g2d, (TileLayer) layer,i,j);
+							}
+						}
+						if(layer instanceof ObjectGroup){
+							switch(layer.getName()){
+							case "collision":
+								// TODO
+								break;
+							case "objects":
+								// TODO
+								break;
+							case "fx":
+								// TODO
+								break;
+							}
+						}
+					}
+			
 				}
 			}
 		}
+		
 	}
 	
 	public void renderRoof(Graphics2D g2d) {		
-		for (MapLayer layer : map.getLayers()) {
-			if (layer instanceof TileLayer) {
-				if(layer.getName().equals("roof")) {
-					//layer.setOffset(-blocX, -blocY);
-					paintTileLayer(g2d, (TileLayer) layer);
-				}
-			}
-			if(layer instanceof ObjectGroup){
-				switch(layer.getName()){
-				case "collision":
-					// TODO
-					break;
-				case "objects":
-					// TODO
-					break;
-				case "fx":
-					// TODO
-					break;
+		int blockXend = (telaX+Constantes.telaW)/1600;
+		int blockYend = (telaY+Constantes.telaH)/1600;
+		//Map mapselected = blocks[blockX][blockY];
+		
+		for(int i = blockX; i <= blockXend;i++ ) {
+			for(int j = blockY; j <= blockYend;j++ ) {
+				if(i>=0&&j>=0) {
+					Map mapselected = blocks[i][j];
+					for (MapLayer layer : mapselected.getLayers()) {
+						if (layer instanceof TileLayer) {
+							if(layer.getName().equals("roof")) {
+								paintTileLayer(g2d, (TileLayer) layer,i,j);
+							}
+						}
+						if(layer instanceof ObjectGroup){
+							switch(layer.getName()){
+							case "collision":
+								// TODO
+								break;
+							case "objects":
+								// TODO
+								break;
+							case "fx":
+								// TODO
+								break;
+							}
+						}
+					}
+			
 				}
 			}
 		}
 	}
 	
-    public void paintTileLayer(Graphics2D g, TileLayer layer) {
-    	
-		int blocX = (int)telaX/map.getTileWidth();
-		int blocY = (int)telaY/map.getTileHeight();
-		int offX = (int)telaX%map.getTileWidth();
-		int offY = (int)telaY%map.getTileHeight();
-		
+    public void paintTileLayer(Graphics2D g, TileLayer layer, int bx,int by) {
+    			
 		AffineTransform trans = g.getTransform();
 		
 		
@@ -124,8 +149,8 @@ public class TileMap extends GameEntity implements GameObject {
         //g.translate(bounds.x * tileWidth, bounds.y * tileHeight);
         //clip.translate(-bounds.x * tileWidth, -bounds.y * tileHeight);
 
-        g.translate(-telaX, -telaY);
-        clip.translate(telaX, telaY);
+        g.translate(-telaX+bx*1600, -telaY+by*1600);
+        clip.translate(telaX-bx*1600, telaY-by*1600);
         
         
         //clip.height += map.getTileHeightMax();
@@ -190,23 +215,35 @@ public class TileMap extends GameEntity implements GameObject {
 	public void setMap(Map map) {
 		this.map = map;
 		components = new HashMap<>();
-		renderer = new OrthogonalRenderer(map);
+		blocks = new Map[30][30];
+		for(int i = 0; i < 30; i++) {
+			for(int j = 0; j < 30; j++) {
+				blocks[i][j] = map;
+			}
+		}
 	}
 	
 	public boolean isUnderRoof(int x,int y) {
-		TileLayer tl = (TileLayer)map.getLayer(2); // RoofLayer
-		
-		Tile tile = tl.getTileAt((int) (x/ map.getTileWidth()),(int) (y / map.getTileHeight()));
-		
-		if(tile!=null) {
-			return true;
+		int bx = x/1600;
+		int by = y/1600;
+		if(bx>=0&&bx<30&&by>=0&&by<30) {
+			Map mapselected = blocks[bx][by];
+			
+			TileLayer tl = (TileLayer)mapselected.getLayer(2); // RoofLayer
+			
+			Tile tile = tl.getTileAt((int) ((x-bx*1600)/ mapselected.getTileWidth()),(int) ((y-by*1600) / mapselected.getTileHeight()));
+			
+			if(tile!=null) {
+				return true;
+			}
+			return false;
+		}else {
+			return false;
 		}
-		
-		return false;
 	}
 	
 	public boolean colision(int x,int y) {
-		TileLayer tl = (TileLayer)map.getLayer(1); // Wall Layer
+		/*TileLayer tl = (TileLayer)map.getLayer(1); // Wall Layer
 		
 		Tile tile = tl.getTileAt((int) (x/ map.getTileWidth()),(int) (y / map.getTileHeight()));
 		
@@ -214,7 +251,25 @@ public class TileMap extends GameEntity implements GameObject {
 			return true;
 		}
 		
-		return false;
+		return false;*/
+		int bx = x/1600;
+		int by = y/1600;
+		
+		if(bx>=0&&bx<30&&by>=0&&by<30&&x>0&&y>0) {
+			Map mapselected = blocks[bx][by];
+			
+			TileLayer tl = (TileLayer)mapselected.getLayer(1); // RoofLayer
+			
+			Tile tile = tl.getTileAt((int) ((x-bx*1600)/ mapselected.getTileWidth()),(int) ((y-by*1600) / mapselected.getTileHeight()));
+			
+			if(tile!=null) {
+				return true;
+			}
+			return false;
+		}else {
+			//System.out.println("colidiu");
+			return true;
+		}
 	}
 
 }
