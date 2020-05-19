@@ -2,9 +2,12 @@ package engine.core.game;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,8 +41,16 @@ public class CanvasGame extends MyCanvas implements GameState {
 
 	public java.util.Map<String, GameObject> renderingStack;
 	public List<GameObject> sortedEntities;
+	
+	BufferedImage roofImage;
+	int[] roofData;
+	
 
 	public CanvasGame() {
+		
+		roofImage = new BufferedImage(Constantes.telaW,Constantes.telaH,BufferedImage.TYPE_INT_ARGB);
+		roofData = ((DataBufferInt)roofImage.getRaster().getDataBuffer()).getData();
+		
 		sortedEntities = new ArrayList<>();
 		renderingStack = new ConcurrentHashMap<>();
 		tileMap = new TileMap("tilemap");
@@ -116,6 +127,28 @@ public class CanvasGame extends MyCanvas implements GameState {
 		//System.out.println("underroof "+tileMap.isUnderRoof((int)player.position.x,(int)player.position.y));
 		if (tileMap != null && !tileMap.isUnderRoof((int)player.position.x,(int)player.position.y)) {
 			tileMap.renderRoof(dbg);
+		}else {
+			for(int i = 0; i < roofData.length;i++) {
+				roofData[i] = 0;
+			}
+			Graphics2D graproof = (Graphics2D)roofImage.getGraphics();
+			graproof.clip(new Rectangle(0,0,Constantes.telaW,Constantes.telaH));
+			//System.out.println(" "+graproof.getClip());
+			tileMap.renderRoof(graproof);
+			int cx = Constantes.telaW/2;
+			int cy = Constantes.telaH/2;
+			int distmax = 150*150;
+			for(int i = 0; i < Constantes.telaH;i++) {
+				for(int j = 0; j < Constantes.telaW;j++) {
+					int dx = j - cx;
+					int dy = i - cy;
+					int dist = dx*dx+dy*dy;
+					if(dist<distmax) {
+						roofData[i*Constantes.telaW+j] = 0;
+					}
+				}
+			}
+			dbg.drawImage(roofImage, 0, 0, null);
 		}
 
 		//systemdata
