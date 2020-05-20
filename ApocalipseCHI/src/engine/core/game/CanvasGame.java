@@ -21,6 +21,7 @@ import apiPS.OGG_Player;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.core.GamePanel;
 import engine.core.MyCanvas;
 import engine.entities.Enemy;
 import engine.entities.GameState;
@@ -171,7 +172,18 @@ public class CanvasGame extends MyCanvas implements GameState {
 			}
 			dbg.drawImage(roofImage, 0, 0, null);
 		}
+		
+		
+		//Aqui Liga e Desliga A Luz
+		tileMap.pontosdeluz[0][0] = 1;
+		tileMap.pontosdeluz[0][1] = Constantes.telaW/2;
+		tileMap.pontosdeluz[0][2] = Constantes.telaH/2;
+		tileMap.pontosdeluz[0][4] = 150;
+		tileMap.renderLigth(dbg);
+		
+		
 
+		dbg.setColor(Color.yellow);
 		//systemdata
 		drawSystemData(dbg);
 	}
@@ -326,6 +338,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		sb.append("alloc:" + String.format("%06d", allocatedMemory / 1024) + "/");
 		sb.append("max:" + String.format("%06d", maxMemory / 1024) + "/");
 		sb.append("total:" + String.format("%06d", (freeMemory + (maxMemory - allocatedMemory)) / 1024));
+		sb.append(" FPS "+GamePanel.FPS);
 		String systemData = sb.toString();
 
 		String objects = String.format("nb-GE:%d", sortedEntities.size());
