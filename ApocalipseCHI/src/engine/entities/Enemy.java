@@ -21,7 +21,9 @@ public class Enemy extends GameEntity implements GameObject {
 
 	BufferedImage myimage;
 	TileMap tilemap;
-
+	float timeToFire;
+	float timerFire;
+	
 	public Enemy(String name) {
 		super(name);
 	}
@@ -36,6 +38,8 @@ public class Enemy extends GameEntity implements GameObject {
 		myimage = Constantes.personagem1;
 		speed = new Vector2D(100, 100);
 		this.tilemap = tilemap;
+		timeToFire = 0.2f;
+		timerFire= 0;
 	}
 
 	@Override
@@ -53,17 +57,17 @@ public class Enemy extends GameEntity implements GameObject {
 	@Override
 	public void update(float dt) {
 		super.update(dt);
-	
 		if(FIRE) {
-			//fire();
-		}
-		
-		 
-		
+			timerFire+= dt/1000; 
+			if(timerFire > timeToFire) {
+				timerFire=0;
+				fire();
+			}
+		} 
 	}
 
 	public void fire() {
-		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(100, 100), rotation, 10,
+		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(200, 200), rotation, 10,
 				Color.blue, 1000, tilemap);
 		// ver outra maneira
 		CanvasGame.sortedEntities.add(p);

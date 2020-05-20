@@ -180,13 +180,13 @@ public class CanvasGame extends MyCanvas implements GameState {
 		
 		
 		//Aqui Liga e Desliga A Luz
-		/*tileMap.pontosdeluz[0][0] = 1;
+		tileMap.pontosdeluz[0][0] = 1;
 		tileMap.pontosdeluz[0][1] = Constantes.telaW/2;
 		tileMap.pontosdeluz[0][2] = Constantes.telaH/2;
 		tileMap.pontosdeluz[0][4] = tamanhoSensor;
 		tileMap.renderLigth(dbg);
 		
-		*/
+		 
 
 		dbg.setColor(Color.yellow);
 		//systemdata
