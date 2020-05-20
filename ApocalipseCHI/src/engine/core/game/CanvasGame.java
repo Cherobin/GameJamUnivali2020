@@ -58,11 +58,16 @@ public class CanvasGame extends MyCanvas implements GameState {
 		seb = new GameEntityBuilder();
 		tml = new TileMapLoader(seb);
 	  
-		map = tml.load(this, "res//maps//exemplo.tmx"); 
- 
-		tileMap.setMap(map); 
+		map = tml.load(this, "res//maps//residencial01.tmx"); 
+		tileMap.addMap(map);
+		map = tml.load(this, "res//maps//industrial01.tmx"); 
+		tileMap.addMap(map);
+		map = tml.load(this, "res//maps//commercial01.tmx"); 
+		tileMap.addMap(map);
+		
+		tileMap.setMap(); 
 		// Attache target to enemy for EnemyBehavior component's sensors
-		player = new Player("Dennis", new Vector2D(24100, 24200),32,32,0,tileMap);//(Player) renderingStack.get("player");
+		player = new Player("Dennis", new Vector2D(24800, 24200),32,32,0,tileMap);//(Player) renderingStack.get("player");
 		//player = new Player("Dennis", new Vector2D(0,0),32,32,0,tileMap);
 	
 		
