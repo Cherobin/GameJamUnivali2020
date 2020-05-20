@@ -1,10 +1,13 @@
 package engine.map;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -41,12 +44,21 @@ public class TileMap extends GameEntity implements GameObject {
 	public int roofID = 2;
 	public int wallID = 1;
 	public int florID = 0;
+	
+	public int luz[][];
+	public int pontosdeluz[][];
+	BufferedImage shadowImage;
+	int[] sahdowData;
 
 	public TileMap(String name) {
 		super(name);
 		layer = -1;
 		priority = 0;
 		listaDeMapBlocks = new ArrayList<Map>();
+		luz = new int[Constantes.telaH/8][Constantes.telaW/8];
+		pontosdeluz = new int[32][5];
+		shadowImage = new BufferedImage(Constantes.telaW,Constantes.telaH,BufferedImage.TYPE_INT_ARGB);
+		sahdowData = ((DataBufferInt)shadowImage.getRaster().getDataBuffer()).getData();
 	}
 
 	@Override
@@ -280,6 +292,64 @@ public class TileMap extends GameEntity implements GameObject {
 			//System.out.println("colidiu");
 			return true;
 		}
+	}
+	
+	Color cdark = new Color(0,0,0,0.9f);
+	
+	public void renderLigth(Graphics2D g2d) {
+		for(int i = 0; i < sahdowData.length;i++) {
+			sahdowData[i] = 0xe0000000;
+		}
+		
+		for(int i = 0; i < luz.length;i++) {
+			for(int j = 0; j < luz[i].length;j++) {
+				luz[i][j] = 0;
+				for(int l = 0; l < pontosdeluz.length;l++) {
+					if(pontosdeluz[l][0] == 1) {
+						int dx = (j*8)-pontosdeluz[l][1];
+						int dy = (i*8)-pontosdeluz[l][2];
+						int dist = dx*dx+dy*dy;
+						if(dist < pontosdeluz[l][4]*pontosdeluz[l][4])  {
+							if(!raycolision(pontosdeluz[l][1]+telaX,pontosdeluz[l][2]+telaY,j*8+telaX+4,i*8+telaY+4)) {
+								luz[i][j]+=100;
+							}
+						}
+					}
+				}
+				if(luz[i][j]>0) {
+					for(int ly = i*8; ly < (i*8+8); ly++) {
+						int startx = j*8+ly*Constantes.telaW;
+						for(int lx = 0;lx < 8; lx++) {
+							sahdowData[startx] = 0;
+							startx++;
+						}
+					}
+				}else {
+				}
+			}
+		}
+		g2d.drawImage(shadowImage, 0,0,null);
+		
+	}
+	
+	public boolean raycolision(int x1,int y1,int x2,int y2) {
+		float dx = x2-x1;
+		float dy = y2-y1;
+		int passos = (int)((Math.abs(dx)+Math.abs(dy))/4.0);
+		dx = dx/passos;
+		dy = dy/passos;
+		float accx = x1;
+		float accy = y1;
+		for(int i = 0; i <= passos;i++) {
+			if(colision((int)accx, (int)accy)) {
+				return true;
+			}
+			accx+=dx;
+			accy+=dy;
+			
+		}
+		//System.out.println(" "+accx+" "+accy+" "+x1+" "+y1+" "+x2+" "+y2+" "+dx+" "+dy);
+		return false;
 	}
 
 }
