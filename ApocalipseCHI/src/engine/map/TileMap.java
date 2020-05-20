@@ -5,7 +5,9 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.mapeditor.core.Map;
 import org.mapeditor.core.MapLayer;
@@ -23,20 +25,28 @@ import old.Constantes;
 
 public class TileMap extends GameEntity implements GameObject {
 
-	public Map map;
+	//public Map map;
 	
 	private int telaX = 0;
 	private int telaY = 0;
 	private int blockX = 0;
 	private int blockY = 0;
 	
+	public ArrayList<Map> listaDeMapBlocks;
 	public Map blocks[][];
+	
+	public int tileH = 16;
+	public int tileW = 16;
+	
+	public int roofID = 2;
+	public int wallID = 1;
+	public int florID = 0;
 
 	public TileMap(String name) {
 		super(name);
 		layer = -1;
 		priority = 0;
-		
+		listaDeMapBlocks = new ArrayList<Map>();
 	}
 
 	@Override
@@ -142,8 +152,8 @@ public class TileMap extends GameEntity implements GameObject {
 		
 		
         final Rectangle clip = g.getClipBounds();
-        final int tileWidth = map.getTileWidth();
-        final int tileHeight = map.getTileHeight();
+        final int tileWidth = tileW;
+        final int tileHeight = tileH;
         final Rectangle bounds = layer.getBounds();
 
         //g.translate(bounds.x * tileWidth, bounds.y * tileHeight);
@@ -207,18 +217,18 @@ public class TileMap extends GameEntity implements GameObject {
 	public int compareTo(GameObject o) {
 		return 0;
 	}
- 
-	public Map getMap() {
-		return map;
+	
+	public void addMap(Map map) {
+		listaDeMapBlocks.add(map);
 	}
 	
-	public void setMap(Map map) {
-		this.map = map;
+	public void setMap() {
 		components = new HashMap<>();
 		blocks = new Map[30][30];
+		Random rnd = new Random();
 		for(int i = 0; i < 30; i++) {
 			for(int j = 0; j < 30; j++) {
-				blocks[i][j] = map;
+				blocks[i][j] = listaDeMapBlocks.get(rnd.nextInt(listaDeMapBlocks.size()));
 			}
 		}
 	}

@@ -14,9 +14,13 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 	protected TileMap map;
 
 	protected int layerIndex;
+<<<<<<< HEAD
 
 	protected TileLayer tl = null;
 
+=======
+ 
+>>>>>>> 43dff3048134e853a240709ee44ddb6093983406
 	public TileMapCollisionBehavior(TileMap map, int layerIndex) {
 		this.layerIndex = layerIndex;
 		this.map = map;
@@ -25,6 +29,7 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 
 	@Override
 	public void initialize(GameObject e) {
+<<<<<<< HEAD
 		layerIndex = findLayerOnName("wall"); // << collision layer
 		tl = (TileLayer) map.map.getLayer(layerIndex); 
 	}
@@ -39,6 +44,11 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 		}
 		return -1;
 	}
+=======
+		layerIndex = map.wallID; // << collision layer
+	}
+
+>>>>>>> 43dff3048134e853a240709ee44ddb6093983406
 
 	@Override
 	public void update(GameObject e, float diffTime) {
