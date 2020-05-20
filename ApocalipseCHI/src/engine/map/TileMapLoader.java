@@ -11,7 +11,7 @@ import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.io.TMXMapReader;
 
 import engine.base.entities.GameObject;
-import engine.ia.states.GameState;
+import engine.entities.GameState;
 
 
  
@@ -28,7 +28,7 @@ public class TileMapLoader {
  
 	public org.mapeditor.core.Map load(GameState gs, String path) {
 		TMXMapReader tmr = new TMXMapReader();
-		System.out.println("asdas");
+		 
 		try {
 			String basepath = new File(".").getCanonicalPath();
 			FileInputStream fin = new FileInputStream(basepath+"//"+path);

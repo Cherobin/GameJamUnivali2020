@@ -1,8 +1,4 @@
-/**
- * SnapGames
- * @year 2016
- */
-package engine.ia.states;
+package engine.entities;
 
 import java.awt.Graphics2D;
 import java.util.Map;

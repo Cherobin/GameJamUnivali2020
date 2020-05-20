@@ -6,8 +6,8 @@ import org.mapeditor.core.MapObject;
 
 import engine.base.entities.GameObject;
 import engine.entities.Enemy;
+import engine.entities.GameState;
 import engine.entities.Player;
-import engine.ia.states.GameState;
 import engine.map.EntityBuilder;
 import engine.map.TileMap;
 import engine.utils.Vector2D;
