@@ -11,7 +11,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import engine.map.behavior.EnemyBehavior.EnemyState;
 import engine.utils.BoundingBox;
 import engine.utils.CollisionType;
-import engine.utils.Direction;
 import engine.utils.Vector2D; 
 
 public class GameEntity implements GameObject {

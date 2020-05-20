@@ -26,8 +26,7 @@ import engine.entities.Enemy;
 import engine.entities.GameState;
 import engine.entities.Player;
 import engine.map.TileMap;
-import engine.map.TileMapLoader;
-import engine.utils.Direction;
+import engine.map.TileMapLoader; 
 import engine.utils.Vector2D;
 import old.Constantes;
 

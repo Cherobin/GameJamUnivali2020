@@ -6,7 +6,6 @@ import engine.base.entities.AbstractComponent;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
-import engine.utils.Direction;
 import engine.utils.Vector2D;
  
 

@@ -5,15 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-import org.mapeditor.core.Map;
-
-import com.sun.javafx.geom.Vec2d;
-
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.map.TileMap;
 import engine.map.behavior.TileMapCollisionBehavior;
-import engine.utils.Direction;
 import engine.utils.Vector2D;
 import old.Constantes;
 
