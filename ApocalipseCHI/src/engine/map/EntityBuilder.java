@@ -8,5 +8,5 @@ import engine.ia.states.GameState;
 
 public interface EntityBuilder {
 
-	public GameObject build(GameState gs,TileMap tilemap, Map map, MapObject o);
+	public GameObject build(GameState gs, TileMap tilemap, Map map, MapObject o);
 }

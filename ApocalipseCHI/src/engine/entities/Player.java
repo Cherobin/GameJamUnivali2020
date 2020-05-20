@@ -20,10 +20,10 @@ import old.Constantes;
 public class Player extends GameEntity implements GameObject {
 
 	private int maxVel;
-	
+
 	BufferedImage myimage;
 	public Vector2D mousePosition;
-	
+
 	TileMap tilemap;
 
 	public Player(String name) {
@@ -33,8 +33,7 @@ public class Player extends GameEntity implements GameObject {
 	public Player(String name, Vector2D position, int width, int height, float rotation, TileMap tilemap) {
 		super(name, position, width, height, rotation);
 
-		maxVel = 100;
-		//direction = Direction.STOP;
+		maxVel = 100; 
 		color = Color.GREEN;
 		offset.x = 0;
 		offset.y = 0;
@@ -49,98 +48,55 @@ public class Player extends GameEntity implements GameObject {
 		this.tilemap = tilemap;
 		addComponent(new TileMapCollisionBehavior(tilemap, 1));
 	}
-	
+
 	@Override
-	public void render(Graphics2D dbg) {
-		// TODO Auto-generated method stub
-		//super.render(dbg);
-		
+	public void render(Graphics2D dbg) { 
 		AffineTransform t = dbg.getTransform();
-		
-		dbg.translate(position.x-tilemap.getTelaX(), position.y-tilemap.getTelaY());
+
+		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
 		dbg.rotate(rotation);
-		dbg.drawImage(myimage,-myimage.getWidth()/2, -myimage.getHeight()/2, null);
-		
+		dbg.drawImage(myimage, -myimage.getWidth() / 2, -myimage.getHeight() / 2, null);
+
 		dbg.setTransform(t);
 	}
 
 	@Override
 	public void update(float diffTime) {
 		super.update(diffTime);
-		
-		//TODO CEROBIN AMADOR
-		//oldPosition = position; 
-		
+
 		oldPosition.set(position);
-		 
+
 		setDirection();
-		
+
 		position.x += speed.x * diffTime / 1000f;
-		position.y += speed.y * diffTime / 1000f; 
-		
-		rotation = (float)Math.atan2((mousePosition.y+tilemap.getTelaY())-position.y, (mousePosition.x+tilemap.getTelaX())-position.x);
-		
-		//System.out.println(""+position.x+" "+position.y+" "+direction+" "+speed.x+" "+speed.y+" "+maxVel);
-		
-		tilemap.posicionaTela((int)(position.x-Constantes.telaW/2),(int)(position.y-Constantes.telaH/2));
-		
+		position.y += speed.y * diffTime / 1000f;
+
+		rotation = (float) Math.atan2((mousePosition.y + tilemap.getTelaY()) - position.y,
+				(mousePosition.x + tilemap.getTelaX()) - position.x);
+
+		// System.out.println(""+position.x+" "+position.y+" "+direction+" "+speed.x+"
+		// "+speed.y+" "+maxVel);
+
+		tilemap.posicionaTela((int) (position.x - Constantes.telaW / 2), (int) (position.y - Constantes.telaH / 2));
+
 	}
-	
- public void setDirection() {
-	 if(RIGHT) {
-		 speed.x = maxVel;
-	 }else if(LEFT) {
-		 speed.x = -maxVel;
-	 }else {
-		 speed.x = 0;
-	 }
-	 
-	 if(DOWN) {
-		 speed.y = maxVel;
-	 }else if(UP) {
-		 speed.y = -maxVel;
-	 }else {
-		 speed.y = 0;
-	 }
-		/*switch (direction) {
-		case DOWN:
+
+	public void setDirection() {
+		if (RIGHT) {
+			speed.x = maxVel;
+		} else if (LEFT) {
+			speed.x = -maxVel;
+		} else {
 			speed.x = 0;
+		}
+
+		if (DOWN) {
 			speed.y = maxVel;
-			break;
-		case UP:
-			speed.x = 0;
-			speed.y = maxVel * -1;
-			break;
-		case LEFT:
-			speed.x = maxVel * -1;
+		} else if (UP) {
+			speed.y = -maxVel;
+		} else {
 			speed.y = 0;
-			break;
-		case RIGHT:
-			speed.x = maxVel;
-			speed.y = 0;
-			break;
-		case DOWN_LEFT:
-			speed.x = maxVel * -1;
-			speed.y = maxVel;
-			break;
-		case DOWN_RIGHT:
-			speed.x = maxVel;
-			speed.y = maxVel;
-			break;
-		case STOP:
-			speed.x = speed.y = 0;
-			break;
-		case UP_RIGHT:
-			speed.x = maxVel;
-			speed.y = maxVel * -1;
-			break;
-		case UP_LEFT:
-			speed.x = maxVel * -1;
-			speed.y = maxVel * -1;
-			break;
-		default:
-			break;
-		}*/
+		}
 	}
- 
+
 }

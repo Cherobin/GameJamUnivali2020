@@ -22,6 +22,7 @@ import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.core.MyCanvas;
+import engine.entities.Enemy;
 import engine.entities.Player;
 import engine.ia.states.GameState;
 import engine.map.TileMap;
@@ -61,12 +62,16 @@ public class CanvasGame extends MyCanvas implements GameState {
 		map = tml.load(this, "res//maps//exemplo.tmx"); 
  
 		tileMap.setMap(map); 
-		// Attache target to enemy for EnemyBehavior component's sensors
-		player = new Player("Dennis", new Vector2D(24100, 24200),32,32,0,tileMap);//(Player) renderingStack.get("player");
-		//player = new Player("Dennis", new Vector2D(0,0),32,32,0,tileMap);
-	
+	 	
 		
-
+		player = new Player("Dennis", new Vector2D(24100, 24200),32,32,0,tileMap);//(Player) renderingStack.get("player");
+ 
+		Enemy teste = new Enemy("Enemy",new Vector2D(24100, 24200),32,32,0,tileMap);
+	 	teste.setTarget(player, 100f, 64, 256);
+ 
+		
+		addEntity(teste);
+		
 		addEntity(player);
 		
 		//TESTE INICIAL DE PLAY OGG
