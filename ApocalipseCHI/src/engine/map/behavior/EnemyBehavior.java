@@ -38,7 +38,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	public void update(GameObject e, float diffTime) {
 		super.update(e, diffTime);
 	
-		System.out.println(e.getName() + " " + state);
+		//System.out.println(e.getName() + " " + state);
 		
 		GameEntity ge = (GameEntity) e;
 		EnemyState state = evaluate(ge, target);

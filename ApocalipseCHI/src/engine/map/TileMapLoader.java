@@ -28,7 +28,7 @@ public class TileMapLoader {
  
 	public org.mapeditor.core.Map load(GameState gs, String path) {
 		TMXMapReader tmr = new TMXMapReader();
-		
+		System.out.println("asdas");
 		try {
 			String basepath = new File(".").getCanonicalPath();
 			FileInputStream fin = new FileInputStream(basepath+"//"+path);
