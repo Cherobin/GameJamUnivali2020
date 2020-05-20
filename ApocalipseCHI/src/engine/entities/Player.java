@@ -62,12 +62,13 @@ public class Player extends GameEntity implements GameObject {
 	public void update(float diffTime) {
 		super.update(diffTime);
 
+		if(inCollider) {
+			position.set(oldPosition);
+    	}
+		
 		oldPosition.set(position);
 
-		setDirection();
-
-		position.x += speed.x * diffTime / 1000f;
-		position.y += speed.y * diffTime / 1000f;
+		setDirection(); 
 
 		rotation = (float) Math.atan2((mousePosition.y + tilemap.getTelaY()) - position.y,
 				(mousePosition.x + tilemap.getTelaX()) - position.x);
@@ -80,6 +81,9 @@ public class Player extends GameEntity implements GameObject {
 		if (FIRE) {
 			fire();
 		}
+		
+		position.x += speed.x * diffTime / 1000f;
+		position.y += speed.y * diffTime / 1000f;
 	}
 
 	public void fire() {

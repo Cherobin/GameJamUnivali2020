@@ -19,7 +19,7 @@ public class GameEntity implements GameObject {
 	public Color color = Color.WHITE; 
 	public int priority = 1;
 	public boolean alive;
-	
+	public boolean inCollider;
 	public int layer = 1; 
 	public Map<String, Object> properties = new ConcurrentHashMap<String, Object>();
  
@@ -61,6 +61,7 @@ public class GameEntity implements GameObject {
 		this.height = height;
 		boundingBox = new BoundingBox(0, 0, width, height);
 		this.alive = true;
+		this.inCollider = false;
 		this.rotation = rotation;
 	}
 
@@ -96,7 +97,6 @@ public class GameEntity implements GameObject {
 	public void update(float dt) {
 		boundingBox.x = position.x;
 		boundingBox.y = position.y;
-
 	} 
 	
 	@Override

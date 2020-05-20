@@ -24,20 +24,17 @@ public class MoveElementBehavior extends AbstractComponent implements Component 
 	
 	public void update(GameObject e, float diffTime) {
 		GameEntity ge = (GameEntity) e;
-		 
- 
-		ge.oldPosition.set(ge.position);
-		
-		/*if (Math.abs(ge.speed.x) > maxSpeed) {
-			ge.speed.x = maxSpeed * Math.signum(ge.speed.x);
-		}
-		if (Math.abs(ge.speed.y) > maxSpeed) {
-			ge.speed.y = maxSpeed * Math.signum(ge.speed.x);
-		} */
+		  
+	
 		
 		ge.position.x +=  ge.speed.x * Math.cos(ge.rotation)  * diffTime / 1000f;
 		ge.position.y += ge.speed.y * Math.sin(ge.rotation) * diffTime / 1000f;
-
+		
+		 
+		
+		if(ge.inCollider) {
+			ge.position.set(ge.oldPosition);
+		}
 	}
 
  

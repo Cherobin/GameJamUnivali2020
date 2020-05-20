@@ -14,7 +14,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	public enum EnemyState {
 		STOP, DETECT, PURSUIT
 	}
-
+ 
 	GameEntity target;
 	float speed;
 	float sensorDistance;
@@ -27,6 +27,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 
 	public EnemyBehavior(GameEntity target, float speed, float sensorDistance, float viewDistance) {
 		super();
+		this.name = "enemy_behavior";
 		this.target = target;
 		this.speed = speed;
 		this.sensorDistance = sensorDistance;
@@ -37,30 +38,73 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	@Override
 	public void update(GameObject e, float diffTime) {
 		super.update(e, diffTime);
-	
-		//System.out.println(e.getName() + " " + state);
-		
+	 
 		GameEntity ge = (GameEntity) e;
+		 
+		if(ge.inCollider) {
+			ge.position.set(ge.oldPosition);
+    	}
+		
+		ge.oldPosition.set(ge.position);
+	
+		
 		EnemyState state = evaluate(ge, target);
+		
 		if (!previousState.equals(state)) {
 			switch (state) {
 			case DETECT:
-			    ge.speed.y = ge.speed.x = +speed/4;
+			    ge.speed.y = ge.speed.x = +speed;
+			    ge.FIRE = false;
 				color = Color.RED;
 				break;
-		 
 			case PURSUIT:
 				ge.speed.y = ge.speed.x = +speed;
 				color = Color.ORANGE;
+				ge.FIRE = true;
 				break;
 			case STOP:
 				ge.speed.y = ge.speed.x = 0.0f; 
 				color = Color.GREEN;
+				ge.FIRE = false;
 				break;
 			}
 			previousState = state;
 		}
+		 
+		ge.position.x += ge.speed.x * Math.cos(ge.rotation)  * diffTime / 1000f;
+		ge.position.y += ge.speed.y * Math.sin(ge.rotation) * diffTime / 1000f;
+		
 	}
+
+
+	private EnemyState evaluate(GameEntity ge, GameEntity target) {
+		float distanceToTarget = target.position.distance(ge.position);
+		
+		//System.out.println("state: " + state + " " + distanceToTarget + " sensor " +sensorDistance + " view " + viewDistance);
+	
+		switch (state) {
+		case STOP:
+			if (distanceToTarget < sensorDistance) {
+				state = EnemyState.DETECT; 
+			}
+			break;
+		case DETECT:
+			if (distanceToTarget <= viewDistance - 20) {
+				state = EnemyState.PURSUIT; 
+			} else if (distanceToTarget >= sensorDistance) {
+				state = EnemyState.STOP; 
+			}
+			break;
+		case PURSUIT:
+			if (distanceToTarget > sensorDistance || distanceToTarget >= viewDistance) {
+				state = EnemyState.STOP; 
+			}
+			break;
+		}
+
+		return state;
+	}
+	
 
 	@Override
 	public void render(GameObject e, Graphics2D dbg) {
@@ -71,30 +115,5 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 			ge.rotation = (float) Math.atan2(target.position.y - ge.position.y,
 					target.position.x - ge.position.x);
 		}
-	}
-
-	private EnemyState evaluate(GameEntity ge, GameEntity target) {
-		float distanceToTarget = target.position.distance(ge.position);
-		switch (state) {
-		case STOP:
-			if (distanceToTarget < sensorDistance) {
-				state = EnemyState.DETECT;
-				//TODO PLAY SOUND
-			}
-			break;
-		case DETECT:
-			if (distanceToTarget >= sensorDistance && distanceToTarget <= viewDistance) {
-				state = EnemyState.PURSUIT;
-			}
-			break;
-		case PURSUIT:
-		default:
-			if (distanceToTarget > viewDistance) {
-				state = EnemyState.STOP;
-			}
-			break;
-		}
-
-		return state;
 	}
 }

@@ -24,8 +24,7 @@ import engine.base.entities.GameObject;
 import engine.core.GamePanel;
 import engine.core.MyCanvas;
 import engine.entities.Enemy;
-import engine.entities.GameState;
-import engine.entities.Particle;
+import engine.entities.GameState; 
 import engine.entities.Player;
 import engine.map.TileMap;
 import engine.map.TileMapLoader; 
@@ -41,7 +40,8 @@ public class CanvasGame extends MyCanvas implements GameState {
 	private Player player = null;
 	private org.mapeditor.core.Map map = null;
 
- 
+	private int tamanhoSensor = 350;
+	
 	public Map<String, GameObject> renderingStack;
 	public static List<GameObject> sortedEntities;
 	
@@ -75,20 +75,18 @@ public class CanvasGame extends MyCanvas implements GameState {
 		player = new Player("Dennis", new Vector2D(24800, 24200),32,32,0,tileMap);//(Player) renderingStack.get("player");
 		//player = new Player("Dennis", new Vector2D(0,0),32,32,0,tileMap);
 	
- 
-		
 		addEntity(player);
 		   
 	 
 		Enemy enemy = new Enemy("Enemy",new Vector2D(24800, 24200),32,32,0,tileMap);
-		enemy.setTarget(player, 80f, 64, 256);
+		enemy.setTarget(player, enemy.speed.x/2, 300, 150);
  
 	 	addEntity(enemy);
 	 	
-		Enemy enemy2 = new Enemy("Enemy2",new Vector2D(24810, 24200),32,32,0,tileMap);
-		enemy2.setTarget(player, 20f, 64, 256);
+		//Enemy enemy2 = new Enemy("Enemy2",new Vector2D(24810, 24200),32,32,0,tileMap);
+		//enemy2.setTarget(player, enemy2.speed.x, tamanhoSensor*2, tamanhoSensor);
  
-	 	addEntity(enemy2);
+	 	//addEntity(enemy2);
 		
 	 	
 		//TESTE INICIAL DE PLAY OGG
@@ -124,6 +122,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 			entity.update(diffTime);
 			if (entity.getComponents() != null && entity.getComponents().size() > 0) {
 				for (Component c : entity.getComponents().values()) {
+					//System.out.println(entity.getName() + " - " + c.getName());
 					c.update(entity, diffTime);
 				}
 			}
@@ -181,13 +180,13 @@ public class CanvasGame extends MyCanvas implements GameState {
 		
 		
 		//Aqui Liga e Desliga A Luz
-		tileMap.pontosdeluz[0][0] = 1;
+		/*tileMap.pontosdeluz[0][0] = 1;
 		tileMap.pontosdeluz[0][1] = Constantes.telaW/2;
 		tileMap.pontosdeluz[0][2] = Constantes.telaH/2;
-		tileMap.pontosdeluz[0][4] = 150;
+		tileMap.pontosdeluz[0][4] = tamanhoSensor;
 		tileMap.renderLigth(dbg);
 		
-		
+		*/
 
 		dbg.setColor(Color.yellow);
 		//systemdata
