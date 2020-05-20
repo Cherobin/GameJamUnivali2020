@@ -9,7 +9,7 @@ import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.map.TileMap;
 import engine.map.behavior.EnemyBehavior;
-import engine.map.behavior.MoveBehavior;
+import engine.map.behavior.MoveElementBehavior;
 import engine.map.behavior.TileMapCollisionBehavior;
 import engine.utils.Vector2D;
 import old.Constantes;
@@ -55,7 +55,7 @@ public class Enemy extends GameEntity implements GameObject {
 
 	private void initializeComponents(TileMap tilemap) {
 		this.tilemap = tilemap;
-		addComponent(new MoveBehavior(speed));
+		addComponent(new MoveElementBehavior(speed));
 		addComponent(new TileMapCollisionBehavior(tilemap, 1));
 	}
 

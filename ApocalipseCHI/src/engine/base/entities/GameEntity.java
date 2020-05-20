@@ -36,12 +36,12 @@ public class GameEntity implements GameObject {
 
 	public Vector2D collisionBox = new Vector2D(width, height);
 	public CollisionType collitionType = CollisionType.BoundingBox;
-	//public Direction direction = null;
 	
 	public boolean RIGHT; 
 	public boolean LEFT;
 	public boolean UP;
 	public boolean DOWN;
+	public boolean FIRE;
 
 	public BoundingBox boundingBox = new BoundingBox(0.0f, 0.0f, 0.0f, 0.0f);
 
@@ -70,8 +70,7 @@ public class GameEntity implements GameObject {
 
 	public GameEntity(String name) {
 		super();
-		this.name = name; 
-		//this.direction = Direction.STOP;
+		this.name = name;  
 		RIGHT = false;
 		LEFT = false;
 		UP = false;
@@ -98,12 +97,12 @@ public class GameEntity implements GameObject {
 	
 	@Override
 	public void render(Graphics2D dbg) {
-		dbg.setColor(color);
-		int xx = (int) (position.x + offset.x);
-		int yy = (int) (position.y + offset.y);
-		dbg.fillRect(xx, yy, this.width, this.height);
-
+ 
 		if (debug && this.showData) {
+			dbg.setColor(color);
+			int xx = (int) (position.x + offset.x);
+			int yy = (int) (position.y + offset.y);
+			dbg.fillRect(xx, yy, this.width, this.height);
 			showMetaData(dbg, xx, yy);
 		}
 	}

@@ -20,6 +20,8 @@ public class GameEntityBuilder implements EntityBuilder {
 	public GameObject build(GameState gs, TileMap tilemap, Map map, MapObject o) {
 		GameObject go = null;
 		
+		//System.out.println("cherobin " + o.getType());
+		
 		switch (o.getType()) {
 		case "Enemy":
 			Vector2D position = new Vector2D((float) o.getX(), (float) o.getY());

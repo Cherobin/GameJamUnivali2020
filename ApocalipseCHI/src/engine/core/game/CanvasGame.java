@@ -24,6 +24,7 @@ import engine.base.entities.GameObject;
 import engine.core.MyCanvas;
 import engine.entities.Enemy;
 import engine.entities.GameState;
+import engine.entities.Particle;
 import engine.entities.Player;
 import engine.map.TileMap;
 import engine.map.TileMapLoader; 
@@ -31,7 +32,7 @@ import engine.utils.Vector2D;
 import old.Constantes;
 
 public class CanvasGame extends MyCanvas implements GameState {
-
+	
 	private GameEntityBuilder seb;
 	private TileMapLoader tml;
 
@@ -39,15 +40,16 @@ public class CanvasGame extends MyCanvas implements GameState {
 	private Player player = null;
 	private org.mapeditor.core.Map map = null;
 
-	public java.util.Map<String, GameObject> renderingStack;
+ 
+	public Map<String, GameObject> renderingStack;
 	public List<GameObject> sortedEntities;
 	
 	BufferedImage roofImage;
+	
 	int[] roofData;
 	
 
 	public CanvasGame() {
-		
 		roofImage = new BufferedImage(Constantes.telaW,Constantes.telaH,BufferedImage.TYPE_INT_ARGB);
 		roofData = ((DataBufferInt)roofImage.getRaster().getDataBuffer()).getData();
 		
@@ -86,7 +88,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		enemy2.setTarget(player, 20f, 64, 256);
  
 	 	addEntity(enemy2);
-	 	
+		
 	 	
 		//TESTE INICIAL DE PLAY OGG
 		OGG_Player musicplayer = new OGG_Player();
@@ -182,7 +184,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		this.sortedEntities = sortedEntities;
 	}
 
-	private void sortEntities() {
+	public void sortEntities() {
 
 		Collection<GameObject> ents = renderingStack.values();
 		sortedEntities.clear();
@@ -267,15 +269,15 @@ public class CanvasGame extends MyCanvas implements GameState {
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseReleased(MouseEvent arg0) { 
+		//fix estou sem mouse
+		player.FIRE = false;
 
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void mousePressed(MouseEvent arg0) { 
+		player.FIRE = true;
 	}
 
 	@Override

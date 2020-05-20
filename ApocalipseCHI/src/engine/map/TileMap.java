@@ -53,11 +53,6 @@ public class TileMap extends GameEntity implements GameObject {
 	public String getName() {
 		return name;
 	}
-
-	@Override
-	public void update(float diffTime) {
-
-	}
 	
 	public void posicionaTela(int x,int y) {
 		telaX = x;
@@ -253,15 +248,7 @@ public class TileMap extends GameEntity implements GameObject {
 	}
 	
 	public boolean colision(int x,int y) {
-		/*TileLayer tl = (TileLayer)map.getLayer(1); // Wall Layer
-		
-		Tile tile = tl.getTileAt((int) (x/ map.getTileWidth()),(int) (y / map.getTileHeight()));
-		
-		if(tile!=null) {
-			return true;
-		}
-		
-		return false;*/
+
 		int bx = x/1600;
 		int by = y/1600;
 		

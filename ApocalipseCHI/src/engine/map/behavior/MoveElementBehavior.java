@@ -9,7 +9,7 @@ import engine.base.entities.GameObject;
 import engine.utils.Vector2D;
  
 
-public class MoveBehavior extends AbstractComponent implements Component {
+public class MoveElementBehavior extends AbstractComponent implements Component {
  
 	  
 	public Vector2D accel = new Vector2D(0, 0);
@@ -17,7 +17,7 @@ public class MoveBehavior extends AbstractComponent implements Component {
  
 	public float maxSpeed = 100f;
 
-	public MoveBehavior(Vector2D accel) {
+	public MoveElementBehavior(Vector2D accel) {
 		this.name = "move_behavior";
 		this.accel = accel; 
 	}

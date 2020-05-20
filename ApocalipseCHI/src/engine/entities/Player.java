@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.core.game.CanvasGame;
 import engine.map.TileMap;
 import engine.map.behavior.TileMapCollisionBehavior;
 import engine.utils.Vector2D;
@@ -46,6 +47,8 @@ public class Player extends GameEntity implements GameObject {
 
 	@Override
 	public void render(Graphics2D dbg) { 
+		super.render(dbg);
+		
 		AffineTransform t = dbg.getTransform();
 
 		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
@@ -74,7 +77,20 @@ public class Player extends GameEntity implements GameObject {
 
 		tilemap.posicionaTela((int) (position.x - Constantes.telaW / 2), (int) (position.y - Constantes.telaH / 2));
 
+		if(FIRE) {
+			fire();
+		}
 	}
+ 
+	
+	public void fire() { 
+		Particle p = new Particle(position, new Vector2D(100,100), 10, Color.blue, 1000, tilemap);
+ 
+		// ver outra maneira
+		//CanvasGame.instance.addEntity(p);
+		
+	}
+	
 
 	public void setDirection() {
 		if (RIGHT) {

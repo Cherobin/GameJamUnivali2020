@@ -35,6 +35,7 @@ public class TileMapLoader {
 			System.out.println(""+fin.available());
 			map = tmr.readMap(basepath+"//"+path);
 			for (MapLayer ml : map.getLayers()) {
+				//System.out.println("cherobin "+ ml.getName());
 				if (ml instanceof ObjectGroup) {
 					switch (ml.getName()) {
 					case "actors":
