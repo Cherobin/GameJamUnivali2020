@@ -59,20 +59,8 @@ public class CanvasGame extends MyCanvas implements GameState {
 		seb = new GameEntityBuilder();
 		tml = new TileMapLoader(seb);
 	  
-<<<<<<< HEAD
-		map = tml.load(this, "res//maps//exemplo.tmx"); 
  
-		tileMap.setMap(map); 
-	 	
-		
-		player = new Player("Dennis", new Vector2D(24100, 24200),32,32,0,tileMap);//(Player) renderingStack.get("player");
  
-		Enemy teste = new Enemy("Enemy",new Vector2D(24100, 24200),32,32,0,tileMap);
-	 	teste.setTarget(player, 100f, 64, 256);
- 
-		
-		addEntity(teste);
-=======
 		map = tml.load(this, "res//maps//residencial01.tmx"); 
 		tileMap.addMap(map);
 		map = tml.load(this, "res//maps//industrial01.tmx"); 
@@ -85,10 +73,16 @@ public class CanvasGame extends MyCanvas implements GameState {
 		player = new Player("Dennis", new Vector2D(24800, 24200),32,32,0,tileMap);//(Player) renderingStack.get("player");
 		//player = new Player("Dennis", new Vector2D(0,0),32,32,0,tileMap);
 	
->>>>>>> 43dff3048134e853a240709ee44ddb6093983406
+ 
 		
 		addEntity(player);
-		
+		   
+	 
+		Enemy enemy = new Enemy("Enemy",new Vector2D(24800, 24200),32,32,0,tileMap);
+		enemy.setTarget(player, 80f, 64, 256);
+ 
+	 	addEntity(enemy);
+	 	
 		//TESTE INICIAL DE PLAY OGG
 		OGG_Player musicplayer = new OGG_Player();
 		File ogg = new File("musica2_low.ogg");
