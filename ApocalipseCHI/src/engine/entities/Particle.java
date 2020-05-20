@@ -4,14 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
-import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
-
 import engine.base.entities.GameEntity;
 import engine.map.TileMap;
 import engine.map.behavior.MoveElementBehavior;
 import engine.map.behavior.TileMapCollisionBehavior;
 import engine.utils.Vector2D;
-import old.Constantes;
 
 public class Particle extends GameEntity {
  
@@ -22,7 +19,7 @@ public class Particle extends GameEntity {
 	TileMap tilemap;
 	
 	public Particle(String name, Vector2D pos, Vector2D velocity, float rotation, float radius, Color color, float expireTime, TileMap tilemap) {
-		super(name); //create a unic id
+		super(name);
 		this.position = pos;
 		this.speed = velocity;
 		this.radius = radius;
@@ -42,8 +39,7 @@ public class Particle extends GameEntity {
 
 	@Override
 	public void render(Graphics2D dbg) {
-		//super.render(dbg);
-		
+		dbg.setColor(color);
 		AffineTransform t = dbg.getTransform();
 		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
 		dbg.rotate(rotation);
@@ -54,12 +50,10 @@ public class Particle extends GameEntity {
 	@Override
 	public void update(float diffTime) {
 		super.update(diffTime);
-		 
-		expireTime -= diffTime/1000f;
+		expireTime -= diffTime/1000f; 
 	}
 	
 	private void initializeComponents(TileMap tilemap) {
-		this.tilemap = tilemap; 
 		addComponent(new MoveElementBehavior(speed));
 		addComponent(new TileMapCollisionBehavior(tilemap, 1));
 	}
