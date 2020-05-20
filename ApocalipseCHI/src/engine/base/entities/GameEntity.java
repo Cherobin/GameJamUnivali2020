@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import engine.map.behavior.EnemyBehavior.EnemyState;
 import engine.utils.BoundingBox;
 import engine.utils.CollisionType;
 import engine.utils.Direction;
@@ -26,10 +27,10 @@ public class GameEntity implements GameObject {
  
 	public Vector2D position = new Vector2D(0, 0); 
 	public Vector2D offset = new Vector2D(0, 0); 
-	public Vector2D speed = new Vector2D(0, 0); 
-	public Vector2D accel = new Vector2D(0, 0); 
+	public Vector2D speed = new Vector2D(0, 0);  
 	public Vector2D oldPosition = new Vector2D(0, 0); 
 	
+	EnemyState state;
 	public int width = 0, height = 0; 
 	public float rotation; 
 	public float maxSpeed = 2.3f;
@@ -63,10 +64,9 @@ public class GameEntity implements GameObject {
 		this.rotation = rotation;
 	}
 
-	public GameEntity(String name, Vector2D pos, int w, int h, int r, Vector2D s, Vector2D a) {
+	public GameEntity(String name, Vector2D pos, int w, int h, int r, Vector2D s) {
 		this(name, pos, w, h, 0.0f);
-		this.speed = s;
-		this.accel = a;
+		this.speed = s; 
 	}
 
 	public GameEntity(String name) {
@@ -127,8 +127,6 @@ public class GameEntity implements GameObject {
 		g.drawLine((int) (xx - offset.x), (int) (yy - offset.y), (int) (xx - offset.x + (speed.x * 100)),
 				(int) (yy - offset.y + (speed.y * 100)));
 		g.setColor(Color.GREEN);
-		g.drawLine((int) (xx - offset.x), (int) (yy - offset.y), (int) (xx - offset.x + (accel.x * 2000)),
-				(int) (yy - offset.y + (accel.y * 2000)));
 		g.setStroke(strk);
 		g.setColor(Color.YELLOW);
 		g.drawString(String.format("entity(%s)", name), position.x + 20, position.y - (4 * fh));
@@ -143,8 +141,6 @@ public class GameEntity implements GameObject {
 				position.y - (2 * fh));
 		g.drawString(String.format("S(%.01f,%.01f) x1000", speed.x * 1000, speed.y * 1000), position.x + 20,
 				position.y - fh);
-		g.drawString(String.format("A(%.01f,%.01f) x1000", accel.x * 1000, accel.y * 1000), position.x + 20,
-				position.y);
 		g.drawString(String.format("R(%.02f)", rotation), position.x + 20, position.y + fh);
 	}
  
@@ -196,7 +192,7 @@ public class GameEntity implements GameObject {
 				.append(", showData=").append(showData).append(", properties=").append(properties)
 				.append(", components=").append(components).append(", position=").append(position).append(", offset=")
 				.append(offset).append(", speed=").append(speed).append(", maxSpeed=").append(maxSpeed)
-				.append(", accel=").append(accel).append(", boundingBox=").append(boundingBox).append(", collisionBox=")
+				.append(", boundingBox=").append(boundingBox).append(", collisionBox=")
 				.append(collisionBox).append(", collitionType=").append(collitionType).append(", direction=")
 				.append(RIGHT).append("]"); // TODO DEPOIS TEM QUE ACERTAR
 		return builder.toString();

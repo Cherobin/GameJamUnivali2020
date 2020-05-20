@@ -83,6 +83,12 @@ public class CanvasGame extends MyCanvas implements GameState {
  
 	 	addEntity(enemy);
 	 	
+		Enemy enemy2 = new Enemy("Enemy2",new Vector2D(24810, 24200),32,32,0,tileMap);
+		enemy2.setTarget(player, 20f, 64, 256);
+ 
+	 	addEntity(enemy2);
+	 	
+	 	
 		//TESTE INICIAL DE PLAY OGG
 		OGG_Player musicplayer = new OGG_Player();
 		File ogg = new File("musica2_low.ogg");

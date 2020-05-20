@@ -3,8 +3,6 @@ package engine.map.behavior;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
 import engine.base.entities.AbstractComponent;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
@@ -13,7 +11,7 @@ import engine.base.entities.GameObject;
 
 public class EnemyBehavior extends AbstractComponent implements Component {
 
-	enum EnemyState {
+	public enum EnemyState {
 		STOP, DETECT, PURSUIT
 	}
 
@@ -40,31 +38,23 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	public void update(GameObject e, float diffTime) {
 		super.update(e, diffTime);
 	
-		//System.out.println(e.getName() + " " + state);
+		System.out.println(e.getName() + " " + state);
 		
 		GameEntity ge = (GameEntity) e;
 		EnemyState state = evaluate(ge, target);
 		if (!previousState.equals(state)) {
 			switch (state) {
 			case DETECT:
-				if (ge.position.x - 20 < target.position.x) {
-					ge.accel.x = +speed;
-				} else if (ge.position.x + 20 > target.position.x) {
-					ge.accel.x = -speed;
-				} 
+			    ge.speed.y = ge.speed.x = +speed/4;
 				color = Color.RED;
 				break;
 		 
 			case PURSUIT:
-				if (ge.position.x - 20 < target.position.x) {
-					ge.accel.x = +speed;
-				} else if (ge.position.x + 20 > target.position.x) {
-					ge.accel.x = -speed;
-				} 
+				ge.speed.y = ge.speed.x = +speed;
 				color = Color.ORANGE;
 				break;
 			case STOP:
-				ge.accel.x = 0.0f; 
+				ge.speed.y = ge.speed.x = 0.0f; 
 				color = Color.GREEN;
 				break;
 			}
@@ -75,26 +65,12 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	@Override
 	public void render(GameObject e, Graphics2D dbg) {
 		super.render(e, dbg);
- 
-		 
-			// rendering of some visual debug information when debug mode is on.
-			GameEntity ge = (GameEntity) e;
-			 
-			
-			// SensorDistance
-			dbg.setColor(color);
-			dbg.drawArc((int) (ge.position.x - sensorDistance), (int) (ge.position.y - sensorDistance),
-					(int) sensorDistance * 2, (int) sensorDistance * 2, 0, 360);
-			dbg.drawString("sensor:" + (sensorFlag ? "on" : "off"), (int) (ge.position.x - sensorDistance),
-					ge.position.y);
-			// ViewDistance
-			dbg.setColor(Color.GREEN);
-			dbg.drawArc((int) (ge.position.x - viewDistance), (int) (ge.position.y - viewDistance),
-					(int) viewDistance * 2, (int) viewDistance * 2, 0, 360);
-			dbg.drawString("view:" + (viewFlag ? "on" : "off"), (int) (ge.position.x - viewDistance), ge.position.y);
-			dbg.setColor(Color.WHITE);
-		 
-	 
+		
+		GameEntity ge = (GameEntity) e;
+		if(state == EnemyState.DETECT || state == EnemyState.PURSUIT) {
+			ge.rotation = (float) Math.atan2(target.position.y - ge.position.y,
+					target.position.x - ge.position.x);
+		}
 	}
 
 	private EnemyState evaluate(GameEntity ge, GameEntity target) {
