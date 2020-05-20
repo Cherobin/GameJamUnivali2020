@@ -1,19 +1,19 @@
 package engine.entities;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+
+import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 
 import engine.base.entities.GameEntity;
 import engine.map.TileMap;
 import engine.map.behavior.MoveElementBehavior;
 import engine.map.behavior.TileMapCollisionBehavior;
 import engine.utils.Vector2D;
+import old.Constantes;
 
 public class Particle extends GameEntity {
-
  
 	public float radius; 
 	public Color color; 
@@ -21,8 +21,8 @@ public class Particle extends GameEntity {
 	public float decay; 
 	TileMap tilemap;
 	
-	public Particle(Vector2D pos, Vector2D velocity, float radius, Color color, float expireTime, TileMap tilemap) {
-		super("particle");
+	public Particle(String name, Vector2D pos, Vector2D velocity, float rotation, float radius, Color color, float expireTime, TileMap tilemap) {
+		super(name); //create a unic id
 		this.position = pos;
 		this.speed = velocity;
 		this.radius = radius;
@@ -30,11 +30,14 @@ public class Particle extends GameEntity {
 		this.color = color;
 		this.expireTime = expireTime; 
 		this.tilemap = tilemap;
+		this.rotation = rotation;
+		offset = new Vector2D(2, 2);
 		initializeComponents(tilemap);
 	}
  
-	public boolean isAlive() {
-		return expireTime > 0;
+	@Override
+	public boolean isAlive() { 
+		return expireTime > 0 && alive ;
 	}
 
 	@Override
@@ -42,16 +45,9 @@ public class Particle extends GameEntity {
 		//super.render(dbg);
 		
 		AffineTransform t = dbg.getTransform();
-
 		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
 		dbg.rotate(rotation);
-		
-		dbg.setComposite(AlphaComposite.SrcIn.derive(0.5f));
-		GradientPaint paint = new GradientPaint(23,23, Color.RED,25, 24, Color.BLUE);
-		dbg.setPaint(paint);
-		dbg.fillOval((int) (+offset.x), (int) (+offset.y), (int) this.radius, (int) this.radius);
-		dbg.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC));
-		
+		dbg.fillOval((int) (+offset.x/2), (int) (+offset.y/2), (int) this.radius, (int) this.radius);
 		dbg.setTransform(t); 
 	}
 
@@ -59,9 +55,7 @@ public class Particle extends GameEntity {
 	public void update(float diffTime) {
 		super.update(diffTime);
 		 
-		 
 		expireTime -= diffTime/1000f;
-		System.out.println(expireTime);
 	}
 	
 	private void initializeComponents(TileMap tilemap) {

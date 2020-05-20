@@ -22,5 +22,5 @@ public interface GameObject extends Comparable<GameObject> {
  
 	Map<String, Object> getProperties();
 	
-
+	boolean isAlive();
 }

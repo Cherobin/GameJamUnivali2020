@@ -4,6 +4,7 @@ import engine.base.entities.AbstractComponent;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.entities.Particle;
 import engine.map.TileMap;
 
 public class TileMapCollisionBehavior extends AbstractComponent implements Component {
@@ -32,6 +33,14 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 			if (colisionCenter) {
 				ge.position.set(ge.oldPosition);
 				ge.speed.x = ge.speed.y = 0;
+				
+				switch (ge.getName()) {
+				case "fire":
+					ge.alive = false;
+					break;
+				default:
+					break;
+				} 
 			}
 
 		}

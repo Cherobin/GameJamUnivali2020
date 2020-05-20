@@ -29,7 +29,7 @@ public class Player extends GameEntity implements GameObject {
 	public Player(String name, Vector2D position, int width, int height, float rotation, TileMap tilemap) {
 		super(name, position, width, height, rotation);
 
-		maxVel = 100; 
+		maxVel = 100;
 		color = Color.GREEN;
 		offset.x = 0;
 		offset.y = 0;
@@ -46,9 +46,9 @@ public class Player extends GameEntity implements GameObject {
 	}
 
 	@Override
-	public void render(Graphics2D dbg) { 
+	public void render(Graphics2D dbg) {
 		super.render(dbg);
-		
+
 		AffineTransform t = dbg.getTransform();
 
 		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
@@ -77,20 +77,19 @@ public class Player extends GameEntity implements GameObject {
 
 		tilemap.posicionaTela((int) (position.x - Constantes.telaW / 2), (int) (position.y - Constantes.telaH / 2));
 
-		if(FIRE) {
+		if (FIRE) {
 			fire();
 		}
 	}
- 
-	
-	public void fire() { 
-		Particle p = new Particle(position, new Vector2D(100,100), 10, Color.blue, 1000, tilemap);
- 
+
+	public void fire() {
+		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(100, 100), rotation, 10,
+				Color.blue, 1000, tilemap);
+	 
 		// ver outra maneira
-		//CanvasGame.instance.addEntity(p);
-		
+		CanvasGame.sortedEntities.add(p);
+
 	}
-	
 
 	public void setDirection() {
 		if (RIGHT) {

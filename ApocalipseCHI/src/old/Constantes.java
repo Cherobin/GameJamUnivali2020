@@ -2,6 +2,7 @@ package old;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import engine.core.GamePanel;
 
@@ -15,6 +16,8 @@ public class Constantes {
 	
 	public static BufferedImage personagem1;
 	
+	public static Random rnd = new Random();
+	 
 	static {
 		font = new Font(null,Font.PLAIN,14);
 	}

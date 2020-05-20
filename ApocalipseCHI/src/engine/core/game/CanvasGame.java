@@ -43,7 +43,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 
  
 	public Map<String, GameObject> renderingStack;
-	public List<GameObject> sortedEntities;
+	public static List<GameObject> sortedEntities;
 	
 	BufferedImage roofImage;
 	
@@ -113,9 +113,14 @@ public class CanvasGame extends MyCanvas implements GameState {
 		// update map
 		if (tileMap != null)
 			tileMap.update(diffTime);
-
-		// update entities.
-		for (GameObject entity : sortedEntities) {
+		
+		for (int i = 0; i < sortedEntities.size(); i++) {
+			GameObject entity = sortedEntities.get(i);
+			if(!entity.isAlive()) {
+				sortedEntities.remove(i);
+				i--;
+				continue;
+			}
 			entity.update(diffTime);
 			if (entity.getComponents() != null && entity.getComponents().size() > 0) {
 				for (Component c : entity.getComponents().values()) {
@@ -135,8 +140,8 @@ public class CanvasGame extends MyCanvas implements GameState {
 		if (tileMap != null)
 			tileMap.render(dbg);
 
-		// draw entities.
-		for (GameObject entity : sortedEntities) {
+		for (int i = 0; i < sortedEntities.size(); i++) {
+			GameObject entity = sortedEntities.get(i);
 			if (entity.getComponents() != null && entity.getComponents().size() > 0) {
 				for (Component c : entity.getComponents().values()) {
 					c.render(entity, dbg);
@@ -144,6 +149,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 			}
 			entity.render(dbg);
 		}
+		
 		
 		// draw map
 		//System.out.println("underroof "+tileMap.isUnderRoof((int)player.position.x,(int)player.position.y));

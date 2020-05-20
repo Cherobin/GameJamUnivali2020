@@ -18,7 +18,8 @@ public class GameEntity implements GameObject {
 	public String name = ""; 
 	public Color color = Color.WHITE; 
 	public int priority = 1;
-  
+	public boolean alive;
+	
 	public int layer = 1; 
 	public Map<String, Object> properties = new ConcurrentHashMap<String, Object>();
  
@@ -59,13 +60,14 @@ public class GameEntity implements GameObject {
 		this.width = width;
 		this.height = height;
 		boundingBox = new BoundingBox(0, 0, width, height);
-
+		this.alive = true;
 		this.rotation = rotation;
 	}
 
 	public GameEntity(String name, Vector2D pos, int w, int h, int r, Vector2D s) {
 		this(name, pos, w, h, 0.0f);
 		this.speed = s; 
+		this.alive = true;
 	}
 
 	public GameEntity(String name) {
@@ -75,6 +77,8 @@ public class GameEntity implements GameObject {
 		LEFT = false;
 		UP = false;
 		DOWN = false;
+		alive = true;
+		this.alive = true;
 	}
 
 	public GameEntity( String name, Component... components) {
@@ -194,5 +198,10 @@ public class GameEntity implements GameObject {
 				.append(collisionBox).append(", collitionType=").append(collitionType).append(", direction=")
 				.append(RIGHT).append("]"); // TODO DEPOIS TEM QUE ACERTAR
 		return builder.toString();
+	}
+
+	@Override
+	public boolean isAlive() {
+		return alive;	
 	}
 }
