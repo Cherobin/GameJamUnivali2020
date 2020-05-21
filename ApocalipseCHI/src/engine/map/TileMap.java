@@ -54,7 +54,7 @@ public class TileMap extends GameEntity implements GameObject {
 		priority = 0;
 		listaDeMapBlocks = new ArrayList<Map>();
 		luz = new int[Constantes.telaH/8][Constantes.telaW/8];
-		pontosdeluz = new int[32][5];
+		pontosdeluz = new int[32][6];
 		shadowImage = new BufferedImage(Constantes.telaW,Constantes.telaH,BufferedImage.TYPE_INT_ARGB);
 		sahdowData = ((DataBufferInt)shadowImage.getRaster().getDataBuffer()).getData();
 	}
@@ -292,13 +292,31 @@ public class TileMap extends GameEntity implements GameObject {
 				luz[i][j] = 0;
 				for(int l = 0; l < pontosdeluz.length;l++) {
 					if(pontosdeluz[l][0] == 1) {
-						int dx = (j<<3)-pontosdeluz[l][1];
-						int dy = (i<<3)-pontosdeluz[l][2];
-						int dist = dx*dx+dy*dy;
-						if(dist < pontosdeluz[l][4]*pontosdeluz[l][4])  {
-							if(!raycolision(pontosdeluz[l][1]+telaX,pontosdeluz[l][2]+telaY,(j<<3)+telaX+4,(i<<3)+telaY+4)) {
-								luz[i][j]+=100;
+						if(pontosdeluz[l][3]==0) {
+							int dx = (j<<3)-pontosdeluz[l][1];
+							int dy = (i<<3)-pontosdeluz[l][2];
+							int dist = dx*dx+dy*dy;
+							if(dist < pontosdeluz[l][4]*pontosdeluz[l][4])  {
+								if(!raycolision(pontosdeluz[l][1]+telaX,pontosdeluz[l][2]+telaY,(j<<3)+telaX+4,(i<<3)+telaY+4)) {
+									luz[i][j]+=100;
+								}
 							}
+						}else if(pontosdeluz[l][3]==1) {
+							int dx = (j<<3)-pontosdeluz[l][1];
+							int dy = (i<<3)-pontosdeluz[l][2];
+							int dist = dx*dx+dy*dy;
+							
+							double ang = Math.atan2(dy,dx);
+							int distang = angularDistance((int)Math.toDegrees(ang),pontosdeluz[l][5]);
+							
+							if(distang<30) {
+								if(dist < pontosdeluz[l][4]*pontosdeluz[l][4])  {
+									if(!raycolision(pontosdeluz[l][1]+telaX,pontosdeluz[l][2]+telaY,(j<<3)+telaX+4,(i<<3)+telaY+4)) {
+										luz[i][j]+=100;
+									}
+								}
+							}
+							
 						}
 					}
 				}
@@ -326,7 +344,7 @@ public class TileMap extends GameEntity implements GameObject {
 						}
 					}
 				}
-				luz[i][j] = (int)(soma/quant);
+				luz[i][j] = Math.min(100,(int)(soma/quant));
 			}
 		}
 		
@@ -424,4 +442,9 @@ public class TileMap extends GameEntity implements GameObject {
 		return false;
 	}
 
+    public static int angularDistance(int alpha, int beta) {
+        int phi = Math.abs(beta - alpha) % 360;       // This is either the distance or 360 - distance
+        int distance = phi > 180 ? 360 - phi : phi;
+        return distance;
+    }
 }

@@ -236,7 +236,22 @@ public class CanvasGame extends MyCanvas implements GameState {
 				tileMap.pontosdeluz[0][0] = 1;
 				tileMap.pontosdeluz[0][1] = Constantes.telaW/2;
 				tileMap.pontosdeluz[0][2] = Constantes.telaH/2;
+				tileMap.pontosdeluz[0][3] = 1;
 				tileMap.pontosdeluz[0][4] = tmanhoDaluz;
+				tileMap.pontosdeluz[0][5] = (int)(player.rotation*57.29577);
+				
+				for (int i = 0; i < sortedEntities.size(); i++) {
+					GameObject entity = sortedEntities.get(i);
+					if(entity.getClass()==Enemy.class) {
+						tileMap.pontosdeluz[i+1][0] = 1;
+						tileMap.pontosdeluz[i+1][1] = (int)(((Enemy)entity).position.x-tileMap.getTelaX());
+						tileMap.pontosdeluz[i+1][2] = (int)(((Enemy)entity).position.y-tileMap.getTelaY());
+						tileMap.pontosdeluz[i+1][3] = 1;
+						tileMap.pontosdeluz[i+1][4] = tmanhoDaluz/2;
+						tileMap.pontosdeluz[i+1][5] = (int)(((Enemy)entity).rotation*57.29577);
+					}
+				}
+				
 				tileMap.prepareLights();
 				//tileMap.prepareLightsMultthread();
 			}
