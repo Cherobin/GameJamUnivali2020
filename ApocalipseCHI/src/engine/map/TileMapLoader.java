@@ -8,8 +8,7 @@ import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.io.TMXMapReader;
 
 import engine.base.entities.GameObject;
-import engine.base.entities.GameState;
-import engine.core.game.CanvasGame;
+import engine.base.entities.GameState; 
 import engine.core.game.GameEntityBuilder;
 
 
@@ -58,7 +57,7 @@ public class TileMapLoader {
 		((ObjectGroup) ml).getObjects().forEach(o -> { 
 			GameObject go = this.builder.build(gs, map , o);
 			if (go != null) { 
-				CanvasGame.addEntity(go); 
+				gs.getEntities().put(go.getName(), go);
 			} 		 
 		});
 	}

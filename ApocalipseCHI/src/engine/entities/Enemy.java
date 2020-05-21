@@ -71,7 +71,7 @@ public class Enemy extends GameEntity implements GameObject {
 		Particle p = new Particle("fire", new Vector2D(position.x, position.y),new Vector2D(200, 200), new Vector2D(-width, 0), rotation, 4,
 				Color.black, 1000, tilemap);
 		// ver outra maneira
-		CanvasGame.sortedEntities.add(p);
+		//CanvasGame.sortedEntities.add(p);
 
 	}
 	private void initializeComponents(TileMap tilemap) {

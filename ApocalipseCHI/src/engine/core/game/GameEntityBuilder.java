@@ -24,7 +24,6 @@ public class GameEntityBuilder implements EntityBuilder {
 		case "Enemy": 
 			Vector2D position = new Vector2D((float) o.getX(), (float) o.getY());
 		 	Enemy e = new Enemy(o.getName(), position, o.getWidth().intValue(), o.getHeight().intValue(), 0.0f);
-			e.setTarget(CanvasGame.player, 80, 300, 150, CanvasGame.tileMap);
 		 	go = e; 
 			break;
 		case "Player":
