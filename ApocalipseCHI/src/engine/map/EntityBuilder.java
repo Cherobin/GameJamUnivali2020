@@ -4,7 +4,7 @@ import org.mapeditor.core.Map;
 import org.mapeditor.core.MapObject;
 
 import engine.base.entities.GameObject;
-import engine.entities.GameState;
+import engine.base.entities.GameState;
 
 public interface EntityBuilder {
 

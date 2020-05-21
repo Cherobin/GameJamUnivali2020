@@ -8,9 +8,9 @@ import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.io.TMXMapReader;
 
 import engine.base.entities.GameObject;
+import engine.base.entities.GameState;
 import engine.core.game.CanvasGame;
 import engine.core.game.GameEntityBuilder;
-import engine.entities.GameState;
 
 
  

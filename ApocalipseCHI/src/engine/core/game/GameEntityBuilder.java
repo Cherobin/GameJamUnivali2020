@@ -5,8 +5,8 @@ import org.mapeditor.core.Map;
 import org.mapeditor.core.MapObject;
 
 import engine.base.entities.GameObject;
+import engine.base.entities.GameState;
 import engine.entities.Enemy;
-import engine.entities.GameState;
 import engine.entities.Player;
 import engine.map.EntityBuilder;
 import engine.map.TileMap;
