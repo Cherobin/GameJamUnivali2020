@@ -41,6 +41,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 	private org.mapeditor.core.Map map = null;
 
 	private int tamanhoSensor = 350;
+	private int tmanhoDaluz = 250;
 	
 	public Map<String, GameObject> renderingStack;
 	public static List<GameObject> sortedEntities;
@@ -159,7 +160,8 @@ public class CanvasGame extends MyCanvas implements GameState {
 		
 		// draw map
 		//System.out.println("underroof "+tileMap.isUnderRoof((int)player.position.x,(int)player.position.y));
-		if (tileMap != null && !tileMap.isUnderRoof((int)player.position.x,(int)player.position.y)) {
+		
+		/*if (tileMap != null && !tileMap.isUnderRoof((int)player.position.x,(int)player.position.y)) {
 			tileMap.renderRoof(dbg);
 		}else {
 			for(int i = 0; i < roofData.length;i++) {
@@ -183,16 +185,67 @@ public class CanvasGame extends MyCanvas implements GameState {
 				}
 			}
 			dbg.drawImage(roofImage, 0, 0, null);
+		}*/
+		
+		Thread t[] = new Thread[2];
+		
+		t[0] = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				for(int i = 0; i < roofData.length;i++) {
+					roofData[i] = 0;
+				}
+				Graphics2D graproof = (Graphics2D)roofImage.getGraphics();
+				graproof.clip(new Rectangle(0,0,Constantes.telaW,Constantes.telaH));
+				//System.out.println(" "+graproof.getClip());
+				tileMap.renderRoof(graproof);
+				if(tileMap.isUnderRoof((int)player.position.x,(int)player.position.y)) {
+					int cx = Constantes.telaW/2;
+					int cy = Constantes.telaH/2;
+					int distmax = tmanhoDaluz*tmanhoDaluz;
+					for(int i = 0; i < Constantes.telaH;i++) {
+						for(int j = 0; j < Constantes.telaW;j++) {
+							int dx = j - cx;
+							int dy = i - cy;
+							int dist = dx*dx+dy*dy;
+							if(dist<distmax) {
+								roofData[i*Constantes.telaW+j] = 0;
+							}
+						}
+					}
+				}
+			}
+		});
+		
+		t[1] = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				tileMap.pontosdeluz[0][0] = 1;
+				tileMap.pontosdeluz[0][1] = Constantes.telaW/2;
+				tileMap.pontosdeluz[0][2] = Constantes.telaH/2;
+				tileMap.pontosdeluz[0][4] = tmanhoDaluz;
+				tileMap.prepareLights();
+				//tileMap.prepareLightsMultthread();
+			}
+		});		
+		
+		
+		t[0].start();
+		t[1].start();
+		try {
+			t[0].join();
+			t[1].join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		/*
-		//Aqui Liga e Desliga A Luz
-		tileMap.pontosdeluz[0][0] = 1;
-		tileMap.pontosdeluz[0][1] = Constantes.telaW/2;
-		tileMap.pontosdeluz[0][2] = Constantes.telaH/2;
-		tileMap.pontosdeluz[0][4] = tamanhoSensor;
+		
+		dbg.drawImage(roofImage, 0, 0, null);
 		tileMap.renderLigth(dbg);
-		*/
+		
 		 
 
 		dbg.setColor(Color.yellow);

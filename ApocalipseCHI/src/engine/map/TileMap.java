@@ -272,7 +272,7 @@ public class TileMap extends GameEntity implements GameObject {
 			TileLayer tl = (TileLayer)mapselected.getLayer(1); // RoofLayer
 			
 			//Tile tile = tl.getTileAt((int) ((x-bx*1600)/ mapselected.getTileWidth()),(int) ((y-by*1600) / mapselected.getTileHeight()));
-			Tile tile = tl.getTileAt(tlx,tly);
+			Tile tile = tl.getTileAtFast(tlx,tly);
 			
 			if(tile!=null) {
 				return true;
@@ -285,32 +285,61 @@ public class TileMap extends GameEntity implements GameObject {
 	}
 	
 	Color cdark = new Color(0,0,0,0.9f);
-	
-	public void renderLigth(Graphics2D g2d) {
+	public void prepareLights() {
 		for(int i = 0; i < sahdowData.length;i++) {
-			sahdowData[i] = 0xe0000000;
+			sahdowData[i] = 0xd0000000;
 		}
-		
 		for(int i = 0; i < luz.length;i++) {
 			for(int j = 0; j < luz[i].length;j++) {
 				luz[i][j] = 0;
 				for(int l = 0; l < pontosdeluz.length;l++) {
 					if(pontosdeluz[l][0] == 1) {
-						int dx = (j*8)-pontosdeluz[l][1];
-						int dy = (i*8)-pontosdeluz[l][2];
+						int dx = (j<<3)-pontosdeluz[l][1];
+						int dy = (i<<3)-pontosdeluz[l][2];
 						int dist = dx*dx+dy*dy;
 						if(dist < pontosdeluz[l][4]*pontosdeluz[l][4])  {
-							if(!raycolision(pontosdeluz[l][1]+telaX,pontosdeluz[l][2]+telaY,j*8+telaX+4,i*8+telaY+4)) {
+							if(!raycolision(pontosdeluz[l][1]+telaX,pontosdeluz[l][2]+telaY,(j<<3)+telaX+4,(i<<3)+telaY+4)) {
 								luz[i][j]+=100;
 							}
 						}
 					}
 				}
-				if(luz[i][j]>0) {
-					for(int ly = i*8; ly < (i*8+8); ly++) {
-						int startx = j*8+ly*Constantes.telaW;
+				/*if(luz[i][j]>0) {
+					for(int ly = i<<3; ly < ((i<<3)+8); ly++) {
+						int startx = (j<<3)+ly*Constantes.telaW;
 						for(int lx = 0;lx < 8; lx++) {
 							sahdowData[startx] = 0;
+							startx++;
+						}
+					}
+				}else {
+				}*/
+			}	
+		}
+		for(int i = 0; i < luz.length;i++) {
+			for(int j = 0; j < luz[i].length;j++) {
+				float soma = 0;
+				int quant = 0;
+				for(int ki = i-1; ki < i+2;ki++) {
+					for(int kj = j-1; kj < j+2;kj++) {
+						if(ki>=0&&kj>=0&&ki<luz.length&&kj<luz[i].length) {
+							soma+=luz[ki][kj];
+							quant++;
+						}
+					}
+				}
+				luz[i][j] = (int)(soma/quant);
+			}
+		}
+		
+		for(int i = 0; i < luz.length;i++) {
+			for(int j = 0; j < luz[i].length;j++) {
+				if(luz[i][j]>0) {
+					int mascara = ((100-luz[i][j])<<24)&0xff000000;
+					for(int ly = i<<3; ly < ((i<<3)+8); ly++) {
+						int startx = (j<<3)+ly*Constantes.telaW;
+						for(int lx = 0;lx < 8; lx++) {
+							sahdowData[startx] = mascara;
 							startx++;
 						}
 					}
@@ -318,14 +347,69 @@ public class TileMap extends GameEntity implements GameObject {
 				}
 			}
 		}
-		g2d.drawImage(shadowImage, 0,0,null);
 		
+	}
+	//TODO nao funciona tenho que arrumar
+	public void prepareLightsMultthread() {
+		for(int i = 0; i < sahdowData.length;i++) {
+			sahdowData[i] = 0xe0000000;
+		}
+		
+		Thread t[] = new Thread[luz[0].length];
+		for(int i = 0; i < luz.length;i++) {
+			for(int j = 0; j < luz[i].length;j++) {
+				final int ki = i;
+				final int kj = j;
+				t[i] = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						luz[ki][kj] = 0;
+						for(int l = 0; l < pontosdeluz.length;l++) {
+							if(pontosdeluz[l][0] == 1) {
+								int dx = (kj<<3)-pontosdeluz[l][1];
+								int dy = (ki<<3)-pontosdeluz[l][2];
+								int dist = dx*dx+dy*dy;
+								if(dist < pontosdeluz[l][4]*pontosdeluz[l][4])  {
+									if(!raycolision(pontosdeluz[l][1]+telaX,pontosdeluz[l][2]+telaY,(kj<<3)+telaX+4,(ki<<3)+telaY+4)) {
+										luz[ki][kj]+=100;
+									}
+								}
+							}
+						}
+						if(luz[ki][kj]>0) {
+							for(int ly = ki<<3; ly < ((ki<<3)+8); ly++) {
+								int startx = (kj<<3)+ly*Constantes.telaW;
+								for(int lx = 0;lx < 8; lx++) {
+									sahdowData[startx] = 0;
+									startx++;
+								}
+							}
+						}else {
+						}
+					}
+				});
+			}
+			for(int j = 0; j < luz[i].length;j++) {
+				t[i].start();
+			}
+			for(int j = 0; j < luz[i].length;j++) {
+				try {
+					t[i].join();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	public void renderLigth(Graphics2D g2d) {
+		g2d.drawImage(shadowImage, 0,0,null);
 	}
 	
 	public boolean raycolision(int x1,int y1,int x2,int y2) {
 		float dx = x2-x1;
 		float dy = y2-y1;
-		int passos = (int)((Math.abs(dx)+Math.abs(dy))/4.0);
+		int passos = (int)((Math.abs(dx)+Math.abs(dy))/8.0);
 		dx = dx/passos;
 		dy = dy/passos;
 		float accx = x1;

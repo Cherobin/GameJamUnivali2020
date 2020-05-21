@@ -344,6 +344,10 @@ public class TileLayer extends TileLayerData {
         return getBounds().contains(tx, ty)
                 ? tileMap[ty - this.y][tx - this.x] : null;
     }
+    
+    public Tile getTileAtFast(int tx, int ty) {
+        return tileMap[ty][tx];
+    }
 
     /**
      * Sets flags for tile at (tx, ty)
