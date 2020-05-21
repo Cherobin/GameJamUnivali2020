@@ -4,10 +4,12 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.geom.AffineTransform;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import engine.core.game.CanvasGame;
 import engine.map.behavior.EnemyBehavior.EnemyState;
 import engine.utils.BoundingBox;
 import engine.utils.CollisionType;
@@ -29,7 +31,8 @@ public class GameEntity implements GameObject {
 	public Vector2D offset = new Vector2D(0, 0); 
 	public Vector2D speed = new Vector2D(0, 0);  
 	public Vector2D oldPosition = new Vector2D(0, 0); 
-	
+	public boolean chegouObjetivo;
+	public int indexPathFind = 0;
 	EnemyState state;
 	public int width = 0, height = 0; 
 	public float rotation; 
@@ -48,9 +51,9 @@ public class GameEntity implements GameObject {
 
  
 	//DEBUG
-	public boolean showData = true; 
-	public boolean drawBoundingBox = true; 
-	public boolean debug = true; 
+	public boolean showData = false; 
+	public boolean drawBoundingBox = false; 
+	public boolean debug = false; 
 	
 	
 	
@@ -63,12 +66,14 @@ public class GameEntity implements GameObject {
 		this.alive = true;
 		this.inCollider = false;
 		this.rotation = rotation;
+		this.chegouObjetivo = false;
 	}
 
 	public GameEntity(String name, Vector2D pos, int w, int h, int r, Vector2D s) {
 		this(name, pos, w, h, 0.0f);
 		this.speed = s; 
 		this.alive = true;
+		this.chegouObjetivo = false;
 	}
 
 	public GameEntity(String name) {
@@ -80,6 +85,7 @@ public class GameEntity implements GameObject {
 		DOWN = false;
 		alive = true;
 		this.alive = true;
+		this.chegouObjetivo = false;
 	}
 
 	public GameEntity( String name, Component... components) {
@@ -101,19 +107,23 @@ public class GameEntity implements GameObject {
 	
 	@Override
 	public void render(Graphics2D dbg) {
- 
+		AffineTransform t = dbg.getTransform();
+
+		dbg.translate(position.x - CanvasGame.tileMap.getTelaX(), position.y  - CanvasGame.tileMap.getTelaY());
+		
 		if (debug && this.showData) {
-			dbg.setColor(color);
-			int xx = (int) (position.x + offset.x);
-			int yy = (int) (position.y + offset.y);
-			dbg.fillRect(xx, yy, this.width, this.height);
-			showMetaData(dbg, xx, yy);
+			dbg.setColor(color); 
+			dbg.fillRect(0, 0, this.width, this.height);
+			showMetaData(dbg);
 		}
+		
+		dbg.setTransform(t);
 	}
  
-	protected void showMetaData(Graphics2D g, float x, float y) {
-		int xx = (int) x;
-		int yy = (int) y;
+	protected void showMetaData(Graphics2D g) {
+		int xx = (int) 10;
+		int yy = (int) 10;
+		
 		int fh = g.getFontMetrics().getHeight();
 		if (drawBoundingBox) {
 			g.setColor(Color.ORANGE);

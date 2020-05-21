@@ -36,8 +36,8 @@ public class CanvasGame extends MyCanvas implements GameState {
 	private GameEntityBuilder seb;
 	private TileMapLoader tml;
 
-	private TileMap tileMap = null;
-	private Player player = null;
+	public static TileMap tileMap = null;
+	public static Player player = null;
 	private org.mapeditor.core.Map map = null;
 
 	private int tamanhoSensor = 350;
@@ -79,7 +79,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		   
 	 
 		Enemy enemy = new Enemy("Enemy",new Vector2D(24800, 24200),32,32,0,tileMap);
-		enemy.setTarget(player, enemy.speed.x/2, 300, 150);
+		enemy.setTarget(player, enemy.speed.x/2, 300, 150, tileMap );
  
 	 	addEntity(enemy);
 	 	
@@ -93,7 +93,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		OGG_Player musicplayer = new OGG_Player();
 		File ogg = new File("musica2_low.ogg");
 		musicplayer.ExamplePlayer(ogg);
-		musicplayer.start();
+		//musicplayer.start();
 	 
 		  
 		// Attache target to enemy for EnemyBehavior component's sensors
@@ -178,14 +178,14 @@ public class CanvasGame extends MyCanvas implements GameState {
 			dbg.drawImage(roofImage, 0, 0, null);
 		}
 		
-		
+		/*
 		//Aqui Liga e Desliga A Luz
 		tileMap.pontosdeluz[0][0] = 1;
 		tileMap.pontosdeluz[0][1] = Constantes.telaW/2;
 		tileMap.pontosdeluz[0][2] = Constantes.telaH/2;
 		tileMap.pontosdeluz[0][4] = tamanhoSensor;
 		tileMap.renderLigth(dbg);
-		
+		*/
 		 
 
 		dbg.setColor(Color.yellow);

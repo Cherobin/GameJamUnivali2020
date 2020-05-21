@@ -9,6 +9,7 @@ import apple.laf.JRSUIConstants.State;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.core.game.CanvasGame;
+import engine.map.AEstrela;
 import engine.map.TileMap;
 import engine.map.behavior.EnemyBehavior;
 import engine.map.behavior.MoveElementBehavior;
@@ -23,6 +24,7 @@ public class Enemy extends GameEntity implements GameObject {
 	TileMap tilemap;
 	float timeToFire;
 	float timerFire;
+	
 	
 	public Enemy(String name) {
 		super(name);
@@ -47,7 +49,7 @@ public class Enemy extends GameEntity implements GameObject {
 		super.render(dbg);
 		AffineTransform t = dbg.getTransform();
 
-		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
+		dbg.translate(position.x - tilemap.getTelaX(), position.y  - tilemap.getTelaY());
 		dbg.rotate(rotation);
 		dbg.drawImage(myimage, -myimage.getWidth() / 2, -myimage.getHeight() / 2, null);
 		dbg.setTransform(t);
@@ -78,9 +80,9 @@ public class Enemy extends GameEntity implements GameObject {
 		//addComponent(new MoveElementBehavior(speed));
 	}
 
-	public void setTarget(GameEntity target, float speed, float sensorDistance, float viewDistance) {
+	public void setTarget(GameEntity target, float speed, float sensorDistance, float viewDistance, TileMap tilemap) {
 		  addComponent(new EnemyBehavior(target, speed,
-				  sensorDistance, viewDistance));
+				  sensorDistance, viewDistance, tilemap));
 	}
 
 }
