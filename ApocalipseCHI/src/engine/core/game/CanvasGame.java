@@ -69,6 +69,12 @@ public class CanvasGame extends MyCanvas implements GameState {
 		tileMap.addMap(map);
 		map = tml.load(this, "res//maps//commercial01.tmx"); 
 		tileMap.addMap(map);
+		map = tml.load(this, "res//maps//residencial02.tmx"); 
+		tileMap.addMap(map);
+		map = tml.load(this, "res//maps//industrial02.tmx"); 
+		tileMap.addMap(map);
+		map = tml.load(this, "res//maps//commercial02.tmx"); 
+		tileMap.addMap(map);
 		
 		tileMap.setMap(); 
 		// Attache target to enemy for EnemyBehavior component's sensors
@@ -138,6 +144,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		// draw map
 		if (tileMap != null)
 			tileMap.render(dbg);
+		
 
 		for (int i = 0; i < sortedEntities.size(); i++) {
 			GameObject entity = sortedEntities.get(i);

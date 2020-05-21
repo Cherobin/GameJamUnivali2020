@@ -266,10 +266,13 @@ public class TileMap extends GameEntity implements GameObject {
 		
 		if(bx>=0&&bx<30&&by>=0&&by<30&&x>0&&y>0) {
 			Map mapselected = blocks[bx][by];
-			
+			int tlx = (x%1600)>>4;
+			int tly = (y%1600)>>4;
+					
 			TileLayer tl = (TileLayer)mapselected.getLayer(1); // RoofLayer
 			
-			Tile tile = tl.getTileAt((int) ((x-bx*1600)/ mapselected.getTileWidth()),(int) ((y-by*1600) / mapselected.getTileHeight()));
+			//Tile tile = tl.getTileAt((int) ((x-bx*1600)/ mapselected.getTileWidth()),(int) ((y-by*1600) / mapselected.getTileHeight()));
+			Tile tile = tl.getTileAt(tlx,tly);
 			
 			if(tile!=null) {
 				return true;

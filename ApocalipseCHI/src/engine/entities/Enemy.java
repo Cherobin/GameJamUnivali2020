@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-import apple.laf.JRSUIConstants.State;
+
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.core.game.CanvasGame;
