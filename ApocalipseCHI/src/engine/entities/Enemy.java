@@ -9,12 +9,9 @@ import java.awt.image.BufferedImage;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.core.game.CanvasGame;
-import engine.map.AEstrela;
 import engine.map.TileMap;
 import engine.map.behavior.EnemyBehavior;
-import engine.map.behavior.MoveElementBehavior;
 import engine.map.behavior.TileMapCollisionBehavior;
-import engine.map.behavior.EnemyBehavior.EnemyState;
 import engine.utils.Vector2D;
 import old.Constantes;
 
@@ -30,18 +27,19 @@ public class Enemy extends GameEntity implements GameObject {
 		super(name);
 	}
 
-	public Enemy(String name, Vector2D position, int width, int height, float rotation, TileMap tilemap) {
+	public Enemy(String name, Vector2D position, int width, int height, float rotation) {
 		super(name, position, width, height, rotation);
-		initializeComponents(tilemap);
 		color = Color.RED;
 		offset.x = -width / 2;
 		offset.y = -height;
 		oldPosition = new Vector2D();
 		myimage = Constantes.personagem1;
-		speed = new Vector2D(100, 100);
-		this.tilemap = tilemap;
+		speed = new Vector2D(Constantes.rnd.nextInt(50)+50,Constantes.rnd.nextInt(50)+50);
+		this.tilemap = CanvasGame.tileMap;
+		initializeComponents(tilemap);
 		timeToFire = 0.2f;
 		timerFire= 0;
+		alive = true;
 	}
 
 	@Override
@@ -59,6 +57,7 @@ public class Enemy extends GameEntity implements GameObject {
 	@Override
 	public void update(float dt) {
 		super.update(dt);
+		 
 		if(FIRE) {
 			timerFire+= dt/1000; 
 			if(timerFire > timeToFire) {
@@ -69,8 +68,8 @@ public class Enemy extends GameEntity implements GameObject {
 	}
 
 	public void fire() {
-		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(200, 200), rotation, 10,
-				Color.blue, 1000, tilemap);
+		Particle p = new Particle("fire", new Vector2D(position.x, position.y),new Vector2D(200, 200), new Vector2D(-width, 0), rotation, 4,
+				Color.black, 1000, tilemap);
 		// ver outra maneira
 		CanvasGame.sortedEntities.add(p);
 

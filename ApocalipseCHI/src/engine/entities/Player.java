@@ -26,7 +26,7 @@ public class Player extends GameEntity implements GameObject {
 		super(name);
 	}
 
-	public Player(String name, Vector2D position, int width, int height, float rotation, TileMap tilemap) {
+	public Player(String name, Vector2D position, int width, int height, float rotation) {
 		super(name, position, width, height, rotation);
 
 		maxVel = 100;
@@ -34,13 +34,11 @@ public class Player extends GameEntity implements GameObject {
 		offset.x = 0;
 		offset.y = 0;
 		oldPosition = new Vector2D();
-		initializeComponents(tilemap);
-		this.tilemap = tilemap;
 		myimage = Constantes.personagem1;
 		mousePosition = new Vector2D();
 	}
 
-	private void initializeComponents(TileMap tilemap) {
+	public void initializeComponents(TileMap tilemap) {
 		this.tilemap = tilemap;
 		addComponent(new TileMapCollisionBehavior(tilemap, 1));
 	}
@@ -84,10 +82,11 @@ public class Player extends GameEntity implements GameObject {
 		
 		position.x += speed.x * diffTime / 1000f;
 		position.y += speed.y * diffTime / 1000f;
+		 
 	}
 
 	public void fire() {
-		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(100, 100), rotation, 10,
+		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(100, 100), new Vector2D(-width, 0), rotation, 4,
 				Color.blue, 1000, tilemap);
 	 
 		// ver outra maneira

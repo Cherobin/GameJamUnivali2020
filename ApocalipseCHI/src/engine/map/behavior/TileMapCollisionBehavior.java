@@ -16,14 +16,9 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 		this.name = "tile_map_collision";
 		this.layerIndex = layerIndex;
 		this.map = map;
-		initialize(null);
-	}
-
-	@Override
-	public void initialize(GameObject e) {
 		layerIndex = map.wallID; // << collision layer
 	}
-
+ 
 	@Override
 	public void update(GameObject e, float diffTime) {
 		if (e != null) {

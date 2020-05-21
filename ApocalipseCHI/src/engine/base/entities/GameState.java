@@ -1,9 +1,7 @@
-package engine.entities;
+package engine.base.entities;
 
 import java.awt.Graphics2D;
 import java.util.Map;
-
-import engine.base.entities.GameObject;
 
  
 public interface GameState {

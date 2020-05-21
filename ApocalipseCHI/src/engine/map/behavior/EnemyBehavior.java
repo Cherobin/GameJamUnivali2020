@@ -59,7 +59,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 		ge.oldPosition.set(ge.position);
 
 		if (!previousState.equals(state)) {
-			System.out.println("state: " + state);
+		//	System.out.println("state: " + state);
 			switch (state) {
 			case PATHFIND:
 				setaObjetivo(ge, (int) CanvasGame.player.position.x, (int) CanvasGame.player.position.y);
@@ -80,7 +80,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 				ge.FIRE = false;
 				break;
 			case GOPATHFIND:
-				System.out.println("aaa");
+				//System.out.println("GOPATHFIND");
 				break;
 			}
 			previousState = state;
@@ -93,7 +93,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 
 	public void setaObjetivo(GameEntity ge, int objetivox, int objetivoy) { 
 		caminho = aestrela.StartAestrela((int) (ge.position.x), (int) (ge.position.y),
-				objetivox, objetivoy, 1000);
+				objetivox, objetivoy, 500);
 		state = EnemyState.GOPATHFIND;
 		ge.chegouObjetivo = false;
 		ge.indexPathFind = 0;
@@ -103,7 +103,9 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	int patXX = 0;
 	int patYY = 0;
 	void goPath(GameEntity ge) {
-
+		if(caminho == null) {
+			return;
+		}
 		if (ge.indexPathFind < caminho.length / 2) {
 			if(teste) {
 				patXX = caminho[ge.indexPathFind * 2];
@@ -125,11 +127,12 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	}
 
 	private EnemyState evaluate(GameEntity ge, GameEntity target) {
+	 
 		float distanceToTarget = target.position.distance(ge.position);
  
 		switch (state) {
 		case PATHFIND:
-			System.out.println("RODA PATHFIND");
+			//System.out.println("RODA PATHFIND");
 			break;
 		case GOPATHFIND:
 			if (ge.chegouObjetivo) {
@@ -178,6 +181,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 		}
 	 
 		//desenha caminho
+		/*
 		if (caminho != null) {
 			for (int i = 0; i < caminho.length / 2; i++) {
 				
@@ -191,6 +195,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 				
 			}
 		}
+		*/
 		
 		
 	}

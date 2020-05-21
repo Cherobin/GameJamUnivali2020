@@ -21,13 +21,12 @@ import apiPS.OGG_Player;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.base.entities.GameState;
 import engine.core.GamePanel;
 import engine.core.MyCanvas;
-import engine.entities.Enemy;
-import engine.entities.GameState; 
 import engine.entities.Player;
 import engine.map.TileMap;
-import engine.map.TileMapLoader; 
+import engine.map.TileMapLoader;
 import engine.utils.Vector2D;
 import old.Constantes;
 
@@ -43,7 +42,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 	private int tamanhoSensor = 350;
 	private int tmanhoDaluz = 250;
 	
-	public Map<String, GameObject> renderingStack;
+	public static Map<String, GameObject> renderingStack;
 	public static List<GameObject> sortedEntities;
 	
 	BufferedImage roofImage;
@@ -52,6 +51,12 @@ public class CanvasGame extends MyCanvas implements GameState {
 	
 
 	public CanvasGame() {
+		
+		//tem que criar o player antes do tileMap por causa dos inimigos
+		//depois de tudo adiciona ele na lista
+		
+		player = new Player("Dennis", new Vector2D(800, 1000),32,32,0);
+		
 		roofImage = new BufferedImage(Constantes.telaW,Constantes.telaH,BufferedImage.TYPE_INT_ARGB);
 		roofData = ((DataBufferInt)roofImage.getRaster().getDataBuffer()).getData();
 		
@@ -64,9 +69,9 @@ public class CanvasGame extends MyCanvas implements GameState {
 	  
  
  
-		map = tml.load(this, "res//maps//residencial01.tmx"); 
+		map = tml.load(this, "res//maps//commercial01.tmx"); 
 		tileMap.addMap(map);
-		map = tml.load(this, "res//maps//industrial01.tmx"); 
+		map = tml.load(this, "res//maps//commercial01.tmx"); 
 		tileMap.addMap(map);
 		map = tml.load(this, "res//maps//commercial01.tmx"); 
 		tileMap.addMap(map);
@@ -78,23 +83,29 @@ public class CanvasGame extends MyCanvas implements GameState {
 		tileMap.addMap(map);
 		
 		tileMap.setMap(); 
-		// Attache target to enemy for EnemyBehavior component's sensors
-		player = new Player("Dennis", new Vector2D(24800, 24200),32,32,0,tileMap);//(Player) renderingStack.get("player");
-		//player = new Player("Dennis", new Vector2D(0,0),32,32,0,tileMap);
-	
+	 
+		
+	    // adiciona o mapa para ele
+		player.initializeComponents(tileMap);
 		addEntity(player);
 		   
-	 
+	 /*
 		Enemy enemy = new Enemy("Enemy",new Vector2D(24800, 24200),32,32,0,tileMap);
-		enemy.setTarget(player, enemy.speed.x/2, 300, 150, tileMap );
+		enemy.setTarget(player, 80, 300, 150, tileMap );
  
 	 	addEntity(enemy);
 	 	
-		//Enemy enemy2 = new Enemy("Enemy2",new Vector2D(24810, 24200),32,32,0,tileMap);
-		//enemy2.setTarget(player, enemy2.speed.x, tamanhoSensor*2, tamanhoSensor);
+		Enemy enemy2 = new Enemy("Enemy2",new Vector2D(24800, 24210),32,32,0,tileMap);
+		enemy2.setTarget(player, 60, 300, 150, tileMap );
  
-	 	//addEntity(enemy2);
-		
+	 	addEntity(enemy2);
+	 	
+		Enemy enemy3 = new Enemy("Enemy3",new Vector2D(24800, 24200),32,32,0,tileMap);
+		enemy3.setTarget(player, 50, 300, 150, tileMap );
+ 
+	 	addEntity(enemy3);
+	 	
+		*/
 	 	
 		//TESTE INICIAL DE PLAY OGG
 		OGG_Player musicplayer = new OGG_Player();
@@ -122,7 +133,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		for (int i = 0; i < sortedEntities.size(); i++) {
 			GameObject entity = sortedEntities.get(i);
 			if(!entity.isAlive()) {
-				sortedEntities.remove(i);
+				sortedEntities.remove(i); 
 				i--;
 				continue;
 			}
@@ -261,7 +272,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		this.sortedEntities = sortedEntities;
 	}
 
-	public void sortEntities() {
+	public static void sortEntities() {
 
 		Collection<GameObject> ents = renderingStack.values();
 		sortedEntities.clear();
@@ -276,7 +287,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		});
 	}
 
-	public void addEntity(GameObject entity) {
+	public static void addEntity(GameObject entity) {
 		renderingStack.put(entity.getName(), entity);
 		sortEntities();
 	}

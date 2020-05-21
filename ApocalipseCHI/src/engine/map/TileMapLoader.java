@@ -2,16 +2,15 @@ package engine.map;
  
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Map;
 
 import org.mapeditor.core.MapLayer;
 import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.io.TMXMapReader;
 
 import engine.base.entities.GameObject;
-import engine.entities.GameState;
+import engine.base.entities.GameState;
+import engine.core.game.CanvasGame;
+import engine.core.game.GameEntityBuilder;
 
 
  
@@ -19,9 +18,11 @@ public class TileMapLoader {
  
 	private static org.mapeditor.core.Map map = null;
 
-	private EntityBuilder builder;
+	//private EntityBuilder builder;
+	private GameEntityBuilder builder;
+	
 
-	public TileMapLoader(EntityBuilder builder) {
+	public TileMapLoader(GameEntityBuilder builder) {
 		this.builder = builder;
 	}
 	
@@ -34,18 +35,12 @@ public class TileMapLoader {
 			FileInputStream fin = new FileInputStream(basepath+"//"+path);
 			System.out.println(""+fin.available());
 			map = tmr.readMap(basepath+"//"+path);
+	 
 			for (MapLayer ml : map.getLayers()) {
-				//System.out.println("cherobin "+ ml.getName());
 				if (ml instanceof ObjectGroup) {
 					switch (ml.getName()) {
 					case "actors":
 						buildEntities(gs, ml);
-						break;
-					case "fx":
-						buildEntities(gs, ml);
-						break;
-					case "collision":
-						// TODO add collision bounding box initialization. 
 						break;
 					}
 
@@ -59,14 +54,12 @@ public class TileMapLoader {
 		return map;
 	}
 
-	private void buildEntities(GameState gs, MapLayer ml) {
-		/*((ObjectGroup) ml).getObjects().forEachRemaining(o -> {
-			GameObject go = this.builder.build(gs, map, o);
-			if (go != null) {
-				gs.getEntities().put(go.getName(), go);
-			} else {
-				System.out.println("buildEntities error ->"+o.getName());
-			}
-		});*/
+	private void buildEntities(GameState gs, MapLayer ml) { 
+		((ObjectGroup) ml).getObjects().forEach(o -> { 
+			GameObject go = this.builder.build(gs, map , o);
+			if (go != null) { 
+				CanvasGame.addEntity(go); 
+			} 		 
+		});
 	}
 }
