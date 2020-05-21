@@ -59,7 +59,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 		ge.oldPosition.set(ge.position);
 
 		if (!previousState.equals(state)) {
-			System.out.println("state: " + state);
+		//	System.out.println("state: " + state);
 			switch (state) {
 			case PATHFIND:
 				setaObjetivo(ge, (int) CanvasGame.player.position.x, (int) CanvasGame.player.position.y);
@@ -80,7 +80,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 				ge.FIRE = false;
 				break;
 			case GOPATHFIND:
-				System.out.println("aaa");
+				//System.out.println("GOPATHFIND");
 				break;
 			}
 			previousState = state;
@@ -129,7 +129,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
  
 		switch (state) {
 		case PATHFIND:
-			System.out.println("RODA PATHFIND");
+			//System.out.println("RODA PATHFIND");
 			break;
 		case GOPATHFIND:
 			if (ge.chegouObjetivo) {
