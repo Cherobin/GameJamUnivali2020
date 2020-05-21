@@ -42,7 +42,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 
 	private int tamanhoSensor = 350;
 	
-	public Map<String, GameObject> renderingStack;
+	public static Map<String, GameObject> renderingStack;
 	public static List<GameObject> sortedEntities;
 	
 	BufferedImage roofImage;
@@ -51,6 +51,12 @@ public class CanvasGame extends MyCanvas implements GameState {
 	
 
 	public CanvasGame() {
+		
+		//tem que criar o player antes do tileMap por causa dos inimigos
+		//depois de tudo adiciona ele na lista
+		
+		player = new Player("Dennis", new Vector2D(800, 1000),32,32,0);
+		
 		roofImage = new BufferedImage(Constantes.telaW,Constantes.telaH,BufferedImage.TYPE_INT_ARGB);
 		roofData = ((DataBufferInt)roofImage.getRaster().getDataBuffer()).getData();
 		
@@ -63,21 +69,21 @@ public class CanvasGame extends MyCanvas implements GameState {
 	  
  
  
-		map = tml.load(this, "res//maps//residencial01.tmx"); 
+		map = tml.load(this, "res//maps//commercial01.tmx"); 
 		tileMap.addMap(map);
-		map = tml.load(this, "res//maps//industrial01.tmx"); 
+		map = tml.load(this, "res//maps//commercial01.tmx"); 
 		tileMap.addMap(map);
 		map = tml.load(this, "res//maps//commercial01.tmx"); 
 		tileMap.addMap(map);
 		
 		tileMap.setMap(); 
-		// Attache target to enemy for EnemyBehavior component's sensors
-		player = new Player("Dennis", new Vector2D(24800, 24200),32,32,0,tileMap);//(Player) renderingStack.get("player");
-		//player = new Player("Dennis", new Vector2D(0,0),32,32,0,tileMap);
-	
+	 
+		
+	    // adiciona o mapa para ele
+		player.initializeComponents(tileMap);
 		addEntity(player);
 		   
-	 
+	 /*
 		Enemy enemy = new Enemy("Enemy",new Vector2D(24800, 24200),32,32,0,tileMap);
 		enemy.setTarget(player, 80, 300, 150, tileMap );
  
@@ -93,7 +99,7 @@ public class CanvasGame extends MyCanvas implements GameState {
  
 	 	addEntity(enemy3);
 	 	
-		
+		*/
 	 	
 		//TESTE INICIAL DE PLAY OGG
 		OGG_Player musicplayer = new OGG_Player();
@@ -121,7 +127,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		for (int i = 0; i < sortedEntities.size(); i++) {
 			GameObject entity = sortedEntities.get(i);
 			if(!entity.isAlive()) {
-				sortedEntities.remove(i);
+				sortedEntities.remove(i); 
 				i--;
 				continue;
 			}
@@ -207,7 +213,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		this.sortedEntities = sortedEntities;
 	}
 
-	public void sortEntities() {
+	public static void sortEntities() {
 
 		Collection<GameObject> ents = renderingStack.values();
 		sortedEntities.clear();
@@ -222,7 +228,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		});
 	}
 
-	public void addEntity(GameObject entity) {
+	public static void addEntity(GameObject entity) {
 		renderingStack.put(entity.getName(), entity);
 		sortEntities();
 	}

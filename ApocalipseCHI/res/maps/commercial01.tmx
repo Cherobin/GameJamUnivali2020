@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="13">
  <tileset firstgid="1" source="tileset test01.tsx"/>
  <layer id="1" name="ground" width="100" height="100" locked="1">
   <data encoding="csv">
@@ -313,4 +313,15 @@
 15,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,15,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,70,70,70,70,70,70,70,70,70,71,70,70,70,70,70,70,70,70,70,70,0,0,0,0,15,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,15
 </data>
  </layer>
+ <objectgroup id="4" name="actors">
+  <object id="1" name="Enemy-2" type="Enemy" x="838.27" y="860.486" width="57.7607" height="77.0142"/>
+  <object id="4" name="Enemy-1" type="Enemy" x="729.413" y="857.524" width="57.7607" height="77.0142"/>
+  <object id="5" name="Enemy-3" type="Enemy" x="727.932" y="1010.07" width="57.7607" height="77.0142"/>
+  <object id="6" name="Enemy-4" type="Enemy" x="834.568" y="1005.63" width="57.7607" height="77.0142"/>
+  <object id="7" name="Enemy511" type="Enemy" x="731.527" y="1177.81" width="57.7607" height="77.0142"/>
+  <object id="9" name="Enemy5" type="Enemy" x="824.881" y="1136.47" width="57.7607" height="77.0142"/>
+  <object id="10" name="Enemy51" type="Enemy" x="812.202" y="1294.97" width="57.7607" height="77.0142"/>
+  <object id="11" name="Enemy52" type="Enemy" x="723.444" y="1345.69" width="57.7607" height="77.0142"/>
+  <object id="12" name="Enemy61" type="Enemy" x="814.315" y="1419.65" width="57.7607" height="77.0142"/>
+ </objectgroup>
 </map>

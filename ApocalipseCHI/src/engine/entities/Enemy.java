@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import apple.laf.JRSUIConstants.State;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
@@ -30,18 +32,19 @@ public class Enemy extends GameEntity implements GameObject {
 		super(name);
 	}
 
-	public Enemy(String name, Vector2D position, int width, int height, float rotation, TileMap tilemap) {
+	public Enemy(String name, Vector2D position, int width, int height, float rotation) {
 		super(name, position, width, height, rotation);
-		initializeComponents(tilemap);
 		color = Color.RED;
 		offset.x = -width / 2;
 		offset.y = -height;
 		oldPosition = new Vector2D();
 		myimage = Constantes.personagem1;
-		speed = new Vector2D(100, 100);
-		this.tilemap = tilemap;
+		speed = new Vector2D(Constantes.rnd.nextInt(50)+50,Constantes.rnd.nextInt(50)+50);
+		this.tilemap = CanvasGame.tileMap;
+		initializeComponents(tilemap);
 		timeToFire = 0.2f;
 		timerFire= 0;
+		alive = true;
 	}
 
 	@Override
@@ -59,6 +62,7 @@ public class Enemy extends GameEntity implements GameObject {
 	@Override
 	public void update(float dt) {
 		super.update(dt);
+		 
 		if(FIRE) {
 			timerFire+= dt/1000; 
 			if(timerFire > timeToFire) {

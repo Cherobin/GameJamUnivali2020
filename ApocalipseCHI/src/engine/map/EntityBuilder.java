@@ -8,5 +8,5 @@ import engine.entities.GameState;
 
 public interface EntityBuilder {
 
-	public GameObject build(GameState gs, TileMap tilemap, Map map, MapObject o);
+	public GameObject build(GameState gs, Map map, MapObject o); 
 }

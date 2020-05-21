@@ -103,7 +103,9 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	int patXX = 0;
 	int patYY = 0;
 	void goPath(GameEntity ge) {
-
+		if(caminho == null) {
+			return;
+		}
 		if (ge.indexPathFind < caminho.length / 2) {
 			if(teste) {
 				patXX = caminho[ge.indexPathFind * 2];
@@ -125,6 +127,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	}
 
 	private EnemyState evaluate(GameEntity ge, GameEntity target) {
+	 
 		float distanceToTarget = target.position.distance(ge.position);
  
 		switch (state) {
@@ -178,6 +181,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 		}
 	 
 		//desenha caminho
+		/*
 		if (caminho != null) {
 			for (int i = 0; i < caminho.length / 2; i++) {
 				
@@ -191,6 +195,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 				
 			}
 		}
+		*/
 		
 		
 	}
