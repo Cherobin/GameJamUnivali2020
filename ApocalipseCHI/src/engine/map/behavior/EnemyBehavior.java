@@ -93,7 +93,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 
 	public void setaObjetivo(GameEntity ge, int objetivox, int objetivoy) { 
 		caminho = aestrela.StartAestrela((int) (ge.position.x), (int) (ge.position.y),
-				objetivox, objetivoy, 100);
+				objetivox, objetivoy, 500);
 		state = EnemyState.GOPATHFIND;
 		ge.chegouObjetivo = false;
 		ge.indexPathFind = 0;

@@ -79,14 +79,20 @@ public class CanvasGame extends MyCanvas implements GameState {
 		   
 	 
 		Enemy enemy = new Enemy("Enemy",new Vector2D(24800, 24200),32,32,0,tileMap);
-		enemy.setTarget(player, enemy.speed.x/2, 300, 150, tileMap );
+		enemy.setTarget(player, 80, 300, 150, tileMap );
  
 	 	addEntity(enemy);
 	 	
-		//Enemy enemy2 = new Enemy("Enemy2",new Vector2D(24810, 24200),32,32,0,tileMap);
-		//enemy2.setTarget(player, enemy2.speed.x, tamanhoSensor*2, tamanhoSensor);
+		Enemy enemy2 = new Enemy("Enemy2",new Vector2D(24800, 24210),32,32,0,tileMap);
+		enemy2.setTarget(player, 60, 300, 150, tileMap );
  
-	 	//addEntity(enemy2);
+	 	addEntity(enemy2);
+	 	
+		Enemy enemy3 = new Enemy("Enemy3",new Vector2D(24800, 24200),32,32,0,tileMap);
+		enemy3.setTarget(player, 50, 300, 150, tileMap );
+ 
+	 	addEntity(enemy3);
+	 	
 		
 	 	
 		//TESTE INICIAL DE PLAY OGG
