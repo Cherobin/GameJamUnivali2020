@@ -18,7 +18,7 @@ public class Particle extends GameEntity {
 	public float decay; 
 	TileMap tilemap;
 	
-	public Particle(String name, Vector2D pos, Vector2D velocity, float rotation, float radius, Color color, float expireTime, TileMap tilemap) {
+	public Particle(String name, Vector2D pos, Vector2D velocity, Vector2D offset, float rotation, float radius, Color color, float expireTime, TileMap tilemap) {
 		super(name);
 		this.position = pos;
 		this.speed = velocity;
@@ -28,7 +28,7 @@ public class Particle extends GameEntity {
 		this.expireTime = expireTime; 
 		this.tilemap = tilemap;
 		this.rotation = rotation;
-		offset = new Vector2D(2, 2);
+		this.offset = offset;
 		initializeComponents(tilemap);
 	}
  
@@ -43,7 +43,7 @@ public class Particle extends GameEntity {
 		AffineTransform t = dbg.getTransform();
 		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
 		dbg.rotate(rotation);
-		dbg.fillOval((int) (+offset.x/2), (int) (+offset.y/2), (int) this.radius, (int) this.radius);
+		dbg.fillOval((int) -offset.x/2, (int) -offset.y/2, (int) this.radius, (int) this.radius);
 		dbg.setTransform(t); 
 	}
 

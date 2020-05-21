@@ -87,7 +87,7 @@ public class Player extends GameEntity implements GameObject {
 	}
 
 	public void fire() {
-		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(100, 100), rotation, 10,
+		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(100, 100), new Vector2D(-width, 0), rotation, 4,
 				Color.blue, 1000, tilemap);
 	 
 		// ver outra maneira
