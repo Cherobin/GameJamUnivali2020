@@ -25,8 +25,7 @@ public class MoveElementBehavior extends AbstractComponent implements Component 
 	public void update(GameObject e, float diffTime) {
 		GameEntity ge = (GameEntity) e;
 		  
-	
-		
+	 
 		ge.position.x +=  ge.speed.x * Math.cos(ge.rotation)  * diffTime / 1000f;
 		ge.position.y += ge.speed.y * Math.sin(ge.rotation) * diffTime / 1000f;
 		
