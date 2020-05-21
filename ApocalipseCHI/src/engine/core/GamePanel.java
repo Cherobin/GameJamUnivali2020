@@ -1,22 +1,28 @@
 package engine.core;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.font.ImageGraphicAttribute;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Ellipse2D;
-
-import javax.swing.*;
-
-import engine.core.game.CanvasGame;
-import old.CanvasMAIN;
-import old.Constantes;
-
-import java.io.*;
-import java.util.ArrayList;
+import java.awt.BorderLayout;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
-import java.awt.image.*;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import engine.core.game.CanvasGame;
+import old.Constantes;
 
 
 public class GamePanel extends JPanel implements Runnable{

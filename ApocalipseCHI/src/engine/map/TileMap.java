@@ -17,12 +17,10 @@ import org.mapeditor.core.MapLayer;
 import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
-import org.mapeditor.view.OrthogonalRenderer;
 
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
-import javafx.scene.transform.Affine;
 import old.Constantes;
 
 

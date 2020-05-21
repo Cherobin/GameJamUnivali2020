@@ -5,18 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
-
-import apple.laf.JRSUIConstants.State;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.core.game.CanvasGame;
-import engine.map.AEstrela;
 import engine.map.TileMap;
 import engine.map.behavior.EnemyBehavior;
-import engine.map.behavior.MoveElementBehavior;
 import engine.map.behavior.TileMapCollisionBehavior;
-import engine.map.behavior.EnemyBehavior.EnemyState;
 import engine.utils.Vector2D;
 import old.Constantes;
 

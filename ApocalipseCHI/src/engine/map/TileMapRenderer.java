@@ -18,8 +18,7 @@ public class TileMapRenderer implements MapRenderer {
 	public TileMapRenderer(Map map) { 
 		this.map = map;
 	}
-
- 
+	
 	public void paintObjectLayer(Graphics2D g, ObjectGroup layer) {
 		final Rectangle clip = g.getClipBounds();
 		final int tileWidth = map.getTileWidth();

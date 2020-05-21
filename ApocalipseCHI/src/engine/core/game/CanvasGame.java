@@ -24,10 +24,9 @@ import engine.base.entities.GameObject;
 import engine.base.entities.GameState;
 import engine.core.GamePanel;
 import engine.core.MyCanvas;
-import engine.entities.Enemy;
 import engine.entities.Player;
 import engine.map.TileMap;
-import engine.map.TileMapLoader; 
+import engine.map.TileMapLoader;
 import engine.utils.Vector2D;
 import old.Constantes;
 
