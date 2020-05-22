@@ -17,12 +17,24 @@ import old.Constantes;
 
 public class Enemy extends GameEntity implements GameObject {
 
-	BufferedImage myimage;
+	BufferedImage charset;
 	TileMap tilemap;
 	float timeToFire;
 	float timerFire;
 	
+	boolean primaryWeapon;
+	boolean secondaryWeapon;
+	boolean meleeWeapon;
+	boolean meleeAtack;
 	
+	int charsetX, charsetY;
+	
+	 float frameTime = 100;
+	 float timer = 0;
+     int animation = 0;
+     int frame = 0;
+     
+     
 	public Enemy(String name) {
 		super(name);
 	}
@@ -32,8 +44,10 @@ public class Enemy extends GameEntity implements GameObject {
 		color = Color.RED;
 		offset.x = -width / 2;
 		offset.y = -height;
+		charsetX = width;
+		charsetY = height;
 		oldPosition = new Vector2D();
-		myimage = Constantes.personagem1;
+		charset = Constantes.enemy1;
 		speed = new Vector2D(Constantes.rnd.nextInt(50)+50,Constantes.rnd.nextInt(50)+50);
 		this.tilemap = CanvasGame.tileMap;
 		initializeComponents(tilemap);
@@ -42,12 +56,30 @@ public class Enemy extends GameEntity implements GameObject {
 		alive = true;
 		oldPosition = position;
 		maxLife = life = 100; 
+		secondaryWeapon = true;;
+		primaryWeapon = false;
+		meleeWeapon = false;
+		meleeAtack = false;
  
 	}
 
 	@Override
 	public void render(Graphics2D dbg) {
 		super.render(dbg);
+	
+		AffineTransform t = dbg.getTransform();
+
+		dbg.translate(position.x - tilemap.getTelaX(), position.y  - tilemap.getTelaY());
+		dbg.rotate(rotation);
+		
+		dbg.drawImage(charset, -charsetX/2, -charsetY/2, charsetX/2, charsetY/2,
+				(frame*charsetX),
+				(animation*charsetY),
+				charsetX+(frame*charsetX),
+				charsetY+(animation*charsetY),null);
+		      
+	 	dbg.setTransform(t);
+		
 		
 		dbg.setColor(Color.white);
 		dbg.fillRect((int)position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 22, 40, 7);
@@ -56,14 +88,6 @@ public class Enemy extends GameEntity implements GameObject {
 		dbg.fillRect((int)position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 20, (life*40)/maxLife, 5);
 		
 		
-		AffineTransform t = dbg.getTransform();
-
-		dbg.translate(position.x - tilemap.getTelaX(), position.y  - tilemap.getTelaY());
-		dbg.rotate(rotation);
-		
-		
-		dbg.drawImage(myimage, -myimage.getWidth() / 2, -myimage.getHeight() / 2, null);
-		dbg.setTransform(t);
 
 	}
 
@@ -71,7 +95,26 @@ public class Enemy extends GameEntity implements GameObject {
 	public void update(float dt) {
 		super.update(dt);
 		 
-		if(FIRE) {
+		timer+=dt;
+ 
+		
+		//TODO FIX ME
+		if (primaryWeapon) {
+			animation = 0;
+		} else if (secondaryWeapon) {
+			animation = 1;
+		} else if (meleeWeapon) {
+			animation = 2;
+		} else if (meleeAtack) {
+			animation = 3;
+		}
+	 
+		
+		if(speed.x  != 0 || speed.y != 0) {
+	     frame = ((int)(timer/frameTime))%3;
+		}
+	     
+		if(FIRE && (primaryWeapon || secondaryWeapon)) {
 			timerFire+= dt/1000; 
 			if(timerFire > timeToFire) {
 				timerFire=0;

@@ -17,14 +17,23 @@ public class Player extends GameEntity implements GameObject {
 
 	private int maxVel;
 
-	BufferedImage myimage;
+	BufferedImage charset;
 	public Vector2D mousePosition;
 
 	TileMap tilemap;
 
 	float timeToFire;
 	float timerFire;
-
+	int charsetX, charsetY;
+	float frameTime = 100;
+	float timer = 0;
+    int animation = 0;
+    int frame = 0;
+	boolean primaryWeapon;
+	boolean secondaryWeapon;
+	boolean meleeWeapon;
+	boolean meleeAtack;
+    
 	public Player(String name) {
 		super(name);
 	}
@@ -36,11 +45,17 @@ public class Player extends GameEntity implements GameObject {
 		offset.x = 0;
 		offset.y = 0;
 		oldPosition = new Vector2D();
-		myimage = Constantes.personagem1;
+		charset = Constantes.player;
 		mousePosition = new Vector2D();
 		timeToFire = 0.2f;
 		timerFire= 0;
 		maxLife = life = 1000; 
+		secondaryWeapon = true;;
+		primaryWeapon = false;
+		meleeWeapon = false;
+		meleeAtack = false;
+		charsetX = width;
+		charsetY = height;
 	}
 
 	public void initializeComponents(TileMap tilemap) {
@@ -52,29 +67,49 @@ public class Player extends GameEntity implements GameObject {
 	public void render(Graphics2D dbg) {
 		super.render(dbg);
 
+		AffineTransform t = dbg.getTransform();
+
+		dbg.translate(position.x - tilemap.getTelaX(), position.y  - tilemap.getTelaY());
+		dbg.rotate(rotation);
+		
+		dbg.drawImage(charset, -charsetX/2, -charsetY/2, charsetX/2, charsetY/2,
+				(frame*charsetX),
+				(animation*charsetY),
+				charsetX+(frame*charsetX),
+				charsetY+(animation*charsetY),null);
+		      
+	 	dbg.setTransform(t);
+		
+		
 		dbg.setColor(Color.white);
 		dbg.fillRect((int)position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 22, 40, 7);
 		
 		dbg.setColor(Color.red);
 		dbg.fillRect((int)position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 20, (life*40)/maxLife, 5);
 		
-		
-		AffineTransform t = dbg.getTransform();
-
-		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
-		dbg.rotate(rotation);
-		dbg.drawImage(myimage, -myimage.getWidth() / 2, -myimage.getHeight() / 2, null);
-
-		dbg.setColor(Color.black);
-	
-		
-		dbg.setTransform(t);
 	}
 
 	@Override
 	public void update(float diffTime) {
 		super.update(diffTime);
 
+		timer+=diffTime; 
+		
+		//TODO FIX ME
+		if (primaryWeapon) {
+			animation = 0;
+		} else if (secondaryWeapon) {
+			animation = 1;
+		} else if (meleeWeapon) {
+			animation = 2;
+		} else if (meleeAtack) {
+			animation = 3;
+		} 
+	     
+	 	if(speed.x  != 0 || speed.y != 0) {
+		     frame = ((int)(timer/frameTime))%3;
+		}
+	 	
 		if(life < 0) {
 			alive = false;
 		}
