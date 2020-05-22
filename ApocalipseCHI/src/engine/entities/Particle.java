@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 import engine.base.entities.GameEntity;
+import engine.core.game.CanvasGame;
 import engine.map.TileMap;
 import engine.map.behavior.MoveElementBehavior;
 import engine.map.behavior.TileMapCollisionBehavior;
@@ -51,6 +52,11 @@ public class Particle extends GameEntity {
 	public void update(float diffTime) {
 		super.update(diffTime);
 		expireTime -= diffTime/1000f; 
+		
+		for (int i = 0; i < CanvasGame.sortedEntities.size(); i++) {
+			
+			//this.boundingBox.collide(pos)
+		}
 	}
 	
 	private void initializeComponents(TileMap tilemap) {

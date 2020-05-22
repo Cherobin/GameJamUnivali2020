@@ -37,7 +37,7 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 					ge.alive = false;
 					ge.inCollider = true; 
 					CanvasGame.sortedEntities.add( 
-					new Faisca("faica " + ge.getName(), new Vector2D(ge.position.x, ge.position.y), new Vector2D(ge.speed.x, ge.speed.y), ge.rotation, 4, 5));
+					new Faisca("faica " + ge.getName(), new Vector2D(ge.position.x, ge.position.y), new Vector2D(ge.speed.x, ge.speed.y), ge.rotation, 4, 8));
 					break;
 				case "Enemy": 
 					ge.inCollider = true; 
