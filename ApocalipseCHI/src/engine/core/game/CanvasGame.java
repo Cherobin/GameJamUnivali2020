@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import apiPS.OGG_Player;
+import apiPS.PS_SoundPlayer;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
@@ -51,11 +52,17 @@ public class CanvasGame extends MyCanvas implements GameState {
 	BufferedImage roofImage;
 
 	int[] roofData;
+	
+	public static PS_SoundPlayer soundplayer;
 
 	public CanvasGame() {
 
 		// tem que criar o player antes do tileMap por causa dos inimigos
 		// depois de tudo adiciona ele na lista
+		
+		soundplayer = new PS_SoundPlayer();
+		soundplayer.addtrack("rifle.wav", 5, false);
+		
 
 		player = new Player("Dennis", new Vector2D(800, 1000), 32, 32, 0);
 

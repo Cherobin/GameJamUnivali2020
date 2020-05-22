@@ -155,6 +155,7 @@ public class Enemy extends GameEntity implements GameObject {
 				Color.black, 500, tilemap, this);
 	 
 		CanvasGame.sortedEntities.add(p);
+		CanvasGame.soundplayer.playTrack(0);
 		 
 
 	}
