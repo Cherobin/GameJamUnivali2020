@@ -153,9 +153,11 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 		float distanceToTarget = target.position.distance(ge.position);
 		//System.out.println(" "+distanceToTarget+" "+viewDistance+" "+state);
  
+		//System.out.println("state " + state);
+		
 		switch (state) {
 		case PATHFIND:
-			//System.out.println("RODA PATHFIND");
+		
 			break;
 		case GOPATHFIND:
 			if (ge.chegouObjetivo) {
@@ -180,10 +182,12 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 			}
 			break;
 		case PURSUIT:
-			if(distanceToTarget < ge.height-5) {
-				state = EnemyState.ENEMY_MELEE_ATACK;
-			} else if (distanceToTarget > sensorDistance || distanceToTarget >= viewDistance) {
+			if (distanceToTarget > sensorDistance || distanceToTarget >= viewDistance) {
 				state = EnemyState.STOP;
+			} else {
+				if (distanceToTarget < ge.height) {
+					state = EnemyState.STOP;
+				}
 			}
 			break;
 		default:
