@@ -43,6 +43,7 @@ public class Sprite extends Objeto{
         Tempo = 0;
         
         Anim = 0;
+        Frame = 0;
         
         Character = charac;
         

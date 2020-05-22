@@ -50,7 +50,7 @@ public class Particle extends GameEntity {
 		AffineTransform t = dbg.getTransform();
 		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
 		dbg.rotate(rotation);
-		dbg.fillOval((int) -offset.x/2 - 2, (int) -offset.y/2 - 2, (int) this.radius, (int) this.radius);
+		dbg.fillOval((int) -offset.x/2, (int) -offset.y/2, (int) this.radius, (int) this.radius);
 		dbg.setTransform(t); 
 	}
 

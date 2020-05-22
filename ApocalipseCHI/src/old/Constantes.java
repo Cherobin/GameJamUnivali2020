@@ -13,8 +13,10 @@ public class Constantes {
 	public static Rectangle telaRect = new Rectangle();
 	
 	public static Font font;
+	 
 	
-	public static BufferedImage personagem1;
+	public static BufferedImage enemy1;
+	public static BufferedImage player;
 	
 	public static Random rnd = new Random();
 	 
@@ -22,8 +24,9 @@ public class Constantes {
 		font = new Font(null,Font.PLAIN,14);
 	}
 	
-	public static void carrega_Imagens() {
-		personagem1 = GamePanel.instance.carregaImagem("char01.png");
+	public static void carrega_Imagens() { 
+		enemy1 = GamePanel.instance.carregaImagem("enemy01.png");
+		player = GamePanel.instance.carregaImagem("enemy01.png");
 	}
 	
 	/*
