@@ -31,7 +31,6 @@ public class Player extends GameEntity implements GameObject {
 
 	public Player(String name, Vector2D position, int width, int height, float rotation) {
 		super(name, position, width, height, rotation);
-
 		maxVel = 100;
 		color = Color.GREEN;
 		offset.x = 0;
@@ -41,7 +40,7 @@ public class Player extends GameEntity implements GameObject {
 		mousePosition = new Vector2D();
 		timeToFire = 0.2f;
 		timerFire= 0;
-		maxLife = life = 1000;
+		maxLife = life = 1000; 
 	}
 
 	public void initializeComponents(TileMap tilemap) {
@@ -111,7 +110,7 @@ public class Player extends GameEntity implements GameObject {
 
 	public void fire() {
 		Particle p = new Particle("fire", 20, new Vector2D(position.x, position.y), new Vector2D(200, 200), new Vector2D(-width, 0), rotation, 4,
-				Color.black, 1000, tilemap); 
+				Color.black, 1000, tilemap, this); 
 		 CanvasGame.sortedEntities.add(p);
 
 	}

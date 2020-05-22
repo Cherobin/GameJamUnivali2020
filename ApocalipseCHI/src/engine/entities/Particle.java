@@ -20,8 +20,8 @@ public class Particle extends GameEntity {
 	public float decay; 
 	TileMap tilemap;
 	public int damage;
-	
-	public Particle(String name, int damage, Vector2D pos, Vector2D velocity, Vector2D offset, float rotation, float radius, Color color, float expireTime, TileMap tilemap) {
+	GameEntity father;
+	public Particle(String name, int damage, Vector2D pos, Vector2D velocity, Vector2D offset, float rotation, float radius, Color color, float expireTime, TileMap tilemap, GameEntity father) {
 		super(name);
 		this.position = pos;
 		this.speed = velocity;
@@ -35,6 +35,8 @@ public class Particle extends GameEntity {
 		initializeComponents(tilemap);
 		boundingBox.w = boundingBox.h = radius;
 		this.damage = damage;
+		alive = true;
+		this.father = father;
 	}
  
 	@Override
@@ -59,11 +61,13 @@ public class Particle extends GameEntity {
  
 		for (int i = 0; i < CanvasGame.sortedEntities.size(); i++) {
 			GameEntity entity = ((GameEntity) CanvasGame.sortedEntities.get(i));
-				if(entity != this) {
+				if(!entity.getName().equals("fire") && entity != father) {
+					if(entity.boundingBox.collide(boundingBox)) {
 					 entity.life-=damage;  
-					// System.out.println("life ->"+entity.getName() + " " + entity.life);
+					 System.out.println("life ->"+entity.getName() + " " + entity.life);
 					 alive = false;
 					 break;
+					}
 			} 
 		}
 	}
