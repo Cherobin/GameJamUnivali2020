@@ -21,6 +21,8 @@ public class TileMapLoader {
 	private GameEntityBuilder builder;
 	
 
+	
+
 	public TileMapLoader(GameEntityBuilder builder) {
 		this.builder = builder;
 	}
@@ -35,7 +37,7 @@ public class TileMapLoader {
 			System.out.println(""+fin.available());
 			map = tmr.readMap(basepath+"//"+path);
 	 
-			for (MapLayer ml : map.getLayers()) {
+			/*for (MapLayer ml : map.getLayers()) {
 				if (ml instanceof ObjectGroup) {
 					switch (ml.getName()) {
 					case "actors":
@@ -44,7 +46,7 @@ public class TileMapLoader {
 					}
 
 				}
-			}
+			}*/
 
 		} catch (Exception e) {
 				e.printStackTrace();

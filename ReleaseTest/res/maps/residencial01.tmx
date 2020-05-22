@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="73">
  <tileset firstgid="1" source="tileset test01.tsx"/>
  <layer id="1" name="ground" width="100" height="100" locked="1">
   <data encoding="csv">
@@ -209,7 +209,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="3" name="roof" width="100" height="100" locked="1">
+ <layer id="3" name="roof" width="100" height="100" visible="0" locked="1">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -313,4 +313,75 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="4" name="actors">
+  <object id="1" name="Enemy-1" type="Enemy" x="528.333" y="176" width="47" height="62.1667"/>
+  <object id="2" name="Enemy-2" type="Enemy" x="416.333" y="175.667" width="46.6667" height="62.6667"/>
+  <object id="3" name="Enemy-3" type="Enemy" x="209.667" y="78.6667" width="45.3333" height="62"/>
+  <object id="4" name="Enemy-4" type="Enemy" x="561.667" y="991" width="46" height="64"/>
+  <object id="5" name="Enemy-5" type="Enemy" x="176" y="1280" width="47.6667" height="62.3333"/>
+  <object id="6" name="Enemy-6" type="Enemy" x="416.667" y="1216.33" width="47" height="63"/>
+  <object id="8" name="Enemy-7" type="Enemy" x="1041" y="1199.67" width="45.6667" height="63.6667"/>
+  <object id="9" name="Enemy-8" type="Enemy" x="1473.33" y="1073" width="46.3333" height="61.6667"/>
+  <object id="10" name="Enemy-9" type="Enemy" x="1296" y="1344.33" width="47.6667" height="64"/>
+  <object id="11" name="Enemy-10" type="Enemy" x="1120.33" y="496.667" width="47" height="63"/>
+  <object id="12" name="Enemy-11" type="Enemy" x="1424.67" y="609" width="46" height="61.6667"/>
+  <object id="13" name="Enemy-12" type="Enemy" x="1488" y="96" width="47.3333" height="62.3333"/>
+  <object id="14" name="Bau-1" type="Bau" x="64.6667" y="257.333" width="46.6667" height="13.6667"/>
+  <object id="15" name="Bau-2" type="Bau" x="272.667" y="144" width="14" height="30.3333"/>
+  <object id="16" name="Bau-3" type="Bau" x="560.667" y="49" width="31" height="13.6667"/>
+  <object id="17" name="Bau-4" type="Bau" x="592.333" y="96.3333" width="15" height="30"/>
+  <object id="18" name="Bau-5" type="Bau" x="383.667" y="242" width="15.6667" height="28"/>
+  <object id="19" name="Bau-6" type="Bau" x="79.6667" y="416.667" width="15.6667" height="46"/>
+  <object id="20" name="Bau-7" type="Bau" x="80" y="496.667" width="14.6667" height="30"/>
+  <object id="21" name="Bau-8" type="Bau" x="144.667" y="417.333" width="30.6667" height="13"/>
+  <object id="22" name="Bau-9" type="Bau" x="272.667" y="512" width="30.6667" height="14"/>
+  <object id="23" name="Bau-10" type="Bau" x="449" y="417.333" width="30" height="13"/>
+  <object id="24" name="Bau-11" type="Bau" x="544" y="415.667" width="31" height="15"/>
+  <object id="25" name="Bau-12" type="Bau" x="609.333" y="976.667" width="14" height="31"/>
+  <object id="26" name="Bau-13" type="Bau" x="417.333" y="1089" width="45.6667" height="14"/>
+  <object id="27" name="Bau-14" type="Bau" x="545.333" y="1137.67" width="13.3333" height="30"/>
+  <object id="28" name="Bau-15" type="Bau" x="305" y="1121.33" width="46.3333" height="14"/>
+  <object id="29" name="Bau-16" type="Bau" x="385" y="1136.33" width="14" height="30"/>
+  <object id="30" name="Bau-17" type="Bau" x="337.333" y="1088.33" width="13.6667" height="13.6667"/>
+  <object id="31" name="Bau-18" type="Bau" x="112" y="1153.33" width="31" height="12.6667"/>
+  <object id="32" name="Bau-19" type="Bau" x="176" y="1137" width="15.6667" height="29.6667"/>
+  <object id="34" name="Bau-20" type="Bau" x="257" y="1344" width="29.6667" height="14"/>
+  <object id="35" name="Bau-21" type="Bau" x="113.333" y="1345" width="30" height="13.6667"/>
+  <object id="36" name="Bau-22" type="Bau" x="161.667" y="1440" width="13" height="30.6667"/>
+  <object id="37" name="Bau-23" type="Bau" x="192" y="1519.67" width="47.6667" height="14"/>
+  <object id="38" name="Bau-24" type="Bau" x="416.333" y="1440.33" width="15" height="31"/>
+  <object id="39" name="Bau-25" type="Bau" x="609" y="1503.67" width="13.6667" height="31.6667"/>
+  <object id="40" name="Bau-26" type="Bau" x="417" y="1313.33" width="31.6667" height="15"/>
+  <object id="41" name="Bau-27" type="Bau" x="1185" y="1360.33" width="30.3333" height="14.3333"/>
+  <object id="42" name="Bau-28" type="Bau" x="1234.33" y="1506" width="28.6667" height="28"/>
+  <object id="43" name="Bau-29" type="Bau" x="1089.67" y="1457.33" width="13" height="28.6667"/>
+  <object id="44" name="Bau-30" type="Bau" x="1105.67" y="1521.33" width="46" height="13"/>
+  <object id="45" name="Bau-31" type="Bau" x="1360.33" y="1456.67" width="14.6667" height="30.6667"/>
+  <object id="46" name="Bau-32" type="Bau" x="1441" y="1408.67" width="14.6667" height="31"/>
+  <object id="47" name="Bau-33" type="Bau" x="1360.67" y="1264.67" width="14.6667" height="30"/>
+  <object id="48" name="Bau-34" type="Bau" x="1361.67" y="1167.67" width="13" height="32"/>
+  <object id="49" name="Bau-35" type="Bau" x="1472.33" y="1009" width="47" height="14"/>
+  <object id="50" name="Bau-36" type="Bau" x="1425" y="1088.33" width="30" height="14"/>
+  <object id="51" name="Bau-37" type="Bau" x="1231.67" y="1087.67" width="32.6667" height="15.6667"/>
+  <object id="52" name="Bau-38" type="Bau" x="1089" y="1008.33" width="30" height="15"/>
+  <object id="53" name="Bau-39" type="Bau" x="1009.33" y="1071.67" width="13.3333" height="31"/>
+  <object id="54" name="Bau-40" type="Bau" x="977" y="561" width="46.6667" height="13.6667"/>
+  <object id="55" name="Bau-41" type="Bau" x="1184.33" y="479.333" width="14.6667" height="46.6667"/>
+  <object id="56" name="Bau-42" type="Bau" x="1121.33" y="320.667" width="45.6667" height="14.6667"/>
+  <object id="57" name="Bau-43" type="Bau" x="1264.67" y="464.333" width="47" height="15"/>
+  <object id="58" name="Bau-44" type="Bau" x="1521.33" y="401.333" width="29.6667" height="13.3333"/>
+  <object id="59" name="Bau-45" type="Bau" x="1409" y="481" width="45.6667" height="13.6667"/>
+  <object id="60" name="Bau-46" type="Bau" x="1441.33" y="320.333" width="30.3333" height="15"/>
+  <object id="61" name="Bau-47" type="Bau" x="1536.67" y="47.6667" width="14.3333" height="31.3333"/>
+  <object id="63" name="Bau-48" type="Bau" x="1487.67" y="48" width="31.6667" height="15.6667"/>
+  <object id="64" name="Bau-49" type="Bau" x="1536" y="192.333" width="15.6667" height="46.6667"/>
+  <object id="65" name="Bau-50" type="Bau" x="976" y="112" width="47.6667" height="15.3333"/>
+  <object id="66" name="Bau-51" type="Bau" x="1153.33" y="48.6667" width="14" height="47"/>
+  <object id="67" name="Bau-52" type="Bau" x="1376.33" y="144.333" width="15" height="30.3333"/>
+  <object id="68" name="luz-1" type="luz" x="479" y="192.5" width="17" height="15"/>
+  <object id="69" name="luz-2" type="luz" x="626" y="1008" width="13.5" height="13.5"/>
+  <object id="70" name="luz-3" type="luz" x="1026" y="1118" width="14.5" height="16.5"/>
+  <object id="71" name="luz-4" type="luz" x="1168.5" y="561.5" width="13.5" height="14"/>
+  <object id="72" name="luz-5" type="luz" x="978.5" y="192" width="13" height="13.5"/>
+ </objectgroup>
 </map>

@@ -74,15 +74,16 @@ public class CanvasGame extends MyCanvas implements GameState {
 		tileMap.addMap(map);
 		map = tml.load(this, "res//maps//commercial01.tmx");
 		tileMap.addMap(map);
-
 		map = tml.load(this, "res//maps//residencial02.tmx"); 
 		tileMap.addMap(map);
 		map = tml.load(this, "res//maps//industrial02.tmx"); 
 		tileMap.addMap(map);
 		map = tml.load(this, "res//maps//commercial02.tmx"); 
 		tileMap.addMap(map);
+		map = tml.load(this, "res//maps//park01.tmx"); 
+		tileMap.addMap(map);
 		
-		tileMap.setMap(); 
+		tileMap.setMap(this); 
 		
 		// adiciona o mapa para ele
 
@@ -120,6 +121,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 				Enemy e = (Enemy) go;
 				e.setTarget(player, 80, 300, 150, tileMap);
 				addEntity(e);
+				//System.out.println(" "+e.getName());
 			}
 		}
 
@@ -242,16 +244,22 @@ public class CanvasGame extends MyCanvas implements GameState {
 				tileMap.pontosdeluz[0][3] = 1;
 				tileMap.pontosdeluz[0][4] = tmanhoDaluz;
 				tileMap.pontosdeluz[0][5] = (int)(player.rotation*57.29577);
+				int lcount = 1;
 				
 				for (int i = 0; i < sortedEntities.size(); i++) {
 					GameObject entity = sortedEntities.get(i);
 					if(entity.getClass()==Enemy.class) {
-						tileMap.pontosdeluz[i+1][0] = 1;
-						tileMap.pontosdeluz[i+1][1] = (int)(((Enemy)entity).position.x-tileMap.getTelaX());
-						tileMap.pontosdeluz[i+1][2] = (int)(((Enemy)entity).position.y-tileMap.getTelaY());
-						tileMap.pontosdeluz[i+1][3] = 1;
-						tileMap.pontosdeluz[i+1][4] = tmanhoDaluz/2;
-						tileMap.pontosdeluz[i+1][5] = (int)(((Enemy)entity).rotation*57.29577);
+						int lpx = (int)(((Enemy)entity).position.x-tileMap.getTelaX());
+						int lpy = (int)(((Enemy)entity).position.y-tileMap.getTelaY());
+						if(lpx>-100&&lpx<(Constantes.telaW+100)&&lpy>-100&&lpy<(Constantes.telaW+100)&&lcount<32) {
+							tileMap.pontosdeluz[lcount][0] = 1;
+							tileMap.pontosdeluz[lcount][1] = lpx;
+							tileMap.pontosdeluz[lcount][2] = lpy;
+							tileMap.pontosdeluz[lcount][3] = 1;
+							tileMap.pontosdeluz[lcount][4] = tmanhoDaluz/2;
+							tileMap.pontosdeluz[lcount][5] = (int)(((Enemy)entity).rotation*57.29577);
+							lcount++;
+						}
 					}
 				}
 				
