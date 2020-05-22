@@ -11,6 +11,7 @@ import engine.base.entities.GameObject;
 import engine.core.game.CanvasGame;
 import engine.map.AEstrela;
 import engine.map.TileMap;
+import old.Constantes;
 
 public class EnemyBehavior extends AbstractComponent implements Component {
 
@@ -46,56 +47,72 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	@Override
 	public void update(GameObject e, float diffTime) {
 		super.update(e, diffTime);
-
+		
 		GameEntity ge = (GameEntity) e;
-
-		EnemyState state = evaluate(ge, target);
-
-		if (ge.inCollider && state != EnemyState.GOPATHFIND) {
-			ge.position.set(ge.oldPosition);
-			state = EnemyState.PATHFIND; 
-		}
-
-		ge.oldPosition.set(ge.position);
-
-		if (!previousState.equals(state)) {
-		//	System.out.println("state: " + state);
-			switch (state) {
-			case PATHFIND:
-				setaObjetivo(ge, (int) CanvasGame.player.position.x, (int) CanvasGame.player.position.y);
-				break;
-			case DETECT:
-				ge.speed.y = ge.speed.x = +speed;
-				ge.FIRE = false;
-				color = Color.RED;
-				break;
-			case PURSUIT:
-				ge.speed.y = ge.speed.x = +speed;
-				color = Color.ORANGE;
-				ge.FIRE = true;
-				break;
-			case STOP:
-				ge.speed.y = ge.speed.x = 0.0f;
-				color = Color.GREEN;
-				ge.FIRE = false;
-				break;
-			case GOPATHFIND:
-				//System.out.println("GOPATHFIND");
-				break;
+		
+		//VOU CONGELAR OS INIMIGOS QUE ESTEJAM MUITO LONGE, NAO GAZ SENTIDO SIMULALOS
+		
+		float tpx = ge.position.x - tilemap.getTelaX();
+		float tpy = ge.position.y - tilemap.getTelaY();
+		
+		if(tpx>-800&&tpy>-800&&tpx<(Constantes.telaW+800)&&tpy<(Constantes.telaH+800)) {
+			
+			
+			EnemyState state = evaluate(ge, target);
+	
+			if (ge.inCollider && state != EnemyState.GOPATHFIND) {
+				ge.position.set(ge.oldPosition);
+				state = EnemyState.PATHFIND; 
 			}
-			previousState = state;
+	
+			ge.oldPosition.set(ge.position);
+	
+			//TODO cherobim ta errado..
+			//A velocidade tem que ser uma constante tipo 200..
+			// A logica deve ser definir o angulo para onde o personagem vai
+			// A Partido da angulo voce determina o deslocamento em x e em y;
+			
+			
+			if (!previousState.equals(state)) {
+			//	System.out.println("state: " + state);
+				switch (state) {
+				case PATHFIND:
+					setaObjetivo(ge, (int) CanvasGame.player.position.x, (int) CanvasGame.player.position.y);
+					break;
+				case DETECT:
+					ge.speed.y = ge.speed.x = +speed;
+					ge.FIRE = false;
+					color = Color.RED;
+					break;
+				case PURSUIT:
+					ge.speed.y = ge.speed.x = +speed;
+					color = Color.ORANGE;
+					ge.FIRE = true;
+					break;
+				case STOP:
+					ge.speed.y = ge.speed.x = 0.0f;
+					color = Color.GREEN;
+					ge.FIRE = false;
+					break;
+				case GOPATHFIND:
+					//System.out.println("GOPATHFIND");
+					break;
+				}
+				previousState = state;
+			}
+	
+			// ge.speed.x ge.speed.y não fazem sentido nesse caso
+			
+			ge.position.x += ge.speed.x * Math.cos(ge.rotation) * diffTime / 1000f;
+			ge.position.y += ge.speed.y * Math.sin(ge.rotation) * diffTime / 1000f;
 		}
-
-		ge.position.x += ge.speed.x * Math.cos(ge.rotation) * diffTime / 1000f;
-		ge.position.y += ge.speed.y * Math.sin(ge.rotation) * diffTime / 1000f;
-
 	 
 	}
 
 	public void setaObjetivo(GameEntity ge, int objetivox, int objetivoy) { 
 		caminho = aestrela.StartAestrela((int) (ge.position.x), (int) (ge.position.y),
 				objetivox, objetivoy, 500);
-		state = EnemyState.GOPATHFIND;
+		state = EnemyState.STOP;
 		ge.chegouObjetivo = false;
 		ge.indexPathFind = 0;
 	}
@@ -130,6 +147,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	private EnemyState evaluate(GameEntity ge, GameEntity target) {
 	 
 		float distanceToTarget = target.position.distance(ge.position);
+		//System.out.println(" "+distanceToTarget+" "+viewDistance+" "+state);
  
 		switch (state) {
 		case PATHFIND:

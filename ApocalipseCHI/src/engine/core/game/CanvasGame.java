@@ -63,6 +63,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 
 		sortedEntities = new ArrayList<>();
 		renderingStack = new ConcurrentHashMap<>();
+		
 		tileMap = new TileMap("tilemap");
 
 		seb = new GameEntityBuilder();
@@ -119,7 +120,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		for (GameObject go : renderingStack.values()) {
 			if (go instanceof Enemy) {
 				Enemy e = (Enemy) go;
-				e.setTarget(player, 80, 300, 150, tileMap);
+				e.setTarget(player, 80, 200, 150, tileMap);
 				addEntity(e);
 				//System.out.println(" "+e.getName());
 			}
@@ -157,6 +158,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 				}
 			}
 		}
+		//System.out.println("sortedEntities.size() "+sortedEntities.size());
 		 
 		
 	}
@@ -337,6 +339,18 @@ public class CanvasGame extends MyCanvas implements GameState {
 				return (e1.layer > e2.layer ? 1 : -1);
 			}
 		});
+		
+		/*for (int i = 0; i < sortedEntities.size(); i++) {
+			GameObject entity = sortedEntities.get(i);
+			GameEntity teste = (GameEntity) sortedEntities.get(i);
+
+			if (entity.getComponents() != null && entity.getComponents().size() > 0) {
+				for (Component c : entity.getComponents().values()) {
+					// System.out.println(entity.getName() + " - " + c.getName());
+					System.out.println(" "+entity.getName()+" "+c.getName());
+				}
+			}
+		}*/
 	}
 
 	public void addEntity(GameObject entity) {

@@ -109,8 +109,8 @@ public class Player extends GameEntity implements GameObject {
 	}
 
 	public void fire() {
-		Particle p = new Particle("fire", 20, new Vector2D(position.x, position.y), new Vector2D(200, 200), new Vector2D(-width, 0), rotation, 4,
-				Color.black, 1000, tilemap, this); 
+		Particle p = new Particle("fire", 20, new Vector2D(position.x, position.y), new Vector2D(400, 400), new Vector2D(-width, 0), rotation, 4,
+				Color.black, 500, tilemap, this); 
 		 CanvasGame.sortedEntities.add(p);
 
 	}

@@ -61,6 +61,8 @@ public class Particle extends GameEntity {
  
 		for (int i = 0; i < CanvasGame.sortedEntities.size(); i++) {
 			GameEntity entity = ((GameEntity) CanvasGame.sortedEntities.get(i));
+			
+			//TODO CHERO... RAPAISSSS, essas comparações de string são lentas pra carampa.. não faz mais isso por favor.. cria um enumeration pra o tipo ENEMY, FIRE etc
 				if(!entity.getName().equals("fire") && entity != father) {
 					if(entity.boundingBox.collide(boundingBox)) {
 					 entity.life-=damage;  
