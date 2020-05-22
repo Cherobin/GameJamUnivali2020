@@ -146,7 +146,7 @@ public class Player extends GameEntity implements GameObject {
 		Particle p = new Particle("fire", 20, new Vector2D(position.x, position.y), new Vector2D(400, 400),
 				new Vector2D(-width, 0), rotation, 4, Color.black, 500, tilemap, this);
 		CanvasGame.sortedEntities.add(p);
-
+		CanvasGame.soundplayer.playTrack(0);
 	}
 
 	public void setDirection() {
