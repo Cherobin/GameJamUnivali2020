@@ -185,8 +185,7 @@ public void explode(){
 		 double ang =((Math.PI*2)*Math.random());
 		 double size = 70*Math.random();
 		
-
-		 
+ 
 		//double ang =ang2;
 		//double size = 1;        	
 		

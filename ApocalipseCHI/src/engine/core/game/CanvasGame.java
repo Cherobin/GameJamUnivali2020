@@ -43,9 +43,10 @@ public class CanvasGame extends MyCanvas implements GameState {
 	private int tamanhoSensor = 350;
 	private int tmanhoDaluz = 250;
 
-	public static Map<String, GameObject> renderingStack;
-	public List<GameObject> sortedEntities;
-
+	public Map<String, GameObject> renderingStack;
+	public static List<GameObject> sortedEntities;
+	 
+	
 	BufferedImage roofImage;
 
 	int[] roofData;
@@ -146,6 +147,8 @@ public class CanvasGame extends MyCanvas implements GameState {
 				}
 			}
 		}
+		 
+		
 	}
 
 	@Override
