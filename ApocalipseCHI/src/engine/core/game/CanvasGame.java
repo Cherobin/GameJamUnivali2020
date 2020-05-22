@@ -28,6 +28,7 @@ import engine.entities.Enemy;
 import engine.entities.Player;
 import engine.map.TileMap;
 import engine.map.TileMapLoader;
+import engine.map.behavior.EnemyBehavior;
 import engine.utils.Vector2D;
 import old.Constantes;
 
@@ -108,7 +109,12 @@ public class CanvasGame extends MyCanvas implements GameState {
 		 * addEntity(enemy3);
 		 * 
 		 */
-
+		Enemy enemy = new Enemy("Enemy",new Vector2D(800, 1000),32,32,0);
+		  enemy.setTarget(player, 80, 300, 150, tileMap);
+		 
+	 
+		 addEntity(enemy);
+		 
 		// TESTE INICIAL DE PLAY OGG
 		OGG_Player musicplayer = new OGG_Player();
 		File ogg = new File("musica2_low.ogg");
@@ -116,7 +122,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		// musicplayer.start();
 
 		// Attache target to enemy for EnemyBehavior component's sensors
-
+ 
 		for (GameObject go : renderingStack.values()) {
 			if (go instanceof Enemy) {
 				Enemy e = (Enemy) go;
@@ -126,7 +132,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 			}
 		}
 		sortEntities();
-
+ 
 	}
  
 	

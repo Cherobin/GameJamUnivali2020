@@ -165,7 +165,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 			}
 			break;
 		case STOP:
-			if (distanceToTarget < ge.height) {
+			if (distanceToTarget < ge.height-5) {
 				state = EnemyState.STOP;
 				state = EnemyState.ENEMY_MELEE_ATACK;
 			} else if (distanceToTarget < sensorDistance) {
@@ -180,7 +180,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 			}
 			break;
 		case PURSUIT:
-			if(distanceToTarget < ge.height*2) {
+			if(distanceToTarget < ge.height-5) {
 				state = EnemyState.ENEMY_MELEE_ATACK;
 			} else if (distanceToTarget > sensorDistance || distanceToTarget >= viewDistance) {
 				state = EnemyState.STOP;

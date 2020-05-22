@@ -14,6 +14,7 @@ import engine.core.game.CanvasGame;
 import engine.map.TileMap;
 import engine.map.behavior.EnemyBehavior;
 import engine.map.behavior.TileMapCollisionBehavior;
+import engine.map.behavior.EnemyBehavior.EnemyState;
 import engine.utils.Vector2D;
 import old.Constantes;
 
@@ -23,7 +24,8 @@ public class Enemy extends GameEntity implements GameObject {
 	TileMap tilemap;
 	float timeToFire;
 	float timerFire;
-
+	float timerDanoMelee;
+	float danoMelee;
      
 	public Enemy(String name) {
 		super(name);
@@ -48,6 +50,8 @@ public class Enemy extends GameEntity implements GameObject {
 		maxLife = life = 100;  
 		animationType = GameEntityTypeAnimation.IDLE;
 		type = GameEntityType.ENEMY;
+		
+		danoMelee = 10;
  
 	}
 
@@ -111,21 +115,41 @@ public class Enemy extends GameEntity implements GameObject {
 		
 	     frame = ((int)(timer/frameTime))%3;
 	
-	     
-		if(FIRE && (animationType == GameEntityTypeAnimation.PRIMARY_WP || 
-				animationType == GameEntityTypeAnimation.SECONDARY_WP )) {
-			timerFire+= dt/1000; 
-			if(timerFire > timeToFire) {
-				timerFire=0;
-				fire();
-			}
-		}
-		
+	    
 		if(life < 0) {
 			alive = false;
 		}
+		
+	
+		
+		switch (animationType) {
+		case MELEE_ATACK:
+			timerDanoMelee+= dt/1000; 
+			if(timerDanoMelee > 0.1f) {
+				timerDanoMelee=0;
+				atackMelee();
+			}
+			break;
+		case IDLE:
+			break;
+		default:
+			if(FIRE) {
+				timerFire+= dt/1000; 
+				if(timerFire > timeToFire) {
+					timerFire=0;
+					fire();
+				}
+			}
+			break;
+		}
+		 
 	}
 
+	public void atackMelee() {
+		if(boundingBox.collide(CanvasGame.player.boundingBox)) {
+			CanvasGame.player.life-=danoMelee;
+		}
+	}
 	public void fire() {
 		Particle p = new Particle("fire", 5, new Vector2D(position.x, position.y),new Vector2D(400, 400), new Vector2D(-width, 0), rotation, 4,
 				Color.black, 500, tilemap, this);
