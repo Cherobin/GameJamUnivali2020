@@ -40,6 +40,7 @@ public class Enemy extends GameEntity implements GameObject {
 		timeToFire = 0.2f;
 		timerFire= 0;
 		alive = true;
+		oldPosition = position;
 	}
 
 	@Override

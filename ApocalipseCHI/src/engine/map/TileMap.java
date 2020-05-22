@@ -233,11 +233,11 @@ public class TileMap extends GameEntity implements GameObject {
 	
 	public void setMap(GameState gs) {
 		components = new HashMap<>();
-		blocks = new Map[30][30];
+		blocks = new Map[10][10];
 		Random rnd = new Random();
 		int enemycount = 0;
-		for(int i = 0; i < 30; i++) {
-			for(int j = 0; j < 30; j++) {
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
 				blocks[i][j] = listaDeMapBlocks.get(rnd.nextInt(listaDeMapBlocks.size()));
 				
 				/*for(int l = 0; l < blocks[i][j].getLayerCount();l++ ) {
@@ -269,7 +269,7 @@ public class TileMap extends GameEntity implements GameObject {
 	public boolean isUnderRoof(int x,int y) {
 		int bx = x/1600;
 		int by = y/1600;
-		if(bx>=0&&bx<30&&by>=0&&by<30) {
+		if(bx>=0&&bx<10&&by>=0&&by<10) {
 			Map mapselected = blocks[bx][by];
 			
 			TileLayer tl = (TileLayer)mapselected.getLayer(2); // RoofLayer
@@ -290,7 +290,7 @@ public class TileMap extends GameEntity implements GameObject {
 		int bx = x/1600;
 		int by = y/1600;
 		
-		if(bx>=0&&bx<30&&by>=0&&by<30&&x>0&&y>0) {
+		if(bx>=0&&bx<10&&by>=0&&by<10&&x>0&&y>0) {
 			Map mapselected = blocks[bx][by];
 			int tlx = (x%1600)>>4;
 			int tly = (y%1600)>>4;
@@ -337,7 +337,7 @@ public class TileMap extends GameEntity implements GameObject {
 							double ang = Math.atan2(dy,dx);
 							int distang = angularDistance((int)Math.toDegrees(ang),pontosdeluz[l][5]);
 							
-							if(distang<30) {
+							if(distang<10) {
 								if(dist < pontosdeluz[l][4]*pontosdeluz[l][4])  {
 									if(!raycolision(pontosdeluz[l][1]+telaX,pontosdeluz[l][2]+telaY,(j<<3)+telaX+4,(i<<3)+telaY+4)) {
 										luz[i][j]+=100;
