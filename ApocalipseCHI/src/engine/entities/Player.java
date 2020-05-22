@@ -41,6 +41,7 @@ public class Player extends GameEntity implements GameObject {
 		mousePosition = new Vector2D();
 		timeToFire = 0.2f;
 		timerFire= 0;
+		maxLife = life = 1000;
 	}
 
 	public void initializeComponents(TileMap tilemap) {
@@ -52,12 +53,22 @@ public class Player extends GameEntity implements GameObject {
 	public void render(Graphics2D dbg) {
 		super.render(dbg);
 
+		dbg.setColor(Color.white);
+		dbg.fillRect((int)position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 22, 40, 7);
+		
+		dbg.setColor(Color.red);
+		dbg.fillRect((int)position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 20, (life*40)/maxLife, 5);
+		
+		
 		AffineTransform t = dbg.getTransform();
 
 		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
 		dbg.rotate(rotation);
 		dbg.drawImage(myimage, -myimage.getWidth() / 2, -myimage.getHeight() / 2, null);
 
+		dbg.setColor(Color.black);
+	
+		
 		dbg.setTransform(t);
 	}
 
@@ -65,6 +76,10 @@ public class Player extends GameEntity implements GameObject {
 	public void update(float diffTime) {
 		super.update(diffTime);
 
+		if(life < 0) {
+			alive = false;
+		}
+	
 		if(inCollider) {
 			position.set(oldPosition);
     	}
@@ -95,7 +110,7 @@ public class Player extends GameEntity implements GameObject {
 	}
 
 	public void fire() {
-		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(200, 200), new Vector2D(-width, 0), rotation, 4,
+		Particle p = new Particle("fire", 20, new Vector2D(position.x, position.y), new Vector2D(200, 200), new Vector2D(-width, 0), rotation, 4,
 				Color.black, 1000, tilemap); 
 		 CanvasGame.sortedEntities.add(p);
 

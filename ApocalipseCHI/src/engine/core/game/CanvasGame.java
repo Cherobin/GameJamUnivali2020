@@ -43,7 +43,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 	private int tamanhoSensor = 350;
 	private int tmanhoDaluz = 250;
 
-	public Map<String, GameObject> renderingStack;
+	public static Map<String, GameObject> renderingStack;
 	public static List<GameObject> sortedEntities;
 	 
 	
@@ -124,9 +124,11 @@ public class CanvasGame extends MyCanvas implements GameState {
 				//System.out.println(" "+e.getName());
 			}
 		}
+		sortEntities();
 
 	}
-
+ 
+	
 	@Override
 	public void update(float diffTime) {
 
@@ -136,8 +138,14 @@ public class CanvasGame extends MyCanvas implements GameState {
 
 		for (int i = 0; i < sortedEntities.size(); i++) {
 			GameObject entity = sortedEntities.get(i);
-			if (!entity.isAlive()) {
+			GameEntity teste = (GameEntity) sortedEntities.get(i);
+			//System.out.println("remove ->"+teste.getName() + " " + teste.life);
+			
+			if (!entity.isAlive()) { 
 				sortedEntities.remove(i);
+				teste.position.set(0,0);
+				removeEntity(entity);
+				
 				i--;
 				continue;
 			}
@@ -333,14 +341,14 @@ public class CanvasGame extends MyCanvas implements GameState {
 
 	public void addEntity(GameObject entity) {
 		renderingStack.put(entity.getName(), entity);
-		sortEntities();
+		//sortEntities();
 	}
 
 	public void removeEntity(GameObject entity) {
 		if (renderingStack.containsKey(entity.getName())) {
 			renderingStack.remove(entity);
 		}
-		sortEntities();
+		//sortEntities();
 	}
 
 	@Override
@@ -440,11 +448,12 @@ public class CanvasGame extends MyCanvas implements GameState {
 	public String getName() {
 		return this.getName();
 	}
-
+	 
 	@Override
 	public Map<String, GameObject> getEntities() {
 		return renderingStack;
 	}
+
 
 	private void drawSystemData(Graphics2D g) {
 		Runtime runtime = Runtime.getRuntime();

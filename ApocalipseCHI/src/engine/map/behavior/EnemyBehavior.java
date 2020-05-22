@@ -89,6 +89,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 		ge.position.x += ge.speed.x * Math.cos(ge.rotation) * diffTime / 1000f;
 		ge.position.y += ge.speed.y * Math.sin(ge.rotation) * diffTime / 1000f;
 
+	 
 	}
 
 	public void setaObjetivo(GameEntity ge, int objetivox, int objetivoy) { 

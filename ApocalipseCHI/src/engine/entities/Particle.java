@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 import engine.base.entities.GameEntity;
+import engine.base.entities.GameObject;
 import engine.core.game.CanvasGame;
 import engine.map.TileMap;
 import engine.map.behavior.MoveElementBehavior;
@@ -18,8 +19,9 @@ public class Particle extends GameEntity {
 	public float expireTime; 
 	public float decay; 
 	TileMap tilemap;
+	public int damage;
 	
-	public Particle(String name, Vector2D pos, Vector2D velocity, Vector2D offset, float rotation, float radius, Color color, float expireTime, TileMap tilemap) {
+	public Particle(String name, int damage, Vector2D pos, Vector2D velocity, Vector2D offset, float rotation, float radius, Color color, float expireTime, TileMap tilemap) {
 		super(name);
 		this.position = pos;
 		this.speed = velocity;
@@ -31,6 +33,8 @@ public class Particle extends GameEntity {
 		this.rotation = rotation;
 		this.offset = offset;
 		initializeComponents(tilemap);
+		boundingBox.w = boundingBox.h = radius;
+		this.damage = damage;
 	}
  
 	@Override
@@ -52,10 +56,15 @@ public class Particle extends GameEntity {
 	public void update(float diffTime) {
 		super.update(diffTime);
 		expireTime -= diffTime/1000f; 
-		
+ 
 		for (int i = 0; i < CanvasGame.sortedEntities.size(); i++) {
-			
-			//this.boundingBox.collide(pos)
+			GameEntity entity = ((GameEntity) CanvasGame.sortedEntities.get(i));
+				if(entity != this) {
+					 entity.life-=damage;  
+					// System.out.println("life ->"+entity.getName() + " " + entity.life);
+					 alive = false;
+					 break;
+			} 
 		}
 	}
 	

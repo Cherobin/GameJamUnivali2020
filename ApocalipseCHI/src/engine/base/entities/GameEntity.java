@@ -37,7 +37,8 @@ public class GameEntity implements GameObject {
 	public int width = 0, height = 0; 
 	public float rotation; 
 	public float maxSpeed = 2.3f;
-
+	public int life;
+	public int maxLife;
 	public Vector2D collisionBox = new Vector2D(width, height);
 	public CollisionType collitionType = CollisionType.BoundingBox;
 	
@@ -49,6 +50,7 @@ public class GameEntity implements GameObject {
 
 	public BoundingBox boundingBox = new BoundingBox(0.0f, 0.0f, 0.0f, 0.0f);
 
+	public int damage = 0;
  
 	//DEBUG
 	public boolean showData = false; 
@@ -103,6 +105,11 @@ public class GameEntity implements GameObject {
 	public void update(float dt) {
 		boundingBox.x = position.x;
 		boundingBox.y = position.y;
+		
+		if(life < 0) {
+			alive = false;
+		}
+		
 	} 
 	
 	@Override
