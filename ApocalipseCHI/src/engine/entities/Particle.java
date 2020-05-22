@@ -64,7 +64,7 @@ public class Particle extends GameEntity {
 				if(!entity.getName().equals("fire") && entity != father) {
 					if(entity.boundingBox.collide(boundingBox)) {
 					 entity.life-=damage;  
-					 System.out.println("life ->"+entity.getName() + " " + entity.life);
+					 //System.out.println("life ->"+entity.getName() + " " + entity.life);
 					 alive = false;
 					 break;
 					}
