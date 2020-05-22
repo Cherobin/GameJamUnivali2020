@@ -53,9 +53,8 @@ public class TileMap extends GameEntity implements GameObject {
 	public int pontosdeluz[][];
 	BufferedImage shadowImage;
 	int[] sahdowData;
+	public ArrayList<int[]> luzesDoMapa;
 	
-
-
 	public TileMap(String name) {
 		super(name);
 		layer = -1;
@@ -65,6 +64,7 @@ public class TileMap extends GameEntity implements GameObject {
 		pontosdeluz = new int[32][6];
 		shadowImage = new BufferedImage(Constantes.telaW,Constantes.telaH,BufferedImage.TYPE_INT_ARGB);
 		sahdowData = ((DataBufferInt)shadowImage.getRaster().getDataBuffer()).getData();
+		luzesDoMapa = new ArrayList<int[]>();
 	}
 
 	@Override
@@ -258,17 +258,23 @@ public class TileMap extends GameEntity implements GameObject {
 						
 						if(mapObject.getType().equals("Enemy")) {
 							Vector2D position = new Vector2D((float) (mapObject.getX()+j*1600+mapObject.getWidth()/2), (float) (mapObject.getY()+i*1600+mapObject.getHeight()/2));
-							System.out.println(" "+position.x+" "+position.y);
+							System.out.println(" "+position.x+" "+position.y+" "+mapObject.getX()+" "+mapObject.getY()+" "+mapObject.getWidth()+" "+mapObject.getHeight()+" "+i+" "+j);
 						 	Enemy e = new Enemy(mapObject.getName()+"_"+enemycount, position, 32, 32, 0.0f);
 						 	GameObject go = e;
 							gs.getEntities().put(go.getName(), go);
 							enemycount++;
+						}else if(mapObject.getType().equals("luz")) {
+							int pontoDeLuz[] = new int[2];
+							pontoDeLuz[0] = (int) (mapObject.getX()+j*1600+mapObject.getWidth()/2);
+							pontoDeLuz[1] = (int) (mapObject.getY()+i*1600+mapObject.getHeight()/2);
+							luzesDoMapa.add(pontoDeLuz);
 						}
 					}
 				}
 			}
 		}
 		System.out.println("enemycount "+enemycount);
+		System.out.println("luzcount "+luzesDoMapa.size());
 	}
 	
 	public boolean isUnderRoof(int x,int y) {

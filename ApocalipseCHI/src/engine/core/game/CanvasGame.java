@@ -69,9 +69,9 @@ public class CanvasGame extends MyCanvas implements GameState {
 
 		map = tml.load(this, "res//maps//commercial01.tmx");
 		tileMap.addMap(map);
-		map = tml.load(this, "res//maps//commercial01.tmx");
+		map = tml.load(this, "res//maps//residencial01.tmx");
 		tileMap.addMap(map);
-		map = tml.load(this, "res//maps//commercial01.tmx");
+		map = tml.load(this, "res//maps//industrial01.tmx");
 		tileMap.addMap(map);
 		map = tml.load(this, "res//maps//residencial02.tmx"); 
 		tileMap.addMap(map);
@@ -237,7 +237,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 			@Override
 			public void run() {
 				for(int i = 0; i < 32;i++) {
-					tileMap.pontosdeluz[0][0] = 0;
+					tileMap.pontosdeluz[i][0] = 0;
 				}
 				
 				tileMap.pontosdeluz[0][0] = 1;
@@ -248,12 +248,27 @@ public class CanvasGame extends MyCanvas implements GameState {
 				tileMap.pontosdeluz[0][5] = (int)(player.rotation*57.29577);
 				int lcount = 1;
 				
+				for(int i = 0; i < tileMap.luzesDoMapa.size();i++) {
+					int luz[] = tileMap.luzesDoMapa.get(i);
+					int lpx = (int)(luz[0]-tileMap.getTelaX());
+					int lpy = (int)(luz[1]-tileMap.getTelaY());
+					if(lpx>-100&&lpx<(Constantes.telaW+100)&&lpy>-100&&lpy<(Constantes.telaW+100)&&lcount<32) {
+						tileMap.pontosdeluz[lcount][0] = 1;
+						tileMap.pontosdeluz[lcount][1] = lpx;
+						tileMap.pontosdeluz[lcount][2] = lpy;
+						tileMap.pontosdeluz[lcount][3] = 0;
+						tileMap.pontosdeluz[lcount][4] = 64;
+						tileMap.pontosdeluz[lcount][5] = 0;
+						lcount++;
+					}
+				}
+				
 				for (int i = 0; i < sortedEntities.size(); i++) {
 					GameObject entity = sortedEntities.get(i);
 					if(entity.getClass()==Enemy.class) {
 						int lpx = (int)(((Enemy)entity).position.x-tileMap.getTelaX());
 						int lpy = (int)(((Enemy)entity).position.y-tileMap.getTelaY());
-						if(lpx>-100&&lpx<(Constantes.telaW+100)&&lpy>-100&&lpy<(Constantes.telaW+100)&&lcount<32) {
+						if(lpx>-150&&lpx<(Constantes.telaW+150)&&lpy>-150&&lpy<(Constantes.telaW+150)&&lcount<32) {
 							tileMap.pontosdeluz[lcount][0] = 1;
 							tileMap.pontosdeluz[lcount][1] = lpx;
 							tileMap.pontosdeluz[lcount][2] = lpy;

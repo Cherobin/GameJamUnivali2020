@@ -202,6 +202,9 @@ public void run()
 		dbg.setClip(0, 0, Constantes.telaW, Constantes.telaH);
 		dbg.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
+		if(DifTime>100) {
+			DifTime = 100;
+		}
 		gameUpdate(DifTime);
 		gameRender();
 		
