@@ -7,6 +7,7 @@ import java.awt.geom.AffineTransform;
 import engine.base.entities.AbstractComponent;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
+import engine.base.entities.GameEntity.GameEntityTypeAnimation;
 import engine.base.entities.GameObject;
 import engine.core.game.CanvasGame;
 import engine.map.AEstrela;
@@ -16,7 +17,7 @@ import old.Constantes;
 public class EnemyBehavior extends AbstractComponent implements Component {
 
 	public enum EnemyState {
-		STOP, DETECT, PURSUIT, PATHFIND, GOPATHFIND
+		STOP, DETECT, PURSUIT, PATHFIND, GOPATHFIND, ENEMY_MELEE_ATACK
 	}
 
 	GameEntity target;
@@ -67,41 +68,44 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	
 			ge.oldPosition.set(ge.position);
 	
-			//TODO cherobim ta errado..
-			//A velocidade tem que ser uma constante tipo 200..
-			// A logica deve ser definir o angulo para onde o personagem vai
-			// A Partido da angulo voce determina o deslocamento em x e em y;
+ 
 			
-			
-			if (!previousState.equals(state)) {
-			//	System.out.println("state: " + state);
+			if (!previousState.equals(state)) { 
+				//TODO arrumar
+				
 				switch (state) {
 				case PATHFIND:
+					ge.animationType = GameEntityTypeAnimation.MELEE_WP;
 					setaObjetivo(ge, (int) CanvasGame.player.position.x, (int) CanvasGame.player.position.y);
 					break;
 				case DETECT:
-					ge.speed.y = ge.speed.x = +speed;
+					ge.animationType = GameEntityTypeAnimation.SECONDARY_WP;
+					ge.speed.y = ge.speed.x = ge.maxSpeed;
 					ge.FIRE = false;
 					color = Color.RED;
 					break;
 				case PURSUIT:
-					ge.speed.y = ge.speed.x = +speed;
+					ge.animationType = GameEntityTypeAnimation.PRIMARY_WP;
+					ge.speed.y = ge.speed.x = ge.maxSpeed;
 					color = Color.ORANGE;
 					ge.FIRE = true;
 					break;
 				case STOP:
 					ge.speed.y = ge.speed.x = 0.0f;
+					ge.position.set(ge.oldPosition);
 					color = Color.GREEN;
 					ge.FIRE = false;
 					break;
 				case GOPATHFIND:
 					//System.out.println("GOPATHFIND");
 					break;
+				case ENEMY_MELEE_ATACK:
+					ge.animationType = GameEntityTypeAnimation.MELEE_ATACK;
 				}
 				previousState = state;
 			}
 	
-			// ge.speed.x ge.speed.y n�o fazem sentido nesse caso
+			 
 			
 			ge.position.x += ge.speed.x * Math.cos(ge.rotation) * diffTime / 1000f;
 			ge.position.y += ge.speed.y * Math.sin(ge.rotation) * diffTime / 1000f;
@@ -161,7 +165,10 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 			}
 			break;
 		case STOP:
-			if (distanceToTarget < sensorDistance) {
+			if (distanceToTarget < ge.height) {
+				state = EnemyState.STOP;
+				state = EnemyState.ENEMY_MELEE_ATACK;
+			} else if (distanceToTarget < sensorDistance) {
 				state = EnemyState.DETECT;
 			}
 			break;
@@ -173,12 +180,16 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 			}
 			break;
 		case PURSUIT:
-			if (distanceToTarget > sensorDistance || distanceToTarget >= viewDistance) {
+			if(distanceToTarget < ge.height*2) {
+				state = EnemyState.ENEMY_MELEE_ATACK;
+			} else if (distanceToTarget > sensorDistance || distanceToTarget >= viewDistance) {
 				state = EnemyState.STOP;
 			}
 			break;
 		default:
-			System.out.println("ia dando pau! :D");
+			if(distanceToTarget < ge.height*2) {
+				state = EnemyState.STOP;
+			}
 			break;
 		}
 

@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.base.entities.GameEntity.GameEntityType;
+import engine.base.entities.GameEntity.GameEntityTypeAnimation;
 import engine.core.game.CanvasGame;
 import engine.map.TileMap;
 import engine.map.behavior.TileMapCollisionBehavior;
@@ -25,16 +26,7 @@ public class Player extends GameEntity implements GameObject {
 
 	float timeToFire;
 	float timerFire;
-	int charsetX, charsetY;
-	float frameTime = 100;
-	float timer = 0;
-    int animation = 0;
-    int frame = 0;
-	boolean primaryWeapon;
-	boolean secondaryWeapon;
-	boolean meleeWeapon;
-	boolean meleeAtack;
-    
+
 	public Player(String name) {
 		super(name);
 	}
@@ -49,12 +41,9 @@ public class Player extends GameEntity implements GameObject {
 		charset = Constantes.player;
 		mousePosition = new Vector2D();
 		timeToFire = 0.2f;
-		timerFire= 0;
-		maxLife = life = 1000; 
-		secondaryWeapon = true;;
-		primaryWeapon = false;
-		meleeWeapon = false;
-		meleeAtack = false;
+		timerFire = 0;
+		maxLife = life = 1000;
+		animationType = GameEntityTypeAnimation.IDLE;
 		charsetX = width;
 		charsetY = height;
 		type = GameEntityType.PLAYER;
@@ -71,58 +60,66 @@ public class Player extends GameEntity implements GameObject {
 
 		AffineTransform t = dbg.getTransform();
 
-		dbg.translate(position.x - tilemap.getTelaX(), position.y  - tilemap.getTelaY());
+		dbg.translate(position.x - tilemap.getTelaX(), position.y - tilemap.getTelaY());
 		dbg.rotate(rotation);
-		
-		dbg.drawImage(charset, -charsetX/2, -charsetY/2, charsetX/2, charsetY/2,
-				(frame*charsetX),
-				(animation*charsetY),
-				charsetX+(frame*charsetX),
-				charsetY+(animation*charsetY),null);
-		      
-	 	dbg.setTransform(t);
-		
-		
+
+		dbg.drawImage(charset, -charsetX / 2, -charsetY / 2, charsetX / 2, charsetY / 2, (frame * charsetX),
+				(animation * charsetY), charsetX + (frame * charsetX), charsetY + (animation * charsetY), null);
+
+		dbg.setTransform(t);
+
 		dbg.setColor(Color.white);
-		dbg.fillRect((int)position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 22, 40, 7);
-		
+		dbg.fillRect((int) position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 22, 40, 7);
+
 		dbg.setColor(Color.red);
-		dbg.fillRect((int)position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 20, (life*40)/maxLife, 5);
-		
+		dbg.fillRect((int) position.x - tilemap.getTelaX() - 20, (int) position.y - tilemap.getTelaY() - 20,
+				(life * 40) / maxLife, 5);
+
 	}
 
 	@Override
 	public void update(float diffTime) {
 		super.update(diffTime);
 
-		timer+=diffTime; 
-		
-		//TODO FIX ME
-		if (primaryWeapon) {
-			animation = 0;
-		} else if (secondaryWeapon) {
-			animation = 1;
-		} else if (meleeWeapon) {
-			animation = 2;
-		} else if (meleeAtack) {
+		timer += diffTime;
+
+		switch (animationType) {
+		case IDLE:
+			// TODO
+			break;
+		case MELEE_ATACK:
 			animation = 3;
-		} 
-	     
-	 	if(speed.x  != 0 || speed.y != 0) {
-		     frame = ((int)(timer/frameTime))%3;
+			break;
+		case MELEE_WP:
+			animation = 2;
+			break;
+
+		case PRIMARY_WP:
+			animation = 0;
+			break;
+
+		case SECONDARY_WP:
+			animation = 1;
+			break;
+		default:
+			break;
 		}
-	 	
-		if(life < 0) {
+
+		if (speed.x != 0 || speed.y != 0) {
+			frame = ((int) (timer / frameTime)) % 3;
+		}
+
+		if (life < 0) {
 			alive = false;
 		}
-	
-		if(inCollider) {
+
+		if (inCollider) {
 			position.set(oldPosition);
-    	}
-		
+		}
+
 		oldPosition.set(position);
 
-		setDirection(); 
+		setDirection();
 
 		rotation = (float) Math.atan2((mousePosition.y + tilemap.getTelaY()) - position.y,
 				(mousePosition.x + tilemap.getTelaX()) - position.x);
@@ -132,23 +129,23 @@ public class Player extends GameEntity implements GameObject {
 
 		tilemap.posicionaTela((int) (position.x - Constantes.telaW / 2), (int) (position.y - Constantes.telaH / 2));
 
-		if(FIRE) {
-			timerFire+= diffTime/1000; 
-			if(timerFire > timeToFire) {
-				timerFire=0;
+		if (FIRE) {
+			timerFire += diffTime / 1000;
+			if (timerFire > timeToFire) {
+				timerFire = 0;
 				fire();
 			}
-		} 
-		
+		}
+
 		position.x += speed.x * diffTime / 1000f;
 		position.y += speed.y * diffTime / 1000f;
-		 
+
 	}
 
 	public void fire() {
-		Particle p = new Particle("fire", 20, new Vector2D(position.x, position.y), new Vector2D(400, 400), new Vector2D(-width, 0), rotation, 4,
-				Color.black, 500, tilemap, this); 
-		 CanvasGame.sortedEntities.add(p);
+		Particle p = new Particle("fire", 20, new Vector2D(position.x, position.y), new Vector2D(400, 400),
+				new Vector2D(-width, 0), rotation, 4, Color.black, 500, tilemap, this);
+		CanvasGame.sortedEntities.add(p);
 
 	}
 

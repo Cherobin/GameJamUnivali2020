@@ -42,7 +42,7 @@ public class GameEntity implements GameObject {
 	EnemyState state;
 	public int width = 0, height = 0; 
 	public float rotation; 
-	public float maxSpeed = 2.3f;
+	public float maxSpeed = 100f;
 	public int life;
 	public int maxLife;
 	public Vector2D collisionBox = new Vector2D(width, height);
@@ -64,6 +64,16 @@ public class GameEntity implements GameObject {
 	public boolean debug = false; 
 	
 	
+	public enum GameEntityTypeAnimation {
+		PRIMARY_WP, SECONDARY_WP, MELEE_WP, MELEE_ATACK, IDLE
+	}
+	
+	public int charsetX, charsetY;
+	public GameEntityTypeAnimation animationType;
+	public  float frameTime = 100;
+	public  float timer = 0;
+	public int animation = 0;
+	public  int frame = 0;
 	
 	public GameEntity(String name, Vector2D position, int width, int height, float rotation) {
 		this(name);

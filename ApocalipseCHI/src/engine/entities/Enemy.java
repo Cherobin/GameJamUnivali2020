@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
 import engine.base.entities.GameEntity.GameEntityType;
+import engine.base.entities.GameEntity.GameEntityTypeAnimation;
 import engine.core.game.CanvasGame;
 import engine.map.TileMap;
 import engine.map.behavior.EnemyBehavior;
@@ -22,19 +23,7 @@ public class Enemy extends GameEntity implements GameObject {
 	TileMap tilemap;
 	float timeToFire;
 	float timerFire;
-	
-	boolean primaryWeapon;
-	boolean secondaryWeapon;
-	boolean meleeWeapon;
-	boolean meleeAtack;
-	
-	int charsetX, charsetY;
-	
-	 float frameTime = 100;
-	 float timer = 0;
-     int animation = 0;
-     int frame = 0;
-     
+
      
 	public Enemy(String name) {
 		super(name);
@@ -56,11 +45,8 @@ public class Enemy extends GameEntity implements GameObject {
 		timerFire= 0;
 		alive = true;
 		oldPosition = position;
-		maxLife = life = 100; 
-		secondaryWeapon = true;;
-		primaryWeapon = false;
-		meleeWeapon = false;
-		meleeAtack = false;
+		maxLife = life = 100;  
+		animationType = GameEntityTypeAnimation.IDLE;
 		type = GameEntityType.ENEMY;
  
 	}
@@ -93,30 +79,41 @@ public class Enemy extends GameEntity implements GameObject {
 
 	}
 
+	
+	 
 	@Override
 	public void update(float dt) {
 		super.update(dt);
 		 
 		timer+=dt;
- 
-		
-		//TODO FIX ME
-		if (primaryWeapon) {
-			animation = 0;
-		} else if (secondaryWeapon) {
-			animation = 1;
-		} else if (meleeWeapon) {
-			animation = 2;
-		} else if (meleeAtack) {
+  
+		switch (animationType) {
+		case IDLE:
+			// TODO
+			break;
+		case MELEE_ATACK:
 			animation = 3;
-		}
-	 
+			break;
+		case MELEE_WP:
+			animation = 2;
+			break;
+
+		case PRIMARY_WP:
+			animation = 0;
+			break;
+
+		case SECONDARY_WP:
+			animation = 1;
+			break;
+		default:
+			break;
+		} 
 		
-		if(speed.x  != 0 || speed.y != 0) {
 	     frame = ((int)(timer/frameTime))%3;
-		}
+	
 	     
-		if(FIRE && (primaryWeapon || secondaryWeapon)) {
+		if(FIRE && (animationType == GameEntityTypeAnimation.PRIMARY_WP || 
+				animationType == GameEntityTypeAnimation.SECONDARY_WP )) {
 			timerFire+= dt/1000; 
 			if(timerFire > timeToFire) {
 				timerFire=0;
