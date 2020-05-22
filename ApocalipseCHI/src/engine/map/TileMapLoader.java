@@ -55,12 +55,12 @@ public class TileMapLoader {
 		return map;
 	}
 
-	private void buildEntities(GameState gs, MapLayer ml) { 
+	/*private void buildEntities(GameState gs, MapLayer ml) { 
 		((ObjectGroup) ml).getObjects().forEach(o -> { 
 			GameObject go = this.builder.build(gs, map , o);
 			if (go != null) { 
 				gs.getEntities().put(go.getName(), go);
 			} 		 
 		});
-	}
+	}*/
 }

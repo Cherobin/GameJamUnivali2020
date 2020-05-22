@@ -119,10 +119,11 @@ public class CanvasGame extends MyCanvas implements GameState {
 			if (go instanceof Enemy) {
 				Enemy e = (Enemy) go;
 				e.setTarget(player, 80, 300, 150, tileMap);
-				addEntity(e);
+				//addEntity(e);
 				//System.out.println(" "+e.getName());
 			}
 		}
+		sortEntities();
 
 	}
 
@@ -235,6 +236,10 @@ public class CanvasGame extends MyCanvas implements GameState {
 			
 			@Override
 			public void run() {
+				for(int i = 0; i < 32;i++) {
+					tileMap.pontosdeluz[0][0] = 0;
+				}
+				
 				tileMap.pontosdeluz[0][0] = 1;
 				tileMap.pontosdeluz[0][1] = Constantes.telaW/2;
 				tileMap.pontosdeluz[0][2] = Constantes.telaH/2;

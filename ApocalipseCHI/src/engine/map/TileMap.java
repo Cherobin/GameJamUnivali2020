@@ -39,6 +39,8 @@ public class TileMap extends GameEntity implements GameObject {
 	
 	public ArrayList<Map> listaDeMapBlocks;
 	public Map blocks[][];
+	public int nBlocX = 10; 
+	public int nBlocY = 10; 
 	
 	public int tileH = 16;
 	public int tileW = 16;
@@ -51,6 +53,8 @@ public class TileMap extends GameEntity implements GameObject {
 	public int pontosdeluz[][];
 	BufferedImage shadowImage;
 	int[] sahdowData;
+	
+
 
 	public TileMap(String name) {
 		super(name);
@@ -233,11 +237,11 @@ public class TileMap extends GameEntity implements GameObject {
 	
 	public void setMap(GameState gs) {
 		components = new HashMap<>();
-		blocks = new Map[30][30];
+		blocks = new Map[nBlocY][nBlocX];
 		Random rnd = new Random();
 		int enemycount = 0;
-		for(int i = 0; i < 30; i++) {
-			for(int j = 0; j < 30; j++) {
+		for(int i = 0; i < nBlocY; i++) {
+			for(int j = 0; j < nBlocX; j++) {
 				blocks[i][j] = listaDeMapBlocks.get(rnd.nextInt(listaDeMapBlocks.size()));
 				
 				/*for(int l = 0; l < blocks[i][j].getLayerCount();l++ ) {
@@ -246,15 +250,16 @@ public class TileMap extends GameEntity implements GameObject {
 				}*/
 				if(blocks[i][j].getLayerCount()>=4) {
 					MapLayer ml = blocks[i][j].getLayer(3);
+					
 					System.out.println("maplayer "+3+" "+ml.getClass());
 					ObjectGroup og = (ObjectGroup)ml;
 					for (MapObject mapObject : og) {
 						System.out.println(""+mapObject.getName()+" "+mapObject.getType());
 						
 						if(mapObject.getType().equals("Enemy")) {
-							Vector2D position = new Vector2D((float) (mapObject.getX()+j*1600), (float) (mapObject.getY()+i*1600));
+							Vector2D position = new Vector2D((float) (mapObject.getX()+j*1600+mapObject.getWidth()/2), (float) (mapObject.getY()+i*1600+mapObject.getHeight()/2));
 							System.out.println(" "+position.x+" "+position.y);
-						 	Enemy e = new Enemy(mapObject.getName()+"_"+enemycount, position, mapObject.getWidth().intValue(), mapObject.getHeight().intValue(), 0.0f);
+						 	Enemy e = new Enemy(mapObject.getName()+"_"+enemycount, position, 32, 32, 0.0f);
 						 	GameObject go = e;
 							gs.getEntities().put(go.getName(), go);
 							enemycount++;
@@ -269,7 +274,7 @@ public class TileMap extends GameEntity implements GameObject {
 	public boolean isUnderRoof(int x,int y) {
 		int bx = x/1600;
 		int by = y/1600;
-		if(bx>=0&&bx<30&&by>=0&&by<30) {
+		if(bx>=0&&bx<nBlocX&&by>=0&&by<nBlocY) {
 			Map mapselected = blocks[bx][by];
 			
 			TileLayer tl = (TileLayer)mapselected.getLayer(2); // RoofLayer
@@ -290,7 +295,7 @@ public class TileMap extends GameEntity implements GameObject {
 		int bx = x/1600;
 		int by = y/1600;
 		
-		if(bx>=0&&bx<30&&by>=0&&by<30&&x>0&&y>0) {
+		if(bx>=0&&bx<nBlocX&&by>=0&&by<nBlocY&&x>0&&y>0) {
 			Map mapselected = blocks[bx][by];
 			int tlx = (x%1600)>>4;
 			int tly = (y%1600)>>4;
