@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.base.entities.GameEntity.GameEntityType;
 import engine.core.game.CanvasGame;
 import engine.map.TileMap;
 import engine.map.behavior.TileMapCollisionBehavior;
@@ -56,6 +57,7 @@ public class Player extends GameEntity implements GameObject {
 		meleeAtack = false;
 		charsetX = width;
 		charsetY = height;
+		type = GameEntityType.PLAYER;
 	}
 
 	public void initializeComponents(TileMap tilemap) {

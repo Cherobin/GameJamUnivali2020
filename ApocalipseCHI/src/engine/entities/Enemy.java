@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.base.entities.GameEntity.GameEntityType;
 import engine.core.game.CanvasGame;
 import engine.map.TileMap;
 import engine.map.behavior.EnemyBehavior;
@@ -60,6 +61,7 @@ public class Enemy extends GameEntity implements GameObject {
 		primaryWeapon = false;
 		meleeWeapon = false;
 		meleeAtack = false;
+		type = GameEntityType.ENEMY;
  
 	}
 

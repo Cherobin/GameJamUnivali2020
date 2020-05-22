@@ -17,6 +17,10 @@ import engine.utils.Vector2D;
 
 public class GameEntity implements GameObject {
  
+	public enum GameEntityType {
+		ENEMY, FIRE, PLAYER
+	}
+	
 	public String name = ""; 
 	public Color color = Color.WHITE; 
 	public int priority = 1;
@@ -25,6 +29,8 @@ public class GameEntity implements GameObject {
 	public int layer = 1; 
 	public Map<String, Object> properties = new ConcurrentHashMap<String, Object>();
  
+	public GameEntityType type; 
+	
 	public Map<String, Component> components = new ConcurrentHashMap<String, Component>();
  
 	public Vector2D position = new Vector2D(0, 0); 

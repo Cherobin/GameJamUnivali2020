@@ -101,7 +101,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 				previousState = state;
 			}
 	
-			// ge.speed.x ge.speed.y não fazem sentido nesse caso
+			// ge.speed.x ge.speed.y nï¿½o fazem sentido nesse caso
 			
 			ge.position.x += ge.speed.x * Math.cos(ge.rotation) * diffTime / 1000f;
 			ge.position.y += ge.speed.y * Math.sin(ge.rotation) * diffTime / 1000f;
@@ -112,7 +112,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 	public void setaObjetivo(GameEntity ge, int objetivox, int objetivoy) { 
 		caminho = aestrela.StartAestrela((int) (ge.position.x), (int) (ge.position.y),
 				objetivox, objetivoy, 500);
-		state = EnemyState.STOP;
+		state = EnemyState.GOPATHFIND;
 		ge.chegouObjetivo = false;
 		ge.indexPathFind = 0;
 	}

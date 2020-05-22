@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.base.entities.GameEntity.GameEntityType;
 import engine.core.game.CanvasGame;
 import engine.map.TileMap;
 import engine.map.behavior.MoveElementBehavior;
@@ -37,6 +38,7 @@ public class Particle extends GameEntity {
 		this.damage = damage;
 		alive = true;
 		this.father = father;
+		type = GameEntityType.FIRE;
 	}
  
 	@Override
@@ -62,12 +64,10 @@ public class Particle extends GameEntity {
 		for (int i = 0; i < CanvasGame.sortedEntities.size(); i++) {
 			GameEntity entity = ((GameEntity) CanvasGame.sortedEntities.get(i));
 			
-			//TODO CHERO... RAPAISSSS, essas comparações de string são lentas pra carampa.. não faz mais isso por favor.. cria um enumeration pra o tipo ENEMY, FIRE etc
-				if(!entity.getName().equals("fire") && entity != father) {
+			 	if(entity.type == GameEntityType.ENEMY && entity != father) {
 					if(entity.boundingBox.collide(boundingBox)) {
 					 entity.life-=damage;  
-					 //System.out.println("life ->"+entity.getName() + " " + entity.life);
-					 alive = false;
+				 	 alive = false;
 					 break;
 					}
 			} 

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
 import engine.base.entities.GameEntity;
+import engine.base.entities.GameEntity.GameEntityType;
 import engine.core.game.CanvasGame;
 import engine.map.TileMap; 
 import engine.utils.Vector2D;
@@ -32,6 +33,7 @@ public class Faisca extends GameEntity {
 		this.expireTime = expireTime; 
 		alive = true;
 		this.tilemap = CanvasGame.tileMap;
+	
 	}
 
 	@Override
