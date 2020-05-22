@@ -22,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import engine.core.game.CanvasGame;
+import old.CanvasMAIN;
 import old.Constantes;
 
 
@@ -156,7 +157,7 @@ public GamePanel()
 	
 	Constantes.carrega_Imagens();
 	
-	telaAtiva = new CanvasGame();
+	telaAtiva = new CanvasSplash();//new CanvasGame();
 	//telaAtiva = new CanvasSplash();
 	
   

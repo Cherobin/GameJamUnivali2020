@@ -19,7 +19,8 @@ public class CanvasSplash extends MyCanvas{
 		timer+=diftime;
 		
 		if(timer > 8000) {
-			GamePanel.telaAtiva = new CanvasMAIN();
+			//GamePanel.telaAtiva = new CanvasMAIN();
+			GamePanel.telaAtiva = new CanvasMainMenu();
 		}
 	}
 
