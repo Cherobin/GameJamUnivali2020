@@ -14,6 +14,7 @@ import java.util.Random;
 
 import org.mapeditor.core.Map;
 import org.mapeditor.core.MapLayer;
+import org.mapeditor.core.MapObject;
 import org.mapeditor.core.ObjectGroup;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
@@ -21,6 +22,9 @@ import org.mapeditor.core.TileLayer;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.base.entities.GameState;
+import engine.entities.Enemy;
+import engine.utils.Vector2D;
 import old.Constantes;
 
 
@@ -227,15 +231,39 @@ public class TileMap extends GameEntity implements GameObject {
 		listaDeMapBlocks.add(map);
 	}
 	
-	public void setMap() {
+	public void setMap(GameState gs) {
 		components = new HashMap<>();
 		blocks = new Map[30][30];
 		Random rnd = new Random();
+		int enemycount = 0;
 		for(int i = 0; i < 30; i++) {
 			for(int j = 0; j < 30; j++) {
 				blocks[i][j] = listaDeMapBlocks.get(rnd.nextInt(listaDeMapBlocks.size()));
+				
+				/*for(int l = 0; l < blocks[i][j].getLayerCount();l++ ) {
+					MapLayer ml = blocks[i][j].getLayer(l);
+					System.out.println("maplayer "+l+" "+ml.getClass());
+				}*/
+				if(blocks[i][j].getLayerCount()>=4) {
+					MapLayer ml = blocks[i][j].getLayer(3);
+					System.out.println("maplayer "+3+" "+ml.getClass());
+					ObjectGroup og = (ObjectGroup)ml;
+					for (MapObject mapObject : og) {
+						System.out.println(""+mapObject.getName()+" "+mapObject.getType());
+						
+						if(mapObject.getType().equals("Enemy")) {
+							Vector2D position = new Vector2D((float) (mapObject.getX()+j*1600), (float) (mapObject.getY()+i*1600));
+							System.out.println(" "+position.x+" "+position.y);
+						 	Enemy e = new Enemy(mapObject.getName()+"_"+enemycount, position, mapObject.getWidth().intValue(), mapObject.getHeight().intValue(), 0.0f);
+						 	GameObject go = e;
+							gs.getEntities().put(go.getName(), go);
+							enemycount++;
+						}
+					}
+				}
 			}
 		}
+		System.out.println("enemycount "+enemycount);
 	}
 	
 	public boolean isUnderRoof(int x,int y) {
