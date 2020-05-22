@@ -69,6 +69,8 @@ public class GameEntity implements GameObject {
 		this.inCollider = false;
 		this.rotation = rotation;
 		this.chegouObjetivo = false;
+		this.maxLife = life = 100; 
+		
 	}
 
 	public GameEntity(String name, Vector2D pos, int w, int h, int r, Vector2D s) {
@@ -76,6 +78,7 @@ public class GameEntity implements GameObject {
 		this.speed = s; 
 		this.alive = true;
 		this.chegouObjetivo = false;
+		this.maxLife = life = 100; 
 	}
 
 	public GameEntity(String name) {
@@ -88,6 +91,7 @@ public class GameEntity implements GameObject {
 		alive = true;
 		this.alive = true;
 		this.chegouObjetivo = false;
+		this.maxLife = life = 100; 
 	}
 
 	public GameEntity( String name, Component... components) {
