@@ -43,9 +43,10 @@ public class CanvasGame extends MyCanvas implements GameState {
 	private int tamanhoSensor = 350;
 	private int tmanhoDaluz = 250;
 
-	public static Map<String, GameObject> renderingStack;
-	public List<GameObject> sortedEntities;
-
+	public Map<String, GameObject> renderingStack;
+	public static List<GameObject> sortedEntities;
+	 
+	
 	BufferedImage roofImage;
 
 	int[] roofData;
@@ -119,11 +120,10 @@ public class CanvasGame extends MyCanvas implements GameState {
 			if (go instanceof Enemy) {
 				Enemy e = (Enemy) go;
 				e.setTarget(player, 80, 300, 150, tileMap);
-				//addEntity(e);
+				addEntity(e);
 				//System.out.println(" "+e.getName());
 			}
 		}
-		sortEntities();
 
 	}
 
@@ -149,6 +149,8 @@ public class CanvasGame extends MyCanvas implements GameState {
 				}
 			}
 		}
+		 
+		
 	}
 
 	@Override
@@ -239,7 +241,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 				for(int i = 0; i < 32;i++) {
 					tileMap.pontosdeluz[i][0] = 0;
 				}
-				
+
 				tileMap.pontosdeluz[0][0] = 1;
 				tileMap.pontosdeluz[0][1] = Constantes.telaW/2;
 				tileMap.pontosdeluz[0][2] = Constantes.telaH/2;

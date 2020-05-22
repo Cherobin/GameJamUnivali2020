@@ -1,10 +1,15 @@
 package engine.map.behavior;
 
+import java.awt.Color;
+
 import engine.base.entities.AbstractComponent;
 import engine.base.entities.Component;
 import engine.base.entities.GameEntity;
 import engine.base.entities.GameObject;
+import engine.core.game.CanvasGame;
+import engine.entities.Faisca;
 import engine.map.TileMap;
+import engine.utils.Vector2D;
 
 public class TileMapCollisionBehavior extends AbstractComponent implements Component {
 
@@ -31,6 +36,8 @@ public class TileMapCollisionBehavior extends AbstractComponent implements Compo
 				case "fire":
 					ge.alive = false;
 					ge.inCollider = true; 
+					CanvasGame.sortedEntities.add( 
+					new Faisca("faica " + ge.getName(), new Vector2D(ge.position.x, ge.position.y), new Vector2D(ge.speed.x, ge.speed.y), ge.rotation, 4, 8));
 					break;
 				case "Enemy": 
 					ge.inCollider = true; 

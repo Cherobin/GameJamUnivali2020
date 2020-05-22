@@ -22,6 +22,9 @@ public class Player extends GameEntity implements GameObject {
 
 	TileMap tilemap;
 
+	float timeToFire;
+	float timerFire;
+
 	public Player(String name) {
 		super(name);
 	}
@@ -36,6 +39,8 @@ public class Player extends GameEntity implements GameObject {
 		oldPosition = new Vector2D();
 		myimage = Constantes.personagem1;
 		mousePosition = new Vector2D();
+		timeToFire = 0.2f;
+		timerFire= 0;
 	}
 
 	public void initializeComponents(TileMap tilemap) {
@@ -76,9 +81,13 @@ public class Player extends GameEntity implements GameObject {
 
 		tilemap.posicionaTela((int) (position.x - Constantes.telaW / 2), (int) (position.y - Constantes.telaH / 2));
 
-		if (FIRE) {
-			fire();
-		}
+		if(FIRE) {
+			timerFire+= diffTime/1000; 
+			if(timerFire > timeToFire) {
+				timerFire=0;
+				fire();
+			}
+		} 
 		
 		position.x += speed.x * diffTime / 1000f;
 		position.y += speed.y * diffTime / 1000f;
@@ -86,12 +95,9 @@ public class Player extends GameEntity implements GameObject {
 	}
 
 	public void fire() {
-		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(100, 100), new Vector2D(-width, 0), rotation, 4,
-				Color.blue, 1000, tilemap);
-	 
-		//this.getComponents().put(p.getName(), p);
-		// ver outra maneira
-		//CanvasGame.sortedEntities.add(p);
+		Particle p = new Particle("fire", new Vector2D(position.x, position.y), new Vector2D(200, 200), new Vector2D(-width, 0), rotation, 4,
+				Color.black, 1000, tilemap); 
+		 CanvasGame.sortedEntities.add(p);
 
 	}
 
