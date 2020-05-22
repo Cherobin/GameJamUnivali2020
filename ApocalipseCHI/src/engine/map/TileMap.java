@@ -346,7 +346,7 @@ public class TileMap extends GameEntity implements GameObject {
 							double ang = Math.atan2(dy,dx);
 							int distang = angularDistance((int)Math.toDegrees(ang),pontosdeluz[l][5]);
 							
-							if(distang<10) {
+							if(distang<25) {
 								if(dist < pontosdeluz[l][4]*pontosdeluz[l][4])  {
 									if(!raycolision(pontosdeluz[l][1]+telaX,pontosdeluz[l][2]+telaY,(j<<3)+telaX+4,(i<<3)+telaY+4)) {
 										luz[i][j]+=100;
