@@ -61,7 +61,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 			
 			EnemyState state = evaluate(ge, target);
 	
-			if (ge.inCollider && state != EnemyState.GOPATHFIND) {
+			if (ge.inCollider) {
 				ge.position.set(ge.oldPosition);
 				state = EnemyState.PATHFIND; 
 			}
@@ -153,14 +153,14 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 		float distanceToTarget = target.position.distance(ge.position);
 		//System.out.println(" "+distanceToTarget+" "+viewDistance+" "+state);
  
-		//System.out.println("state " + state);
+		System.out.println("state " + state);
 		
 		switch (state) {
 		case PATHFIND:
 		
 			break;
 		case GOPATHFIND:
-			if (ge.chegouObjetivo) {
+			if (ge.chegouObjetivo || distanceToTarget < ge.height) {
 				state = EnemyState.STOP;
 			} else {
 				goPath(ge);

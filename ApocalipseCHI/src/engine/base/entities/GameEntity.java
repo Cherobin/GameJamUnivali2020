@@ -86,6 +86,7 @@ public class GameEntity implements GameObject {
 		this.rotation = rotation;
 		this.chegouObjetivo = false;
 		this.maxLife = life = 100; 
+		maxSpeed = 60;
 		
 	}
 
