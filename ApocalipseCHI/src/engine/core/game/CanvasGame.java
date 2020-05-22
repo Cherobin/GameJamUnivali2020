@@ -109,7 +109,7 @@ public class CanvasGame extends MyCanvas implements GameState {
 		 * addEntity(enemy3);
 		 * 
 		 */
-		Enemy enemy = new Enemy("Enemy",new Vector2D(800, 1000),32,32,0);
+		Enemy enemy = new Enemy("Enemy",new Vector2D(830, 1000),32,32,0);
 		  enemy.setTarget(player, 80, 300, 150, tileMap);
 		 
 	 

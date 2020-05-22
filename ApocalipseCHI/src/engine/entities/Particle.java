@@ -64,7 +64,7 @@ public class Particle extends GameEntity {
 		for (int i = 0; i < CanvasGame.sortedEntities.size(); i++) {
 			GameEntity entity = ((GameEntity) CanvasGame.sortedEntities.get(i));
 			
-			 	if(entity.type == GameEntityType.ENEMY && entity != father) {
+			 	if((entity.type == GameEntityType.ENEMY || entity.type == GameEntityType.PLAYER)  && entity != father) {
 					if(entity.boundingBox.collide(boundingBox)) {
 					 entity.life-=damage;  
 				 	 alive = false;
