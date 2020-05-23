@@ -153,7 +153,7 @@ public class EnemyBehavior extends AbstractComponent implements Component {
 		float distanceToTarget = target.position.distance(ge.position);
 		//System.out.println(" "+distanceToTarget+" "+viewDistance+" "+state);
  
-		System.out.println("state " + state);
+		//System.out.println("state " + state);
 		
 		switch (state) {
 		case PATHFIND:
